@@ -21,6 +21,10 @@ import com.archsystemsinc.pqrs.configuration.ReferenceDataLoader;
  * 
  * This is the web controller for the map component. Receives request and loads the map.
  * Also generates custom data in JSP models based on the input.
+ * 
+ * updated 
+ * @author Murugaraj Kandaswamy
+ * @since 7/5/2017
  *
  */
 @Controller
@@ -36,12 +40,14 @@ public class WebAppController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/maps/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/yearId/{yearId}/reportingOptionId/{reportingOptionId}")
+	@RequestMapping("/maps/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/yearId/{yearId}/reportingOptionId/{reportingOptionId}/dataAnalysis/{dataAnalysis}/subDataAnalysis/{subDataAnalysis}")
     public String states(@PathVariable("epOrGpro") Integer epOrGpro, 
     					 @PathVariable("ruralOrUrban") Integer ruralOrUrban, 
     					 @PathVariable("yesOrNoOption") Integer yesOrNoOption, 
     					 @PathVariable("yearId") Integer yearId,
-    					 @PathVariable("reportingOptionId") Integer reportingOptionId, Model model, HttpServletResponse response) {
+    					 @PathVariable("reportingOptionId") Integer reportingOptionId, 
+    					 @PathVariable("dataAnalysis") String dataAnalysisName, 
+    					 @PathVariable("subDataAnalysis") String subDataAnalysisName, Model model, HttpServletResponse response) {
 		response.setHeader("X-Frame-Options" ,"SAMEORIGIN");
 		String hoverTitle = "<h4>US State Map</h4>";
 		String attribute = ReferenceDataLoader.referenceData.get("reportingOptions").get(reportingOptionId);
@@ -58,6 +64,9 @@ public class WebAppController {
 		mmap.put(1000, "'#FEB24C'");
 		mmap.put(500,  "'#FED976'");
 		mmap.put(0,	 "'#FFEDA0'");
+		
+		model.addAttribute("dataAnalysis", dataAnalysisName);
+		model.addAttribute("subDataAnalysis", subDataAnalysisName);
 		
 		model.addAttribute("yearId", yearId);
 		model.addAttribute("reportingOptionId", reportingOptionId);

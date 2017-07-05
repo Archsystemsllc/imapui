@@ -115,8 +115,7 @@
     <div id="chart-container" style="width: 75%;">
         <canvas id="chart-canvas"></canvas>
     </div>
-   
-    
+
     
 <script>
 	var btn = document.getElementById("displayreport");
@@ -154,7 +153,7 @@
 	    	var yesNoId = document.getElementById("yesOrNoOptionId").value;
 	    	var yearId = document.getElementById("yearLookUpId").value;
 	    	var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-	    	var url = 'http://localhost:8080'+serverContextPath+'/maps/epOrGpro/'+ epGpro+'/ruralOrUrban/'+ ruralUrbanId +'/yesOrNoOption/'+ yesNoId +'/yearId/'+ yearId +'/reportingOptionId/'+ reportingOptionId;
+	    	var url = 'http://localhost:8080'+serverContextPath+'/maps/epOrGpro/'+ epGpro+'/ruralOrUrban/'+ ruralUrbanId +'/yesOrNoOption/'+ yesNoId +'/yearId/'+ yearId +'/reportingOptionId/'+ reportingOptionId+'/dataAnalysis/${dataanalysis}/subDataAnalysis/${subdataanalysis}';
  	        document.getElementById("mapIframe").src=url;
 	    } 
 		

@@ -27,7 +27,7 @@
 
 <div id='map'></div>
 
-<script type="text/javascript" src='/maps-data/epOrGpro/${epOrGpro}/ruralOrUrban/${ruralOrUrban}/yesOrNoOption/${yesOrNoOption}/year/${yearId}/reportingOption/${reportingOptionId}'></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/maps-data/epOrGpro/${epOrGpro}/ruralOrUrban/${ruralOrUrban}/yesOrNoOption/${yesOrNoOption}/year/${yearId}/reportingOption/${reportingOptionId}/dataAnalysis/${dataAnalysis}/subDataAnalysis/${subDataAnalysis}'></script>
 
 <script type="text/javascript">
 

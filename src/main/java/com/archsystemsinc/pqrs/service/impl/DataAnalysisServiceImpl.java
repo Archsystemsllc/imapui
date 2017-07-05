@@ -32,5 +32,10 @@ public class DataAnalysisServiceImpl implements DataAnalysisService {
 //		// TODO Auto-generated method stub
 //		return dataAnalaysisRepository.findAll(example);
 //	}
+	
+	@Override
+	public DataAnalysis findByDataAnalysisName(String dataAnalysisName) {
+		return dataAnalaysisRepository.findByDataAnalysisName(dataAnalysisName);
+	}
 
 }

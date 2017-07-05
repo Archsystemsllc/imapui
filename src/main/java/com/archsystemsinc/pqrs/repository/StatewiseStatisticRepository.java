@@ -20,9 +20,9 @@ public interface StatewiseStatisticRepository extends JpaRepository<StatewiseSta
 	 * added by lekan reju for map data
 	 */
 	public static final String MAP_DATA_QUERY =
-			"select s from StatewiseStatistic as s left join s.yearLookup as y left join s.reportingOptionLookup as r " +
-			"where y.id = :yearId AND r.id = :reportingOptionId AND s.epOrGpro = :epGpro AND s.ruralUrban = :ruralUrban AND s.yesOrNooption = :yesNoOption";
+			"select s from StatewiseStatistic as s left join s.dataAnalysis as da left join s.subDataAnalysis as sda left join s.yearLookup as y left join s.reportingOptionLookup as r " +
+			"where da.id = :dataAnalysisId AND sda.id = :subDataAnalysisId AND y.id = :yearId AND r.id = :reportingOptionId AND y.id = :yearId AND r.id = :reportingOptionId AND s.epOrGpro = :epGpro AND s.ruralUrban = :ruralUrban AND s.yesOrNooption = :yesNoOption";
 	@Query(MAP_DATA_QUERY)
-	List<StatewiseStatistic> getMapData(@Param("yearId") Integer yearId, @Param("reportingOptionId") Integer reportingOptionId, @Param("epGpro") Integer epGpro, @Param("ruralUrban") Integer ruralUrban, @Param("yesNoOption") Integer yesNoOption);
+	List<StatewiseStatistic> getMapData(@Param("dataAnalysisId") Integer dataAnalysisId, @Param("subDataAnalysisId") Integer subDataAnalysisId, @Param("yearId") Integer yearId, @Param("reportingOptionId") Integer reportingOptionId, @Param("epGpro") Integer epGpro, @Param("ruralUrban") Integer ruralUrban, @Param("yesNoOption") Integer yesNoOption);
 
 }
