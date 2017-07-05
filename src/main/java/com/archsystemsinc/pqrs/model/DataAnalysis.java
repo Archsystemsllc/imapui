@@ -39,12 +39,17 @@ public class DataAnalysis implements Serializable {
 	@Column(name="data_analysis_name")
 	private String dataAnalysisName;
 
-//	//bi-directional many-to-one association to ProviderHypothesi
+	//bi-directional many-to-one association to ProviderHypothesis
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dataAnalysis", cascade = CascadeType.ALL)
 	private List<ProviderHypothesis> providerHypothesis;
-//
-//	//bi-directional many-to-one association to SubDataAnalysi
+
+	//bi-directional many-to-one association to StatewiseStatistic
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dataAnalysis", cascade = CascadeType.ALL)
+	private List<StatewiseStatistic> statewiseStatistics;
+	
+	//bi-directional many-to-one association to SubDataAnalysis
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "dataAnalysis", cascade = CascadeType.ALL)
 	private List<SubDataAnalysis> subDataAnalysis;
@@ -96,6 +101,29 @@ public class DataAnalysis implements Serializable {
 		providerHypothesis.setDataAnalysis(null);
 
 		return providerHypothesis;
+	}
+	
+	@JsonIgnore
+	public List<StatewiseStatistic> getStatewiseStatistics() {
+		return this.statewiseStatistics;
+	}
+
+	public void setStatewiseStatistics(List<StatewiseStatistic> statewiseStatistics) {
+		this.statewiseStatistics = statewiseStatistics;
+	}
+
+	public StatewiseStatistic addStatewiseStatistic(StatewiseStatistic statewiseStatistic) {
+		getStatewiseStatistics().add(statewiseStatistic);
+		statewiseStatistic.setDataAnalysis(this);
+
+		return statewiseStatistic;
+	}
+
+	public StatewiseStatistic removeStatewiseStatistic(StatewiseStatistic statewiseStatistic) {
+		getStatewiseStatistics().remove(statewiseStatistic);
+		statewiseStatistic.setDataAnalysis(null);
+
+		return statewiseStatistic;
 	}
 	
 	@JsonIgnore
