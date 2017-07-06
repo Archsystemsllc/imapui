@@ -42,6 +42,10 @@ public class SubDataAnalysis implements Serializable {
 	@OneToMany(mappedBy="subDataAnalysis")
 	private List<ProviderHypothesis> providerHypothesis;
 
+	//bi-directional many-to-one association to StatewiseStatistic
+	@OneToMany(mappedBy="subDataAnalysis")
+	private List<StatewiseStatistic> statewiseStatistics;
+	
 	//bi-directional many-to-one association to DataAnalysi
 	@ManyToOne
 	@JoinColumn(name="data_analysis_id")
@@ -95,6 +99,30 @@ public class SubDataAnalysis implements Serializable {
 
 		return providerHypothesis;
 	}
+	
+	@JsonIgnore
+	public List<StatewiseStatistic> getStatewiseStatistics() {
+		return this.statewiseStatistics;
+	}
+
+	public void setStatewiseStatistics(List<StatewiseStatistic> statewiseStatistics) {
+		this.statewiseStatistics = statewiseStatistics;
+	}
+
+	public StatewiseStatistic addStatewiseStatistic(StatewiseStatistic statewiseStatistic) {
+		getStatewiseStatistics().add(statewiseStatistic);
+		statewiseStatistic.setSubDataAnalysis(this);
+
+		return statewiseStatistic;
+	}
+
+	public StatewiseStatistic removeStatewiseStatistic(StatewiseStatistic statewiseStatistic) {
+		getStatewiseStatistics().remove(statewiseStatistic);
+		statewiseStatistic.setSubDataAnalysis(null);
+
+		return statewiseStatistic;
+	}
+	
 	@JsonIgnore
 	public DataAnalysis getDataAnalysis() {
 		return this.dataAnalysis;

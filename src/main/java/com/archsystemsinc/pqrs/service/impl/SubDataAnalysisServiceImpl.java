@@ -42,6 +42,10 @@ public class SubDataAnalysisServiceImpl implements SubDataAnalysisService {
 		return subDataAnalysisRepository.findById(id);
 	}
 
+	@Override
+	public SubDataAnalysis findByDataAnalysisAndSubDataAnalysisName(DataAnalysis dataAnalysis,
+			String subDataAnalysisName) {
+		return subDataAnalysisRepository.findByDataAnalysisAndSubDataAnalysisName(dataAnalysis, subDataAnalysisName);
+	}
 	
-
 }

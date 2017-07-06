@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.archsystemsinc.pqrs.configuration.ReferenceDataLoader;
+import com.archsystemsinc.pqrs.model.DataAnalysis;
 import com.archsystemsinc.pqrs.model.StatewiseStatistic;
+import com.archsystemsinc.pqrs.model.SubDataAnalysis;
 import com.archsystemsinc.pqrs.repository.StatewiseStatisticRepository;
+import com.archsystemsinc.pqrs.service.DataAnalysisService;
+import com.archsystemsinc.pqrs.service.SubDataAnalysisService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,6 +41,12 @@ public class MapDataController {
 
 	@Autowired
 	private ReferenceDataLoader referenceDataLoader;
+
+	@Autowired
+	private DataAnalysisService dataAnalysisService;
+	
+	@Autowired
+	private SubDataAnalysisService subDataAnalysisService;
 	
 	public MapDataController() {
 		super();
@@ -53,17 +63,29 @@ public class MapDataController {
 	 * @return
 	 * @throws JsonProcessingException
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = JAVASCRIPT, value = "/maps-data/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/year/{yearId}/reportingOption/{reportingOptionId}")
+	@RequestMapping(method = RequestMethod.GET, produces = JAVASCRIPT, value = "/maps-data/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/year/{yearId}/reportingOption/{reportingOptionId}/dataAnalysis/{dataAnalysis}/subDataAnalysis/{subDataAnalysis}")
 	public String findAllForMapsByRsql(
 			 @PathVariable("epOrGpro") Integer epOrGpro, 
 			 @PathVariable("ruralOrUrban") Integer ruralOrUrban, 
 			 @PathVariable("yesOrNoOption") Integer yesOrNoOption, 
 			 @PathVariable("yearId") Integer yearId,
-			 @PathVariable("reportingOptionId") Integer reportingOptionId)
+			 @PathVariable("reportingOptionId") Integer reportingOptionId,
+			 @PathVariable("dataAnalysis") String dataAnalysisName,
+			 @PathVariable("subDataAnalysis") String subDataAnalysisName)
 			throws JsonProcessingException {
 		String attribute = ReferenceDataLoader.referenceData.get("reportingOptions").get(reportingOptionId);
 		FeatureCollection featureCollection = new FeatureCollection();
-		List<StatewiseStatistic> statewiseStatistics = statewiseStatisticRepository.getMapData(yearId, reportingOptionId, epOrGpro, ruralOrUrban, yesOrNoOption);
+		
+		// Added Login for Sub-Data Analysis   --- start
+		System.out.println("DataAnalysisName:"+dataAnalysisName);
+		System.out.println("SubDataAnalysisName:"+subDataAnalysisName);
+		DataAnalysis dataAnalysis = dataAnalysisService.findByDataAnalysisName(dataAnalysisName);
+		Integer dataAnalysisId = dataAnalysis.getId();
+		SubDataAnalysis subDataAnalysis = subDataAnalysisService.findByDataAnalysisAndSubDataAnalysisName(dataAnalysis, subDataAnalysisName);
+		Integer subDataAnalysisId = subDataAnalysis.getId();
+		// Added Login for Sub-Data Analysis  --- end
+		
+		List<StatewiseStatistic> statewiseStatistics = statewiseStatisticRepository.getMapData(dataAnalysisId,subDataAnalysisId, yearId, reportingOptionId, epOrGpro, ruralOrUrban, yesOrNoOption);
 		for (StatewiseStatistic statewiseStatistic : statewiseStatistics) {
 			Feature feature = new Feature();
 			feature.setId(statewiseStatistic.getId()+"");
