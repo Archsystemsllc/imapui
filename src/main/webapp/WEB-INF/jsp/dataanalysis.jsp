@@ -38,7 +38,7 @@
 			<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
 				<tr>
 					<td>
-					<a href="${pageContext.request.contextPath}/mapandchartdisplay/dataanalysis/${dataAnalysis.dataAnalysisName}/subdataanalysis/ALL">${dataAnalysis.dataAnalysisName}</a>
+					<a href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 					</td>
 					
 					<td> ${dataAnalysis.dataAnalysisDescription}
@@ -59,7 +59,7 @@
 				
 					<tr>
 						<td>
-						<ul> <li> <a href="${pageContext.request.contextPath}/mapandchartdisplay/dataanalysis/${dataAnalysis.dataAnalysisName}/subdataanalysis/${subDataAnalysis.subDataAnalysisName}">${subDataAnalysis.subDataAnalysisName}</a> </li> </ul>
+						<ul> <li> <a href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a> </li> </ul>
 						</td>
 						
 						<td> ${subDataAnalysis.subDataAnalysisDescription}

@@ -178,24 +178,23 @@ public class ProviderHypothesisServiceImpl implements ProviderHypothesisService 
 
 	@Override
 	public List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(
-			String dataAnalysisName, String subDataAnalysisName, String year, String reportingOption) {
+			int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId) {
 		
-		DataAnalysis dataAnalysis = dataAnalaysisRepository.findByDataAnalysisName(dataAnalysisName);
-		SubDataAnalysis subDataAnalysis = subDataAnalysisRepository.findByDataAnalysisAndSubDataAnalysisName(dataAnalysis, subDataAnalysisName);
-		YearLookup yearLookup = yearLookUpRepository.findByYearName(year);
-		ReportingOptionLookup reportingOptionLookup = reportingOptionLookupRepository.findByReportingOptionName(reportingOption);
+		DataAnalysis dataAnalysis = dataAnalaysisRepository.findById(dataAnalysisId);
+		SubDataAnalysis subDataAnalysis = subDataAnalysisRepository.findById(subDataAnalysisId);
+		YearLookup yearLookup = yearLookUpRepository.findById(yearId);
+		ReportingOptionLookup reportingOptionLookup = reportingOptionLookupRepository.findById(reportingOptionId);
 		
 		return providerHypothesisRepository.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(dataAnalysis, subDataAnalysis, yearLookup, reportingOptionLookup);
 	}
 
-
 	@Override
-	public List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndParameterLookup(String dataAnalysisName,
-			String subDataAnalysisName, String parameterName) {
+	public List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndParameterLookup(int dataAnalysisId,
+			int subDataAnalysisId, int parameterId) {
 		
-		DataAnalysis dataAnalysis = dataAnalaysisRepository.findByDataAnalysisName(dataAnalysisName);
-		SubDataAnalysis subDataAnalysis = subDataAnalysisRepository.findByDataAnalysisAndSubDataAnalysisName(dataAnalysis, subDataAnalysisName);
-		ParameterLookup parameterLookup = parameterLookUpRepository.findByParameterName(parameterName);
+		DataAnalysis dataAnalysis = dataAnalaysisRepository.findById(dataAnalysisId);
+		SubDataAnalysis subDataAnalysis = subDataAnalysisRepository.findById(subDataAnalysisId);
+		ParameterLookup parameterLookup = parameterLookUpRepository.findById(parameterId);
 		
 		return providerHypothesisRepository.findByDataAnalysisAndSubDataAnalysisAndParameterLookup(dataAnalysis, subDataAnalysis, parameterLookup);
 

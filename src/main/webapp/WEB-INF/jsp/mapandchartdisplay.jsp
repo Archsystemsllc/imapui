@@ -115,7 +115,6 @@
     <div id="chart-container" style="width: 75%;">
         <canvas id="chart-canvas"></canvas>
     </div>
-
     
 <script>
 	var btn = document.getElementById("displayreport");
@@ -127,15 +126,17 @@
 		
 		var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 	    var reportTypeSelectedVal = $("#reportTypeId option:selected").text();
-	    var yearLookUpSelectedVal = $("#yearLookUpId option:selected").text();
-	    var reportingOptionLookupSelectedVal = $("#reportingOptionLookupId option:selected").text();
-	    var parameterLookupSelectedVal = $("#parameterLookupId option:selected").text();
+    	
+	    var yearId = document.getElementById("yearLookUpId").value;
+    	var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
+    	var reportingOptionLookupSelectedVal = $("#reportingOptionLookupId option:selected").text();
+    	var parameterId = document.getElementById("parameterLookupId").value;
 	    
 	    if (reportTypeSelectedVal == "Bar Chart"){
-	    	var url = 'http://localhost:8080'+serverContextPath+'/barChart/dataanalysis/${dataanalysis}/subdataanalysis/${subdataanalysis}/year/'+yearLookUpSelectedVal+'/reportingOption/'+reportingOptionLookupSelectedVal;
+	    	var url = 'http://localhost:8080'+serverContextPath+'/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/'+yearId+'/reportingOptionId/'+reportingOptionId;
 	    } 
 	    if (reportTypeSelectedVal == "Line Chart"){
-	    	var url = 'http://localhost:8080'+serverContextPath+'/lineChart/dataanalysis/${dataanalysis}/subdataanalysis/${subdataanalysis}/parameter/'+parameterLookupSelectedVal;
+	    	var url = 'http://localhost:8080'+serverContextPath+'/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/'+parameterId;
 	    } 
 	    if (reportTypeSelectedVal == "Map"){
 	    	document.getElementById("mapIframe").hidden = false;
@@ -153,7 +154,7 @@
 	    	var yesNoId = document.getElementById("yesOrNoOptionId").value;
 	    	var yearId = document.getElementById("yearLookUpId").value;
 	    	var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-	    	var url = 'http://localhost:8080'+serverContextPath+'/maps/epOrGpro/'+ epGpro+'/ruralOrUrban/'+ ruralUrbanId +'/yesOrNoOption/'+ yesNoId +'/yearId/'+ yearId +'/reportingOptionId/'+ reportingOptionId+'/dataAnalysis/${dataanalysis}/subDataAnalysis/${subdataanalysis}';
+	    	var url = 'http://localhost:8080'+serverContextPath+'/maps/epOrGpro/'+ epGpro+'/ruralOrUrban/'+ ruralUrbanId +'/yesOrNoOption/'+ yesNoId +'/yearId/'+ yearId +'/reportingOptionId/'+ reportingOptionId+'/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
  	        document.getElementById("mapIframe").src=url;
 	    } 
 		

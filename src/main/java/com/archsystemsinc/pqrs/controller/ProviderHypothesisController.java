@@ -9,11 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable; 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
@@ -24,23 +23,36 @@ import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
  */
-@Controller
+@RestController
+@RequestMapping("/api")
 public class ProviderHypothesisController {
 	
 	@Autowired
 	private ProviderHypothesisService providerHypothesisService;
 
-	@RequestMapping("/barChart/dataanalysis/{dataanalysis}/subdataanalysis/{subdataanalysis}/year/{year}/reportingOption/{reportingOption}")
-	@ResponseBody
-    public Map barChartDisplay(@PathVariable("dataanalysis") String dataAnalysisName, @PathVariable("subdataanalysis") String subdataAnalysisName, @PathVariable("year") String year, @PathVariable("reportingOption") String reportingOption, HttpServletRequest request, Principal currentUser, Model model) {
-		//model.addAttribute("filter", filter);
-		model.addAttribute("year", year);
-		model.addAttribute("reportingOption", reportingOption);
+	/**
+	 * 
+	 * This method returns the JSON Object that has the details for Bar Chart Display.
+	 * 
+	 * @param dataAnalysisName
+	 * @param subdataAnalysisName
+	 * @param year
+	 * @param reportingOption
+	 * @param request
+	 * @param currentUser
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/barChart/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}/yearId/{yearId}/reportingOptionId/{reportingOptionId}")
+    public Map barChartDisplay(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, @PathVariable("yearId") int yearId, @PathVariable("reportingOptionId") int reportingOptionId, HttpServletRequest request, Principal currentUser, Model model) {
+
+		model.addAttribute("yearId", yearId);
+		model.addAttribute("reportingOptionId", reportingOptionId);
 		String dataAvailable = "NO";
 		
 		Map barChartDataMap = new HashMap();
 	
-		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(dataAnalysisName, subdataAnalysisName, year, reportingOption);
+		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(dataAnalysisId, subDataAnalysisId, yearId, reportingOptionId);
 		
 		// Preparing Parameter String Array
 		List<String> parameters = new ArrayList<String>();
@@ -69,16 +81,26 @@ public class ProviderHypothesisController {
         return barChartDataMap;
     }
 	
-	
-	@RequestMapping("/lineChart/dataanalysis/{dataanalysis}/subdataanalysis/{subdataanalysis}/parameter/{parameter}")
-	@ResponseBody
-    public Map lineChartDisplay(@PathVariable("dataanalysis") String dataAnalysisName, @PathVariable("subdataanalysis") String subdataAnalysisName, @PathVariable("parameter") String parameterName, HttpServletRequest request, Principal currentUser, Model model) {
+	/**
+	 * 
+	 * This method returns the JSON Object that has the details for Line Chart Display.
+	 * 
+	 * @param dataAnalysisName
+	 * @param subdataAnalysisName
+	 * @param parameterName
+	 * @param request
+	 * @param currentUser
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/lineChart/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}/parameterId/{parameterId}")
+    public Map lineChartDisplay(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, @PathVariable("parameterId") int parameterId, HttpServletRequest request, Principal currentUser, Model model) {
 
-		model.addAttribute("parameterName", parameterName);
+		model.addAttribute("parameterId", parameterId);
 		Map lineChartDataMap = new HashMap();
 		String dataAvailable = "NO";
 		
-		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndParameterLookup(dataAnalysisName, subdataAnalysisName, parameterName);
+		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndParameterLookup(dataAnalysisId, subDataAnalysisId, parameterId);
 		
 		if (providerHypothesisList != null && providerHypothesisList.size()>0){
 			dataAvailable = "YES";

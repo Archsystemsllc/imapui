@@ -12,4 +12,5 @@ import com.archsystemsinc.pqrs.model.Role;
  * 
  */
 public interface RoleRepository extends JpaRepository<Role, Long>{
+	
 }

@@ -13,6 +13,8 @@ import com.archsystemsinc.pqrs.model.ParameterLookup;
  */
 public interface ParameterLookUpRepository extends JpaRepository<ParameterLookup, Long> {
 	
+	ParameterLookup findById(final int id);
+	
 	ParameterLookup findByParameterName(final String parameterName);
 
 }

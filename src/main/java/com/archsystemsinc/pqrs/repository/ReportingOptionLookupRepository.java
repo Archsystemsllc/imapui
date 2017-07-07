@@ -13,6 +13,8 @@ import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
  */
 public interface ReportingOptionLookupRepository extends JpaRepository<ReportingOptionLookup, Long> {
 
+	ReportingOptionLookup findById(final int id);
+	
 	ReportingOptionLookup findByReportingOptionName(final String reportingOptionName);
 	
 }

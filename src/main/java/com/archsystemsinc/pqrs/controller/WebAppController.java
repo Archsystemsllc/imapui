@@ -31,6 +31,7 @@ import com.archsystemsinc.pqrs.configuration.ReferenceDataLoader;
 public class WebAppController {
 	
 	/**
+	 * This is the controller method that sets different attribute values required for the States View Page.
 	 * 
 	 * @param epOrGpro
 	 * @param ruralOrUrban
@@ -40,14 +41,14 @@ public class WebAppController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/maps/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/yearId/{yearId}/reportingOptionId/{reportingOptionId}/dataAnalysis/{dataAnalysis}/subDataAnalysis/{subDataAnalysis}")
+	@RequestMapping("/maps/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/yearId/{yearId}/reportingOptionId/{reportingOptionId}/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}")
     public String states(@PathVariable("epOrGpro") Integer epOrGpro, 
     					 @PathVariable("ruralOrUrban") Integer ruralOrUrban, 
     					 @PathVariable("yesOrNoOption") Integer yesOrNoOption, 
     					 @PathVariable("yearId") Integer yearId,
     					 @PathVariable("reportingOptionId") Integer reportingOptionId, 
-    					 @PathVariable("dataAnalysis") String dataAnalysisName, 
-    					 @PathVariable("subDataAnalysis") String subDataAnalysisName, Model model, HttpServletResponse response) {
+    					 @PathVariable("dataAnalysisId") Integer dataAnalysisId, 
+    					 @PathVariable("subDataAnalysisId") Integer subDataAnalysisId, Model model, HttpServletResponse response) {
 		response.setHeader("X-Frame-Options" ,"SAMEORIGIN");
 		String hoverTitle = "<h4>US State Map</h4>";
 		String attribute = ReferenceDataLoader.referenceData.get("reportingOptions").get(reportingOptionId);
@@ -65,8 +66,8 @@ public class WebAppController {
 		mmap.put(500,  "'#FED976'");
 		mmap.put(0,	 "'#FFEDA0'");
 		
-		model.addAttribute("dataAnalysis", dataAnalysisName);
-		model.addAttribute("subDataAnalysis", subDataAnalysisName);
+		model.addAttribute("dataAnalysisId", dataAnalysisId);
+		model.addAttribute("subDataAnalysisId", subDataAnalysisId);
 		
 		model.addAttribute("yearId", yearId);
 		model.addAttribute("reportingOptionId", reportingOptionId);

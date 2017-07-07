@@ -42,11 +42,22 @@ public class MapAndChartDisplayController {
 	@Autowired
 	private ReportingOptionLookUpService reportingOptionLookUpService;
 	
-	@RequestMapping("/mapandchartdisplay/dataanalysis/{dataanalysis}/subdataanalysis/{subdataanalysis}")
-	public String mapAndChartScreen(@PathVariable("dataanalysis") String dataanalysis, @PathVariable("subdataanalysis") String subdataanalysis, HttpServletRequest request, Principal currentUser, Model model ) {
+	/**
+	 * 
+	 * This is the controller method for Map and Chart Display screen and it provides the information to be displayed in that screen.
+	 * 
+	 * @param dataanalysis
+	 * @param subdataanalysis
+	 * @param request
+	 * @param currentUser
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/mapandchartdisplay/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}")
+	public String mapAndChartScreen(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, HttpServletRequest request, Principal currentUser, Model model ) {
 		
-		model.addAttribute("dataanalysis", dataanalysis);
-		model.addAttribute("subdataanalysis", subdataanalysis);
+		model.addAttribute("dataAnalysisId", dataAnalysisId);
+		model.addAttribute("subDataAnalysisId", subDataAnalysisId);
 		
 		final List<YearLookup> yearLookups = yearLookUpService.findAll();			
 		model.addAttribute("yearLookups", yearLookups);

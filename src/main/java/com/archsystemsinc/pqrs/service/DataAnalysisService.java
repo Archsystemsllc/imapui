@@ -8,7 +8,9 @@ import java.util.List;
 import com.archsystemsinc.pqrs.model.DataAnalysis;
 
 /**
- * @author MurugarajKandaswam
+ * This is the Service interface for data_analysis database table.
+ * 
+ * @author Murugaraj Kandaswamy
  *
  */
 public interface DataAnalysisService {
