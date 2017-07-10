@@ -94,7 +94,7 @@
 					</div>
 					<p>
 						Document Provider :
-						<form:input class="btn bth-default" type="file" path="provider" size="40" />
+						<form:input type="file" path="provider" size="40" />
 					</p>
 
 					<div class="btn-group btn-xs">
