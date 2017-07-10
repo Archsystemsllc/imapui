@@ -5,6 +5,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
+<link href="${pageContext.request.contextPath}/resources/css/main.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/responsive.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/login.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- [if lt IE 9] -->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<!--     [endif] -->
 </head>
 <body>
 <header id="header">
@@ -72,8 +98,8 @@
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="${pageContext.request.contextPath}/login">Home</a></li>
-						<li><a href="about-us.html">About Us</a></li>
-						<li><a href="contact-us.html">Contact</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Contact</a></li>
 					</ul>
 				</div>
 			</div>

@@ -76,7 +76,7 @@
 						</div>
 					</c:if>
 					<form:errors path="*" cssClass="errorblock" element="div" />
-					<div style="padding-left: 100px; padding-bottom: 10px;">
+					<div>
 						<form:select path="providerHypId" id="ddl1"
 							onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
 							<option value="0">Select</option>
