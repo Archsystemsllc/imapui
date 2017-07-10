@@ -190,10 +190,10 @@ select {
 			var parameterId = document.getElementById("parameterLookupId").value;
 	
 			if (reportTypeSelectedVal == "Bar Chart") {
-				var url = 'http://localhost:8080' + serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
+				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
 			}
 			if (reportTypeSelectedVal == "Line Chart") {
-				var url = 'http://localhost:8080' + serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
+				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
 			}
 			if (reportTypeSelectedVal == "Map") {
 				document.getElementById("mapIframe").hidden = false;
@@ -211,7 +211,7 @@ select {
 				var yesNoId = document.getElementById("yesOrNoOptionId").value;
 				var yearId = document.getElementById("yearLookUpId").value;
 				var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-				var url = 'http://localhost:8080' + serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
+				var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
 				document.getElementById("mapIframe").src = url;
 			}
 	
