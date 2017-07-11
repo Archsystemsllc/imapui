@@ -73,8 +73,8 @@ public class UserController {
         return "admin";
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        return "welcome";
+        return "login";
     }
 }
