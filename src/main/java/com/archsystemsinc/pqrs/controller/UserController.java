@@ -62,19 +62,4 @@ public class UserController {
         return "login";
     }
     
-    @RequestMapping(value = "/adminDataAnalysis", method = RequestMethod.GET)
-    public String adminDataAnaysis(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "adminDataAnalysis";
-    }
-
-   /* @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String login(Model model) {
-        return "login";
-    }*/
 }
