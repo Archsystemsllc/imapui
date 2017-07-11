@@ -101,10 +101,10 @@ table {
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 
-	<table style="min-height: 600px;width:45%">
+	<table style="min-height: 600px;">
 		<tr>
 			<td
-				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
+				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px; width: 30%">
 				<div style="color: #fff">
 					<ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
@@ -116,97 +116,90 @@ table {
 						EHR, QCDR and GPROWI)</p>
 				</div>
 			</td>
-			<td>
-				<div class="HypothesisScreen">
-					<table>
+			<td style="vertical-align: top;">
+				<div class="HypothesisScreen" style="padding: 20px 250px;">
+					<table style="border-collapse: separate; border-spacing: 2px;">
 
 						<tr>
-							<td>
+							<td><label for="yearLookUpId">Optional Year : </label></td>
+							<td><select id="yearLookUpId" name="yearLookUpId">
+									<option value="">Select</option>
+									<c:forEach items="${yearLookups}" var="yearLookUp">
+										<option value="${yearLookUp.id}"
+											${yearLookUp.id == yearLookUpId ? 'selected="selected"' : ''}>${yearLookUp.yearName}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
 
+						<tr>
+							<td><label for="reportingOptionLookupId">Reporting
+									Option : </label></td>
+							<td><select id="reportingOptionLookupId"
+								name="reportingOptionLookupId">
+									<option value="">Select</option>
+									<c:forEach items="${reportingOptionLookups}"
+										var="reportingOptionLookup">
+										<option value="${reportingOptionLookup.id}"
+											${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
 
-								<table style="border-collapse: separate; border-spacing: 10px;">
+						<tr>
+							<td><label for="parameterLookupId">Parameter Name :
+							</label></td>
+							<td><select id="parameterLookupId" name="parameterLookupId">
+									<option value="">Select</option>
+									<c:forEach items="${parameterLookups}" var="parameterLookup">
+										<option value="${parameterLookup.id}"
+											${parameterLookup.id == parameterLookupId ? 'selected="selected"' : ''}>${parameterLookup.parameterName}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
 
-									<tr>
-										<td><label for="yearLookUpId">Optional Year : </label></td>
-										<td><select id="yearLookUpId" name="yearLookUpId">
-												<option value="">Select</option>
-												<c:forEach items="${yearLookups}" var="yearLookUp">
-													<option value="${yearLookUp.id}"
-														${yearLookUp.id == yearLookUpId ? 'selected="selected"' : ''}>${yearLookUp.yearName}</option>
-												</c:forEach>
-										</select></td>
-									</tr>
+						<tr>
+							<td><label for="reportTypeId">Report Type :</label></td>
+							<td><select id="reportTypeId" name="reportTypeId">
+									<option value="">Select</option>
+									<c:forEach items="${reportTypes}" var="reportType">
+										<option value="${reportType}">${reportType}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
 
-									<tr>
-										<td><label for="reportingOptionLookupId">Reporting
-												Option : </label></td>
-										<td><select id="reportingOptionLookupId"
-											name="reportingOptionLookupId">
-												<option value="">Select</option>
-												<c:forEach items="${reportingOptionLookups}"
-													var="reportingOptionLookup">
-													<option value="${reportingOptionLookup.id}"
-														${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
-												</c:forEach>
-										</select></td>
-									</tr>
-
-									<tr>
-										<td><label for="parameterLookupId">Parameter Name
-												: </label></td>
-										<td><select id="parameterLookupId"
-											name="parameterLookupId">
-												<option value="">Select</option>
-												<c:forEach items="${parameterLookups}" var="parameterLookup">
-													<option value="${parameterLookup.id}"
-														${parameterLookup.id == parameterLookupId ? 'selected="selected"' : ''}>${parameterLookup.parameterName}</option>
-												</c:forEach>
-										</select></td>
-									</tr>
-
-									<tr>
-										<td><label for="reportTypeId">Report Type :</label></td>
-										<td><select id="reportTypeId" name="reportTypeId">
-												<option value="">Select</option>
-												<c:forEach items="${reportTypes}" var="reportType">
-													<option value="${reportType}">${reportType}</option>
-												</c:forEach>
-										</select></td>
-									</tr>
-
-									<tr id="yesOrNoOptionRow" hidden="true">
-										<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
-										<td><select id="yesOrNoOptionId" name="yesOrNoOptionId">
-												<option value="">Select</option>
-												<option value="0">No</option>
-												<option value="1">Yes</option>
-										</select></td>
-									</tr>
-
-									<!-- 	<tr>
+						<tr id="yesOrNoOptionRow" hidden="true">
+							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
+							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId">
+									<option value="">Select</option>
+									<option value="0">No</option>
+									<option value="1">Yes</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input class="btn btn-primary btn-sm"
+								style="display: block; margin: auto; width: 40%;" type="submit"
+								id="displayreport" /></td>
+						</tr>
+					</table>
+				</div>
+				<div class="HypothesisScreen">
+					<!-- 	<tr>
 					<td></td>
 					<td><input class="btn btn-primary btn-sm"
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-								</table> <input class="btn btn-primary btn-sm"
-								style="display: block; margin: auto; width: 40%;" type="submit"
-								id="displayreport" />
-							</td>
-						</tr>
-						<tr>
+					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
+						width="800px" height="600" style="margin:auto"></iframe>
 
-							<td><iframe id='mapIframe' hidden="true" frameborder="0"
-									scrolling="no" width="100%" height="600"></iframe>
+					<div id="messageDisplay"></div>
 
-								<div id="messageDisplay"></div>
-
-								<div id="chart-container" style="width: 75%;">
-									<canvas id="chart-canvas"></canvas>
-								</div></td>
-						</tr>
-					</table>
+					<div id="chart-container" style="width: 75%;">
+						<canvas id="chart-canvas"></canvas>
+					</div>
 				</div>
+			</td>
+		</tr>
 	</table>
 	<script>
 		var btn = document.getElementById("displayreport");
