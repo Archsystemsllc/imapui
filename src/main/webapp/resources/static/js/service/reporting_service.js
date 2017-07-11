@@ -2,18 +2,17 @@
 
 angular.module('myApp').factory('ReportingService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/imapservices/api/';
+    var REST_SERVICE_URI = 'http://localhost/imapservices/api/';
 
     var factory = {
-    		dataAnalysisOptions: dataAnalysisOptions,
-    		serviceApiEndpoint:serviceApiEndpoint
+    		dataAnalysisOptions: dataAnalysisOptions        
     };
 
     return factory;
 
-    function dataAnalysisOptions(serviceApiEndpoint) {
+    function dataAnalysisOptions() {
         var deferred = $q.defer();
-        $http.get(serviceApiEndpoint+"dataanalysis")
+        $http.get(REST_SERVICE_URI+"dataanalysis")
             .then(
             function (response) {
             	console.log("**********:"+JSON.stringify(response.data))
@@ -21,22 +20,6 @@ angular.module('myApp').factory('ReportingService', ['$http', '$q', function($ht
             },
             function(errResponse){
                 console.error('Error while fetching data analysis options');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
-    
-    function serviceApiEndpoint(){
-    	var deferred = $q.defer();
-        $http.get("http://localhost:8080/imapui/imapServicesApi")
-            .then(
-            function (response) {
-            	console.log("**********:"+JSON.stringify(response.data))
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while fetching data end point');
                 deferred.reject(errResponse);
             }
         );
