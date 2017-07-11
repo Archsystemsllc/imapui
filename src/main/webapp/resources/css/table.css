@@ -64,7 +64,7 @@ table td:last-child {
 
 table th {
 	background-color: #daeff1;
-	font-weight: 300;
+	/* font-weight: 300; */
 }
 /* table tr:nth-child(2n) {
   background-color: white;

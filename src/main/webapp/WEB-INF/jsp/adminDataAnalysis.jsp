@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="admin_header.jsp"></jsp:include>
 	<table style="min-height:600px">
 		<tr>
 			<td
@@ -39,7 +39,7 @@
 						EHR, QCDR and GPROWI)</p>
 				</div>
 			</td>
-			<td style="padding: 10px 105px; vertical-align:top">
+			<td style="padding: 10px 105px;vertical-align:top">
 				<div class="DataAnalysisScreen">
 
 					<script type="text/javascript">console.log("justprint")
@@ -92,8 +92,8 @@
 												<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
 
 												<td style="text-align: center"><a
-															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-														class="button search" id="view" value="View">View</button></a>
+													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+															class="button search" id="view" value="View">View</button></a>
 													<button class="button arrow" id="download" value="Download">Download</button></td>
 
 											</tr>

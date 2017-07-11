@@ -98,8 +98,8 @@
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="${pageContext.request.contextPath}/login">Home</a></li>
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="${pageContext.request.contextPath}/dataanalysis">Hypothesis</a></li>
+						<li><a href="#">Contact Us</a></li>
 					</ul>
 				</div>
 			</div>

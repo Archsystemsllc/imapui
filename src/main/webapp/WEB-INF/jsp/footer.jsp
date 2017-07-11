@@ -33,14 +33,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
-					&copy; 2017 <a target="_blank" href="http://shapebootstrap.net/"
-						title="Free Twitter Bootstrap WordPress Themes and HTML templates">Arch
-						Systems LLC</a>. All Rights Reserved. Designed & Developed by Arch
-					Systems LLC
+					Copyright &copy;-2017 Arch Systems, LLC. All Rights Reserved.
 				</div>
 				<div class="col-sm-6">
 					<ul class="pull-right">
-						<li><a href="mainpage.html">Home</a></li>
+						<li><a href="#">Home</a></li>
 						<li><a href="#">About Us</a></li>
 						<li><a href="#">Faq</a></li>
 						<li><a href="#">Contact Us</a></li>

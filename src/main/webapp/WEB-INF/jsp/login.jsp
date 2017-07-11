@@ -54,13 +54,13 @@
 					<tr>
 						<td><img
 							src="${pageContext.request.contextPath}/resources/images/big-data-theree.png"
-							style="height: 80%; width: 80%"></img></td>
+							style="height: 100%; width: 100%; margin:auto"></img></td>
 					</tr>
 					<tr>
-						<td><br><br><br></td>
+						<td><br></td>
 					</tr>
 					<tr>
-						<td style="font-family: 'Architects Daughter', cursive; font-size:80px">Hello, I am ADDA!
+						<td style="font-family: 'Architects Daughter', cursive; font-size:50px; text-align:center">Hello, I am ADDA!
 						<td>
 					<tr>
 				</table>
