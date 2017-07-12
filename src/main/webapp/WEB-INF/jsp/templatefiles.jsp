@@ -99,7 +99,7 @@
 						</p>
 						<p>
 							Please specify a file, or a set of files:<br />
-							<form:input type="file" path="uploadedFile"/>
+							<form:input type="file" path="uploadedFile" />
 						</p>
 						<div>
 							<input class="btn btn-default" type="submit" value="Send" />

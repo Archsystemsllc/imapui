@@ -74,7 +74,7 @@ public class TemplateFile implements Serializable{
 		return uploadedFile;
 	}
 
-	public void setUploadFile(MultipartFile uploadedFile) {
+	public void setUploadedFile(MultipartFile uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
 
