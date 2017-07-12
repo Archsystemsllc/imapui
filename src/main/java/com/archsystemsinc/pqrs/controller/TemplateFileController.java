@@ -56,7 +56,7 @@ public class TemplateFileController {
 		
 	  try {
 			/*File Upload Code - Start */
-			uploadedFile = templateFile.getUploadFile();		
+			uploadedFile = templateFile.getUploadedFile();		
 			
 			if(uploadedFile != null && !uploadedFile.isEmpty()) {
 				InputStream inputStream = uploadedFile.getInputStream();
