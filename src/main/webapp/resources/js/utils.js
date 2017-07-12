@@ -9,6 +9,7 @@ window.chartColors = {
 	green: 'rgb(0, 128, 0)',
 	lime: 'rgb(0, 255, 0)',
 	blue: 'rgb(0, 0, 255)',
+	darkblue: 'rgba(0,0,128,.5)',
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)',
 	brown: 'rgb(102, 51, 0)'
