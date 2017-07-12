@@ -209,29 +209,31 @@ table {
 		btn.addEventListener("click", function() {
 	
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
-			var reportTypeSelectedVal = $("#reportTypeId option:selected").text();
+			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
 	
 			var yearId = document.getElementById("yearLookUpId").value;
+			var yearSelectedText = $("#yearLookUpId option:selected").text();
 			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-			var reportingOptionLookupSelectedVal = $("#reportingOptionLookupId option:selected").text();
+			var reportingOptionSelectedText = $("#reportingOptionLookupId option:selected").text();
 			var parameterId = document.getElementById("parameterLookupId").value;
+			var parameterSelectedText = $("#parameterLookupId option:selected").text();
 	
-			if (reportTypeSelectedVal == "Bar Chart") {
+			if (reportTypeSelectedText == "Bar Chart") {
 				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
 			}
-			if (reportTypeSelectedVal == "Line Chart") {
+			if (reportTypeSelectedText == "Line Chart") {
 				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
 			}
-			if (reportTypeSelectedVal == "Map") {
+			if (reportTypeSelectedText == "Map") {
 				document.getElementById("mapIframe").hidden = false;
 				var epGpro = '0';
-				if (reportingOptionLookupSelectedVal == "CLAIMS" || reportingOptionLookupSelectedVal == "EHR"
-					|| reportingOptionLookupSelectedVal == "REGISTRY"
-					|| reportingOptionLookupSelectedVal == "QCDR") {
+				if (reportingOptionSelectedText == "CLAIMS" || reportingOptionSelectedText == "EHR"
+					|| reportingOptionSelectedText == "REGISTRY"
+					|| reportingOptionSelectedText == "QCDR") {
 					epGpro = '1';
-				} else if (reportingOptionLookupSelectedVal == "GPROWI" || reportingOptionLookupSelectedVal == "GPRO Registry"
-					|| reportingOptionLookupSelectedVal == "GPRO EHR"
-					|| reportingOptionLookupSelectedVal == "GPRO WI GROP") {
+				} else if (reportingOptionSelectedText == "GPROWI" || reportingOptionSelectedText == "GPRO Registry"
+					|| reportingOptionSelectedText == "GPRO EHR"
+					|| reportingOptionSelectedText == "GPRO WI GROP") {
 					epGpro = '2';
 				}
 				var ruralUrbanId = document.getElementById("parameterLookupId").value;
@@ -245,26 +247,30 @@ table {
 			var ourRequest = new XMLHttpRequest();
 			ourRequest.open('GET', url);
 			ourRequest.onload = function() {
-				if (reportTypeSelectedVal == "Bar Chart") {
+				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
 					var barChartDataAvail = barChartData.dataAvailable;
 					var yesCountValues = barChartData.yesCountValues;
 					var noCountValues = barChartData.noCountValues;
+					var titleYearTextVal = yearSelectedText;
+					if (yearSelectedText == 'ALL') {
+						titleYearTextVal = 'Base Year(2012) to Option Year 3(2015)';
+					}
 	
 					<!-- BAR CHART :: JAVA SCRIPT ###### START  -->
 					var barChartData = {
 						labels : barChartData.parameters,
 						datasets : [ {
 							label : 'YES',
-							backgroundColor : "rgba(0,0,128,.5)",
-							borderColor : "rgba(0,0,128,.5)",
+							backgroundColor : window.chartColors.darkblue,
+							borderColor : window.chartColors.darkblue,
 							borderWidth : 1,
 							data : barChartData.yesPercents
 						}, {
 							label : 'NO',
-							backgroundColor : "rgba(255,0,0,.7)",
-							borderColor : "rgba(255,0,0,.7)",
+							backgroundColor : window.chartColors.orange,
+							borderColor : window.chartColors.orange,
 							borderWidth : 1,
 							data : barChartData.noPercents
 						} ]
@@ -274,7 +280,7 @@ table {
 						responsive : true,
 						title : {
 							display : true,
-							text : 'Base Year(2012) to Option Year 3(2015) REGISTRY Reporting Option Eligible Professionals Summary'
+							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary'
 						},
 						animation : {
 							duration : 1,
@@ -350,14 +356,14 @@ table {
 	
 				} <!-- Bar Chart If Logic Ends-->
 	
-				if (reportTypeSelectedVal == "Line Chart") {
+				if (reportTypeSelectedText == "Line Chart") {
 					lineChartData = JSON.parse(ourRequest.responseText);
 					//console.log(lineChartData);
 	
 					<!-- LINE CHART :: JAVA SCRIPT ###### START  -->
 					var lineChartDataAvail = lineChartData.dataAvailable;
-					var titletext = 'Base Year to Option Year 3 ' + 'Mental Health HPSA' + ' Percentage Summary'
-					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + 'Mental Health HPSA'
+					var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary'
+					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText
 	
 					var lineconfig = {
 						type : 'line',
@@ -366,8 +372,8 @@ table {
 							datasets : [ {
 								label : "CLAIMS",
 								fill : false,
-								backgroundColor : window.chartColors.red,
-								borderColor : window.chartColors.red,
+								backgroundColor : window.chartColors.yellow,
+								borderColor : window.chartColors.yellow,
 								data : lineChartData.claimsPercents,
 							}, {
 								label : "EHR",
@@ -384,8 +390,8 @@ table {
 							}, {
 								label : "GPROWI",
 								fill : false,
-								backgroundColor : window.chartColors.purple,
-								borderColor : window.chartColors.purple,
+								backgroundColor : window.chartColors.darkblue,
+								borderColor : window.chartColors.darkblue,
 								data : lineChartData.gprowiPercents,
 							}, {
 								label : "QCDR",
@@ -439,7 +445,7 @@ table {
 					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
 	
 				} <!-- Line Chart If Logic Ends-->
-				if (reportTypeSelectedVal == "Map") {
+				if (reportTypeSelectedText == "Map") {
 					<!-- TODO for Map-->
 				}
 				<!-- MAP ENDS -->
@@ -447,33 +453,35 @@ table {
 				<!-- Deleting the <canvas> element and then reappending a new <canvas> to the parent container: To Fix the Hover Over Issue   -->
 				resetCanvas();
 	
-	
 				var chartctx = document.getElementById("chart-canvas").getContext("2d");
 	
 				<!-- Different Chart Display :: START -->
-				if (reportTypeSelectedVal == "Bar Chart") {
+				if (reportTypeSelectedText == "Bar Chart") {
 					document.getElementById("mapIframe").hidden = true;
 					if (barChartDataAvail == "YES") {
-						document.getElementById('messageDisplay').style.display = 'none';
+						//document.getElementById('messageDisplay').style.display = 'none';
+						document.getElementById("messageDisplay").innerHTML = "";
+						$("messageDisplay").attr("disabled", true);
 						var myBarChart = new Chart(chartctx, barconfig);
 					}
 					if (barChartDataAvail == "NO") {
+						$("messageDisplay").attr("disabled", false);
 						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
 					}
 				}
-				if (reportTypeSelectedVal == "Line Chart") {
+				if (reportTypeSelectedText == "Line Chart") {
 					document.getElementById("mapIframe").hidden = true;
 					if (lineChartDataAvail == "YES") {
-						document.getElementById('messageDisplay').style.display = 'none';
+						document.getElementById("messageDisplay").innerHTML = "";
+						$("messageDisplay").attr("disabled", true);
 						var myLineChart = new Chart(chartctx, lineconfig);
 					}
 					if (lineChartDataAvail == "NO") {
+						$("messageDisplay").attr("disabled", false);
 						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
 					}
 				}
-				if (reportTypeSelectedVal == "Map") {
-					<!-- TODO for Map-->
-				}
+
 				<!-- Different Chart Display :: END -->
 	
 			};
@@ -481,7 +489,6 @@ table {
 			ourRequest.send();
 	
 		});
-	
 	
 		var resetCanvas = function() {
 			$('#chart-canvas').remove(); // this is my <canvas> element

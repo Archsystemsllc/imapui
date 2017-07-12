@@ -35,7 +35,6 @@ public class MapAndChartDisplayController {
 	@Autowired
 	private YearLookUpService yearLookUpService;
 	
-	
 	@Autowired
 	private ParameterLookUpService parameterLookUpService;
 	

@@ -69,6 +69,7 @@ public class ProviderHypothesisController {
 			noCountValues.add(providerHypothesis.getNoCount()+"");
 			dataAvailable = "YES";
 		}
+		System.out.println("Data for Bar Chart Data(AVAILABLE)::"+dataAvailable);
 		
 		// Setting barChartData in the Map to be returned back to View....
 		barChartDataMap.put("parameters", parameters);
@@ -102,10 +103,6 @@ public class ProviderHypothesisController {
 		
 		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndParameterLookup(dataAnalysisId, subDataAnalysisId, parameterId);
 		
-		if (providerHypothesisList != null && providerHypothesisList.size()>0){
-			dataAvailable = "YES";
-		}
-		
 		List<String> uniqueYears = providerHypothesisService.getUniqueYearsForLineChart();
 		List<Double> claimsPercents = new ArrayList<Double>();
 		List<Double> ehrPercents = new ArrayList<Double>();
@@ -121,6 +118,16 @@ public class ProviderHypothesisController {
 		lineChartDataMap.put("registryPercents", registryPercents);
 		lineChartDataMap.put("gprowiPercents", gprowiPercents);
 		lineChartDataMap.put("qcdrPercents", qcdrPercents);
+		
+		if (claimsPercents != null && claimsPercents.size()>0){
+			for (Double claimPercent : claimsPercents) {
+				if (claimPercent != null) {
+					dataAvailable = "YES";
+					break;
+				}
+			}
+		}
+		System.out.println("Data for Line Chart Data(AVAILABLE)::"+dataAvailable);
 		lineChartDataMap.put("dataAvailable", dataAvailable);
 		
 		return lineChartDataMap;
