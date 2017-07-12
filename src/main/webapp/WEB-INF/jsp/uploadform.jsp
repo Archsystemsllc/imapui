@@ -59,7 +59,7 @@
 			<h2 class="title">Upload excel data screen</h2>
 			<div class="content">
 
-				<form:form action="/pqrs-reporting-webapp/admin/documentupload/"
+				<form:form action="${pageContext.request.contextPath}/admin/documentupload/"
 					modelAttribute="documentFileUpload" enctype="multipart/form-data"
 					method="post">
 					<c:if test="${not empty documentuploadsuccess}">
@@ -135,7 +135,7 @@
 				$('#provider-upload').attr("disabled", "disabled");
 			} else {
 				$.ajax({
-					url : "/pqrs-reporting-webapp/api/subdata/hypothesis/" + seleHypoId,
+					url : "http://localhost/imapservices/api/subdata/hypothesis/" + seleHypoId,
 					type : 'GET',
 					dataType : 'json',
 					success : function(data) {

@@ -22,7 +22,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
-
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,17 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/resources/**", "/registration").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll();
+    	http.authorizeRequests()
+        .antMatchers("/reportingHome").access("hasAuthority('Report Viewer')")
+        .antMatchers("/admin/**").access("hasAuthority('Administrator')")        
+        .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)        
+        .and().csrf()
+        .and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }
 
     @Autowired

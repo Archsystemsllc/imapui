@@ -55,7 +55,7 @@
 
 <style>
 #map {
-	width: 100%;
+	width: 900px;
 	height: 400px;
 }
 
@@ -100,14 +100,25 @@ table {
 
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="container" style="min-height: 550px">
-		<div class="row">
-			<div class="col-sm-3">ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA
-				ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA ADDA</div>
-			<div class="col-sm-9">
-				<div class="HypothesisScreen">
 
-					<table style="border-collapse: separate; border-spacing: 10px;">
+	<table style="min-height: 600px;">
+		<tr>
+			<td
+				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px; width: 30%">
+				<div style="color: #fff">
+					<ul style="border-bottom: solid #fff 2px" type="square">
+						<li><h2 style="color: #fff;">Description</h2></li>
+					</ul>
+					<p style="text-align: justify;">From the Base Year to Option
+						Year 3 Rural Area Percentage line plot, we would like to see the
+						change trend of the rural area percentage of all combined EPs and
+						GPROs and the difference among reporting options (Claim, Registry,
+						EHR, QCDR and GPROWI)</p>
+				</div>
+			</td>
+			<td style="vertical-align: top;">
+				<div class="HypothesisScreen" style="padding: 20px 250px;">
+					<table style="border-collapse: separate; border-spacing: 2px;">
 
 						<tr>
 							<td><label for="yearLookUpId">Optional Year : </label></td>
@@ -164,329 +175,337 @@ table {
 									<option value="1">Yes</option>
 							</select></td>
 						</tr>
-
-						<!-- 	<tr>
+						<tr>
+							<td colspan="2" style="padding-top:10px"><input class="btn btn-primary btn-sm"
+								style="display: block; margin: auto; width: 30%;" type="submit"
+								id="displayreport" /></td>
+						</tr>
+					</table>
+				</div>
+				<div class="HypothesisScreen" style="max-height:520px">
+					<!-- 	<tr>
 					<td></td>
 					<td><input class="btn btn-primary btn-sm"
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					</table>
-					<input class="btn btn-primary btn-sm"
-						style="display: block; margin: auto; width: 10%;" type="submit"
-						id="displayreport" />
+					<iframe id='mapIframe' hidden="true" frameborder="0" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
+
+					<div id="messageDisplay"></div>
+
+					<div id="chart-container" style="width: 75%; margin:auto">
+						<canvas id="chart-canvas"></canvas>
+					</div>
 				</div>
-
-				<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
-					width="100%" height="600"></iframe>
-
-				<div id="messageDisplay"></div>
-
-				<div id="chart-container" style="width: 75%;">
-					<canvas id="chart-canvas"></canvas>
-				</div>
-			</div>
-		</div>
-		<script>
-			var btn = document.getElementById("displayreport");
-			var barChartData = null;
-			var lineChartData = null;
-			var serverContextPath = '${pageContext.request.contextPath}';
-		
-			btn.addEventListener("click", function() {
-		
-				var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
-				var reportTypeSelectedVal = $("#reportTypeId option:selected").text();
-		
+			</td>
+		</tr>
+	</table>
+	<script>
+		var btn = document.getElementById("displayreport");
+		var barChartData = null;
+		var lineChartData = null;
+		var serverContextPath = '${pageContext.request.contextPath}';
+	
+		btn.addEventListener("click", function() {
+	
+			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
+			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
+	
+			var yearId = document.getElementById("yearLookUpId").value;
+			var yearSelectedText = $("#yearLookUpId option:selected").text();
+			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
+			var reportingOptionSelectedText = $("#reportingOptionLookupId option:selected").text();
+			var parameterId = document.getElementById("parameterLookupId").value;
+			var parameterSelectedText = $("#parameterLookupId option:selected").text();
+	
+			if (reportTypeSelectedText == "Bar Chart") {
+				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
+			}
+			if (reportTypeSelectedText == "Line Chart") {
+				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
+			}
+			if (reportTypeSelectedText == "Map") {
+				document.getElementById("mapIframe").hidden = false;
+				var epGpro = '0';
+				if (reportingOptionSelectedText == "CLAIMS" || reportingOptionSelectedText == "EHR"
+					|| reportingOptionSelectedText == "REGISTRY"
+					|| reportingOptionSelectedText == "QCDR") {
+					epGpro = '1';
+				} else if (reportingOptionSelectedText == "GPROWI" || reportingOptionSelectedText == "GPRO Registry"
+					|| reportingOptionSelectedText == "GPRO EHR"
+					|| reportingOptionSelectedText == "GPRO WI GROP") {
+					epGpro = '2';
+				}
+				var ruralUrbanId = document.getElementById("parameterLookupId").value;
+				var yesNoId = document.getElementById("yesOrNoOptionId").value;
 				var yearId = document.getElementById("yearLookUpId").value;
 				var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-				var reportingOptionLookupSelectedVal = $("#reportingOptionLookupId option:selected").text();
-				var parameterId = document.getElementById("parameterLookupId").value;
-		
-				if (reportTypeSelectedVal == "Bar Chart") {
-					var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
-				}
-				if (reportTypeSelectedVal == "Line Chart") {
-					var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
-				}
-				if (reportTypeSelectedVal == "Map") {
-					document.getElementById("mapIframe").hidden = false;
-					var epGpro = '0';
-					if (reportingOptionLookupSelectedVal == "CLAIMS" || reportingOptionLookupSelectedVal == "EHR"
-						|| reportingOptionLookupSelectedVal == "REGISTRY"
-						|| reportingOptionLookupSelectedVal == "QCDR") {
-						epGpro = '1';
-					} else if (reportingOptionLookupSelectedVal == "GPROWI" || reportingOptionLookupSelectedVal == "GPRO Registry"
-						|| reportingOptionLookupSelectedVal == "GPRO EHR"
-						|| reportingOptionLookupSelectedVal == "GPRO WI GROP") {
-						epGpro = '2';
+				var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
+				document.getElementById("mapIframe").src = url;
+			}
+	
+			var ourRequest = new XMLHttpRequest();
+			ourRequest.open('GET', url);
+			ourRequest.onload = function() {
+				if (reportTypeSelectedText == "Bar Chart") {
+					barChartData = JSON.parse(ourRequest.responseText);
+					//console.log(barChartData);
+					var barChartDataAvail = barChartData.dataAvailable;
+					var yesCountValues = barChartData.yesCountValues;
+					var noCountValues = barChartData.noCountValues;
+					var titleYearTextVal = yearSelectedText;
+					if (yearSelectedText == 'ALL') {
+						titleYearTextVal = 'Base Year(2012) to Option Year 3(2015)';
 					}
-					var ruralUrbanId = document.getElementById("parameterLookupId").value;
-					var yesNoId = document.getElementById("yesOrNoOptionId").value;
-					var yearId = document.getElementById("yearLookUpId").value;
-					var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-					var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
-					document.getElementById("mapIframe").src = url;
-				}
-		
-				var ourRequest = new XMLHttpRequest();
-				ourRequest.open('GET', url);
-				ourRequest.onload = function() {
-					if (reportTypeSelectedVal == "Bar Chart") {
-						barChartData = JSON.parse(ourRequest.responseText);
-						//console.log(barChartData);
-						var barChartDataAvail = barChartData.dataAvailable;
-						var yesCountValues = barChartData.yesCountValues;
-						var noCountValues = barChartData.noCountValues;
-		
-						<!-- BAR CHART :: JAVA SCRIPT ###### START  -->
-						var barChartData = {
-							labels : barChartData.parameters,
-							datasets : [ {
-								label : 'YES',
-								backgroundColor : "rgba(0,0,128,.5)",
-								borderColor : "rgba(0,0,128,.5)",
-								borderWidth : 1,
-								data : barChartData.yesPercents
-							}, {
-								label : 'NO',
-								backgroundColor : "rgba(255,0,0,.7)",
-								borderColor : "rgba(255,0,0,.7)",
-								borderWidth : 1,
-								data : barChartData.noPercents
+	
+					<!-- BAR CHART :: JAVA SCRIPT ###### START  -->
+					var barChartData = {
+						labels : barChartData.parameters,
+						datasets : [ {
+							label : 'YES',
+							backgroundColor : window.chartColors.darkblue,
+							borderColor : window.chartColors.darkblue,
+							borderWidth : 1,
+							data : barChartData.yesPercents
+						}, {
+							label : 'NO',
+							backgroundColor : window.chartColors.orange,
+							borderColor : window.chartColors.orange,
+							borderWidth : 1,
+							data : barChartData.noPercents
+						} ]
+					};
+	
+					var optionsInfo = {
+						responsive : true,
+						title : {
+							display : true,
+							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary'
+						},
+						animation : {
+							duration : 1,
+							onComplete : function() {
+								var chartInstance = this.chart,
+									ctx = chartInstance.ctx;
+	
+								ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+								ctx.textAlign = 'center';
+								ctx.textBaseline = 'bottom';
+	
+								this.data.datasets.forEach(function(dataset, i) {
+									var meta = chartInstance.controller.getDatasetMeta(i);
+									meta.data.forEach(function(bar, index) {
+										//console.log(bar._view.datasetLabel);
+										var data = yesCountValues[index];
+										if (bar._view.datasetLabel == "NO") {
+											data = noCountValues[index];
+										}
+	
+										ctx.fillText(data, bar._model.x, bar._model.y - 5);
+									});
+								});
+							}
+						},
+						legend : {
+							position : 'bottom',
+						},
+						tooltips : {
+							mode : 'index',
+							intersect : true,
+						},
+	
+						hover : {
+							mode : 'nearest',
+							intersect : true,
+						},
+						scales : {
+							xAxes : [ {
+								display : true,
+								scaleLabel : {
+									display : true,
+									labelString : 'PARAMETER'
+								},
+								ticks : {
+									display : true,
+									beginAtZero : true
+								}
+							} ],
+							yAxes : [ {
+								display : true,
+								scaleLabel : {
+									display : true,
+									labelString : 'PERCENT'
+								},
+								ticks : {
+									callback : function(label, index, labels) {
+										return label + ' %';
+									},
+									display : true,
+									beginAtZero : true
+								}
 							} ]
-						};
-		
-						var optionsInfo = {
+						}
+					}
+	
+					var barconfig = {
+						type : 'bar',
+						data : barChartData,
+						options : optionsInfo
+					};
+					<!-- BAR CHART :: JAVA SCRIPT ###### END  -->
+	
+				} <!-- Bar Chart If Logic Ends-->
+	
+				if (reportTypeSelectedText == "Line Chart") {
+					lineChartData = JSON.parse(ourRequest.responseText);
+					//console.log(lineChartData);
+	
+					<!-- LINE CHART :: JAVA SCRIPT ###### START  -->
+					var lineChartDataAvail = lineChartData.dataAvailable;
+					var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary'
+					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText
+	
+					var lineconfig = {
+						type : 'line',
+						data : {
+							labels : lineChartData.uniqueYears,
+							datasets : [ {
+								label : "CLAIMS",
+								fill : false,
+								backgroundColor : window.chartColors.yellow,
+								borderColor : window.chartColors.yellow,
+								data : lineChartData.claimsPercents,
+							}, {
+								label : "EHR",
+								fill : false,
+								backgroundColor : window.chartColors.green,
+								borderColor : window.chartColors.green,
+								data : lineChartData.ehrPercents,
+							}, {
+								label : "Registry",
+								fill : false,
+								backgroundColor : window.chartColors.orange,
+								borderColor : window.chartColors.orange,
+								data : lineChartData.registryPercents,
+							}, {
+								label : "GPROWI",
+								fill : false,
+								backgroundColor : window.chartColors.darkblue,
+								borderColor : window.chartColors.darkblue,
+								data : lineChartData.gprowiPercents,
+							}, {
+								label : "QCDR",
+								fill : false,
+								backgroundColor : window.chartColors.brown,
+								borderColor : window.chartColors.brown,
+								data : lineChartData.qcdrPercents,
+							} ]
+						},
+						options : {
 							responsive : true,
 							title : {
 								display : true,
-								text : 'Base Year(2012) to Option Year 3(2015) REGISTRY Reporting Option Eligible Professionals Summary'
-							},
-							animation : {
-								duration : 1,
-								onComplete : function() {
-									var chartInstance = this.chart,
-										ctx = chartInstance.ctx;
-		
-									ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-									ctx.textAlign = 'center';
-									ctx.textBaseline = 'bottom';
-		
-									this.data.datasets.forEach(function(dataset, i) {
-										var meta = chartInstance.controller.getDatasetMeta(i);
-										meta.data.forEach(function(bar, index) {
-											//console.log(bar._view.datasetLabel);
-											var data = yesCountValues[index];
-											if (bar._view.datasetLabel == "NO") {
-												data = noCountValues[index];
-											}
-		
-											ctx.fillText(data, bar._model.x, bar._model.y - 5);
-										});
-									});
-								}
+								text : titletext
 							},
 							legend : {
 								position : 'bottom',
 							},
 							tooltips : {
 								mode : 'index',
-								intersect : true,
+								intersect : false,
 							},
-		
 							hover : {
 								mode : 'nearest',
-								intersect : true,
+								intersect : true
 							},
 							scales : {
 								xAxes : [ {
 									display : true,
 									scaleLabel : {
 										display : true,
-										labelString : 'PARAMETER'
-									},
-									ticks : {
-										display : true,
-										beginAtZero : true
+										labelString : 'YEAR'
 									}
 								} ],
 								yAxes : [ {
 									display : true,
 									scaleLabel : {
 										display : true,
-										labelString : 'PERCENT'
+										labelString : yaxeslabelstring
 									},
 									ticks : {
 										callback : function(label, index, labels) {
 											return label + ' %';
 										},
-										display : true,
-										beginAtZero : true
+										display : true
 									}
 								} ]
 							}
 						}
-		
-						var barconfig = {
-							type : 'bar',
-							data : barChartData,
-							options : optionsInfo
-						};
-						<!-- BAR CHART :: JAVA SCRIPT ###### END  -->
-		
-					} <!-- Bar Chart If Logic Ends-->
-		
-					if (reportTypeSelectedVal == "Line Chart") {
-						lineChartData = JSON.parse(ourRequest.responseText);
-						//console.log(lineChartData);
-		
-						<!-- LINE CHART :: JAVA SCRIPT ###### START  -->
-						var lineChartDataAvail = lineChartData.dataAvailable;
-						var titletext = 'Base Year to Option Year 3 ' + 'Mental Health HPSA' + ' Percentage Summary'
-						var yaxeslabelstring = 'Percent of EPs & GPROs in ' + 'Mental Health HPSA'
-		
-						var lineconfig = {
-							type : 'line',
-							data : {
-								labels : lineChartData.uniqueYears,
-								datasets : [ {
-									label : "CLAIMS",
-									fill : false,
-									backgroundColor : window.chartColors.red,
-									borderColor : window.chartColors.red,
-									data : lineChartData.claimsPercents,
-								}, {
-									label : "EHR",
-									fill : false,
-									backgroundColor : window.chartColors.green,
-									borderColor : window.chartColors.green,
-									data : lineChartData.ehrPercents,
-								}, {
-									label : "Registry",
-									fill : false,
-									backgroundColor : window.chartColors.orange,
-									borderColor : window.chartColors.orange,
-									data : lineChartData.registryPercents,
-								}, {
-									label : "GPROWI",
-									fill : false,
-									backgroundColor : window.chartColors.purple,
-									borderColor : window.chartColors.purple,
-									data : lineChartData.gprowiPercents,
-								}, {
-									label : "QCDR",
-									fill : false,
-									backgroundColor : window.chartColors.brown,
-									borderColor : window.chartColors.brown,
-									data : lineChartData.qcdrPercents,
-								} ]
-							},
-							options : {
-								responsive : true,
-								title : {
-									display : true,
-									text : titletext
-								},
-								legend : {
-									position : 'bottom',
-								},
-								tooltips : {
-									mode : 'index',
-									intersect : false,
-								},
-								hover : {
-									mode : 'nearest',
-									intersect : true
-								},
-								scales : {
-									xAxes : [ {
-										display : true,
-										scaleLabel : {
-											display : true,
-											labelString : 'YEAR'
-										}
-									} ],
-									yAxes : [ {
-										display : true,
-										scaleLabel : {
-											display : true,
-											labelString : yaxeslabelstring
-										},
-										ticks : {
-											callback : function(label, index, labels) {
-												return label + ' %';
-											},
-											display : true
-										}
-									} ]
-								}
-							}
-						};
-						<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
-		
-					} <!-- Line Chart If Logic Ends-->
-					if (reportTypeSelectedVal == "Map") {
-						<!-- TODO for Map-->
-					}
-					<!-- MAP ENDS -->
-		
-					<!-- Deleting the <canvas> element and then reappending a new <canvas> to the parent container: To Fix the Hover Over Issue   -->
-					resetCanvas();
-		
-		
-					var chartctx = document.getElementById("chart-canvas").getContext("2d");
-		
-					<!-- Different Chart Display :: START -->
-					if (reportTypeSelectedVal == "Bar Chart") {
-						document.getElementById("mapIframe").hidden = true;
-						if (barChartDataAvail == "YES") {
-							document.getElementById('messageDisplay').style.display = 'none';
-							var myBarChart = new Chart(chartctx, barconfig);
-						}
-						if (barChartDataAvail == "NO") {
-							document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
-						}
-					}
-					if (reportTypeSelectedVal == "Line Chart") {
-						document.getElementById("mapIframe").hidden = true;
-						if (lineChartDataAvail == "YES") {
-							document.getElementById('messageDisplay').style.display = 'none';
-							var myLineChart = new Chart(chartctx, lineconfig);
-						}
-						if (lineChartDataAvail == "NO") {
-							document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
-						}
-					}
-					if (reportTypeSelectedVal == "Map") {
-						<!-- TODO for Map-->
-					}
-					<!-- Different Chart Display :: END -->
-		
-				};
-		
-				ourRequest.send();
-		
-			});
-		
-		
-			var resetCanvas = function() {
-				$('#chart-canvas').remove(); // this is my <canvas> element
-				$('#chart-container').append('<canvas id="chart-canvas"><canvas>');
-			};
-		
-			document.getElementById("reportTypeId").onchange = function() {
-				var x = document.getElementById("reportTypeId").value;
-				if (x == 'Map') {
-					var x = document.getElementById("yesOrNoOptionRow")
-					x.hidden = false;
-				} else {
-					var x = document.getElementById("yesOrNoOptionRow")
-					x.hidden = true;
+					};
+					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
+	
+				} <!-- Line Chart If Logic Ends-->
+				if (reportTypeSelectedText == "Map") {
+					<!-- TODO for Map-->
 				}
+				<!-- MAP ENDS -->
+	
+				<!-- Deleting the <canvas> element and then reappending a new <canvas> to the parent container: To Fix the Hover Over Issue   -->
+				resetCanvas();
+	
+				var chartctx = document.getElementById("chart-canvas").getContext("2d");
+	
+				<!-- Different Chart Display :: START -->
+				if (reportTypeSelectedText == "Bar Chart") {
+					document.getElementById("mapIframe").hidden = true;
+					if (barChartDataAvail == "YES") {
+						//document.getElementById('messageDisplay').style.display = 'none';
+						document.getElementById("messageDisplay").innerHTML = "";
+						$("messageDisplay").attr("disabled", true);
+						var myBarChart = new Chart(chartctx, barconfig);
+					}
+					if (barChartDataAvail == "NO") {
+						$("messageDisplay").attr("disabled", false);
+						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
+					}
+				}
+				if (reportTypeSelectedText == "Line Chart") {
+					document.getElementById("mapIframe").hidden = true;
+					if (lineChartDataAvail == "YES") {
+						document.getElementById("messageDisplay").innerHTML = "";
+						$("messageDisplay").attr("disabled", true);
+						var myLineChart = new Chart(chartctx, lineconfig);
+					}
+					if (lineChartDataAvail == "NO") {
+						$("messageDisplay").attr("disabled", false);
+						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
+					}
+				}
+
+				<!-- Different Chart Display :: END -->
+	
 			};
-		</script>
-	</div>
+	
+			ourRequest.send();
+	
+		});
+	
+		var resetCanvas = function() {
+			$('#chart-canvas').remove(); // this is my <canvas> element
+			$('#chart-container').append('<canvas id="chart-canvas"><canvas>');
+		};
+	
+		document.getElementById("reportTypeId").onchange = function() {
+			var x = document.getElementById("reportTypeId").value;
+			if (x == 'Map') {
+				var x = document.getElementById("yesOrNoOptionRow")
+				x.hidden = false;
+			} else {
+				var x = document.getElementById("yesOrNoOptionRow")
+				x.hidden = true;
+			}
+		};
+	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -60,17 +60,17 @@ public class ProviderHypothesis implements Serializable {
 	private int yesValue;
 
 	//bi-directional many-to-one association to ReportingTypeLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="reporting_option_id")
 	private ReportingOptionLookup reportingOptionLookup;
 
 	//bi-directional many-to-one association to YearLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="year_id")
 	private YearLookup yearLookup;
 	
 	//bi-directional many-to-one association to ParameterLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="parameter_id")
 	private ParameterLookup parameterLookup;
 	

@@ -68,14 +68,14 @@ public class TemplateFile implements Serializable{
 	private int recordStatus;
 	
 	@Transient
-	private MultipartFile uploadFile;
+	private MultipartFile uploadedFile;
 	
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public MultipartFile getUploadedFile() {
+		return uploadedFile;
 	}
 
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setUploadFile(MultipartFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
 
 	public Long getId() {

@@ -57,9 +57,9 @@
 									</td>
 									<td style="text-align: right">
 										<!-- <input type=button href="/admin/download-document/${document.id}"  value='Download'> -->
-										<a href="/admin/download-template/${template.id}"><button
+										<a href="${pageContext.request.contextPath}/admin/download-template/${template.id}"><button
 												class="btn btn-default">Download</button></a> <!--<input type=button onClick="http://localhost:8484/admin/files/delete-document/${document.id}"  value='Delete'>-->
-										<a href="/admin/delete-template/${template.id}"><button
+										<a href="${pageContext.request.contextPath}/admin/delete-template/${template.id}"><button
 												class="btn btn-default">Delete</button></a>
 
 									</td>
@@ -80,9 +80,9 @@
 								<td></td>
 								<td></td>
 								<td style="text-align: right"><a
-									href="/admin/download-templates"><button
+									href="${pageContext.request.contextPath}/admin/download-templates"><button
 											class="btn btn-default">Download All</button></a> <a
-									href="/admin/delete-templates"><button
+									href="${pageContext.request.contextPath}/admin/delete-templates"><button
 											class="btn btn-default">Delete All</button></a> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
 								</td>
 							</tr>
@@ -90,7 +90,7 @@
 					</table>
 				</div>
 				<div class="container" style="margin:1em auto">
-					<form:form action="/admin/new-template/"
+					<form:form action="${pageContext.request.contextPath}/admin/new-template/"
 						modelAttribute="templateFile" enctype="multipart/form-data"
 						method="post">
 						<p>
@@ -99,7 +99,7 @@
 						</p>
 						<p>
 							Please specify a file, or a set of files:<br />
-							<form:input type="file" path="uploadFile"/>
+							<form:input type="file" path="uploadedFile"/>
 						</p>
 						<div>
 							<input class="btn btn-default" type="submit" value="Send" />

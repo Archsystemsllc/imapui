@@ -162,10 +162,14 @@ opacity
 
 
 
+
+
 :
 
 
+
  
+
 
 
 1;
@@ -174,13 +178,19 @@ opacity
 
 
 
+
+
 :
+
 
 
  
 
 
+
 scale
+
+
 
 
 
@@ -191,13 +201,19 @@ transform
 
 
 
+
+
 :
+
 
 
  
 
 
+
 scale
+
+
 
 
 
@@ -220,10 +236,14 @@ opacity
 
 
 
+
+
 :
 
 
+
  
+
 
 
 1;
@@ -232,13 +252,19 @@ opacity
 
 
 
+
+
 :
+
 
 
  
 
 
+
 scale
+
+
 
 
 
@@ -249,13 +275,19 @@ scale
 
 
 
+
+
 :
+
 
 
  
 
 
+
 scale
+
+
 
 
 
@@ -266,13 +298,19 @@ transform
 
 
 
+
+
 :
+
 
 
  
 
 
+
 scale
+
+
 
 
 
@@ -1951,8 +1989,8 @@ ul.social_icons li  a i {
 	z-index: -1;
 }
 
-.pricing-area .price-two .plan-action .btn-primary1:before, .pricing-area .price-two .plan-action .btn-primary1:after
-	{
+.pricing-area .price-two .plan-action .btn-primary1:before,
+	.pricing-area .price-two .plan-action .btn-primary1:after {
 	border-color: #1f8c4d transparent transparent;
 }
 
@@ -1971,8 +2009,8 @@ ul.social_icons li  a i {
 	right: -9px;
 }
 
-.pricing-area .price-six .plan-action .btn-primary1:before, .pricing-area .price-six .plan-action .btn-primary1:after
-	{
+.pricing-area .price-six .plan-action .btn-primary1:before,
+	.pricing-area .price-six .plan-action .btn-primary1:after {
 	border-color: #bf4539 transparent transparent;
 	right: -9px;
 }
@@ -2581,7 +2619,6 @@ shortcodes page css
 	color: #fff;
 	background: #2e2e2e;
 	height: 120px;
-
 }
 
 #footer a {
@@ -2613,9 +2650,11 @@ shortcodes page css
 	width: 120%;
 	overflow: hidden;
 }
-.HypothesisScreen table{
+
+.HypothesisScreen table {
 	margin: 20px auto;
 }
+
 /* -webkit-transform: rotate(-90deg);  */
 /* -moz-transform: rotate(-90deg);  */
 /* -ms-transform: rotate(-90deg);  */

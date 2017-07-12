@@ -33,8 +33,26 @@ public class DataAnalysisController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/dataanalysis")
-    public String barChartDisplay(HttpServletRequest request, Principal currentUser, Model model) {
+	@RequestMapping("admin/dashboard")
+    public String adminDataAnalysisScreen(HttpServletRequest request, Principal currentUser, Model model) {
+		
+		final List<DataAnalysis> dataAnalysisList = dataAnalysisService.findAll();
+		
+		model.addAttribute("dataAnalysisList", dataAnalysisList);
+
+        return "adminDataAnalysis";
+    }
+	
+	/**
+	 * This is the controller method for the DataAnalysis Screen.
+	 * 
+	 * @param request
+	 * @param currentUser
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("user/dashboard")
+    public String userDataAnalysisScreen(HttpServletRequest request, Principal currentUser, Model model) {
 		
 		final List<DataAnalysis> dataAnalysisList = dataAnalysisService.findAll();
 		
@@ -42,5 +60,6 @@ public class DataAnalysisController {
 
         return "dataanalysis";
     }
+
 
 }

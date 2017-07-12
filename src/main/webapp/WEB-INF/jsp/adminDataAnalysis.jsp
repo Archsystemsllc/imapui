@@ -23,23 +23,23 @@
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="admin_header.jsp"></jsp:include>
 	<table style="min-height:600px">
 		<tr>
-			<td
+			<td width="30%"
 				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
 				<div style="color: #fff">
 					<ul style="border-bottom: solid #fff 2px" type="square">
-						<li><h2 style="color: #fff;">Description</h2></li>
+						<li><h2 style="color: #fff;font-family: 'Rubik', sans-serif;">Description</h2></li>
 					</ul>
-					<p style="font-family: 'Rubik', sans-serif;text-align: justify;">From the Base Year to Option
+					<p style="text-align: justify;font-family: 'Rubik', sans-serif;">From the Base Year to Option
 						Year 3 Rural Area Percentage line plot, we would like to see the
 						change trend of the rural area percentage of all combined EPs and
 						GPROs and the difference among reporting options (Claim, Registry,
 						EHR, QCDR and GPROWI)</p>
 				</div>
 			</td>
-			<td style="padding: 10px 105px; vertical-align:top">
+			<td style="padding: 10px 105px;vertical-align:top">
 				<div class="DataAnalysisScreen">
 
 					<script type="text/javascript">console.log("justprint")
@@ -92,8 +92,8 @@
 												<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
 
 												<td style="text-align: center"><a
-															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-														class="button search" id="view" value="View">View</button></a>
+													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+															class="button search" id="view" value="View">View</button></a>
 													<button class="button arrow" id="download" value="Download">Download</button></td>
 
 											</tr>

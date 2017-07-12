@@ -1,12 +1,15 @@
 package com.archsystemsinc.pqrs.configuration;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
  
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { WebMvcConfig.class };
+        return new Class[] { WebMvcConfig.class, WebSecurityConfig.class };
     }
   
     @Override
@@ -25,4 +28,13 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
     	return singleton;
 	}*/
  
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(getMultipartConfigElement());
+    }
+    
+    private MultipartConfigElement getMultipartConfigElement() {
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement("C:/temp/");
+        return multipartConfigElement;
+    }
 }
