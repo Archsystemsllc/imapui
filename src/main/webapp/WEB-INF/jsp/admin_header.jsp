@@ -114,6 +114,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/login">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/dashboard">Hypothesis</a></li>	
 				<li><a href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
 				<li><a href="#">Contact Us</a></li>

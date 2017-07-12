@@ -55,7 +55,7 @@
 
 <style>
 #map {
-	width: 100%;
+	width: 900px;
 	height: 400px;
 }
 
@@ -176,25 +176,24 @@ table {
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2"><input class="btn btn-primary btn-sm"
-								style="display: block; margin: auto; width: 40%;" type="submit"
+							<td colspan="2" style="padding-top:10px"><input class="btn btn-primary btn-sm"
+								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" /></td>
 						</tr>
 					</table>
 				</div>
-				<div class="HypothesisScreen">
+				<div class="HypothesisScreen" style="max-height:520px">
 					<!-- 	<tr>
 					<td></td>
 					<td><input class="btn btn-primary btn-sm"
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
-						width="800px" height="600" style="margin:auto"></iframe>
+					<iframe id='mapIframe' hidden="true" frameborder="0" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
 
 					<div id="messageDisplay"></div>
 
-					<div id="chart-container" style="width: 75%;">
+					<div id="chart-container" style="width: 75%; margin:auto">
 						<canvas id="chart-canvas"></canvas>
 					</div>
 				</div>
