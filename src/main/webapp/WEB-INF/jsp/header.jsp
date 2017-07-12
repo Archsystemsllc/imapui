@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
@@ -46,15 +47,16 @@
 					</div>
 					<div class="col-sm-6 col-xs-8">
 						  <div class="social">
-                            <ul class="social-share">
+						  Welcome ${pageContext.request.userPrincipal.name} | <a href="${pageContext.request.contextPath}">Logout</a>
+<!--                             <ul class="social-share">
                                 <li><a title="facebook" target="_blank" href="https://www.facebook.com/archsystemsllc"><i class="fa fa-facebook"></i></a></li>
                                 <li><a title="twitter" target="_blank" href="https://twitter.com/ArchsystemsMD"><i class="fa fa-twitter"></i></a></li>
                                 <li><a title="linkedin" target="_blank" href="https://www.linkedin.com/company/arch-systems-llc"><i class="fa fa-linkedin"></i></a></li>
                                 <li><a title="youtube" target="_blank" href="https://www.youtube.com/channel/UCCuPoi5quC8DaAoYc2_nq9A"><i class="fa fa-youtube"></i></a></li> 
                                 <li><a title="google+" target="_blank" href="https://plus.google.com/107095612689266148490"><i class="fa fa-google-plus"></i></a></li>
-                                <!-- <li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
-                              <!--   <li><a href="#"><i class="fa fa-skype"></i></a></li> -->
-                            </ul> 
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                            </ul>  -->
                         <%--     <div class="search">
                                 <form role="form">
                                     <input type="text" class="search-form" autocomplete="off" placeholder="Search">
@@ -71,12 +73,12 @@
 		<nav class="navbar navbar-inverse" role="banner">
 			<div class="container">
 				<div class="navbar-header" style="padding-right: 210px;">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
+				<!-- 	<button type="button" class="navbar-toggle" data-toggle="collapse"
 						data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
-					</button>
+					</button> -->
 					<div class="row ">
 						<div class="navbar-brand">
 							<!--<a class="navbar-brand" href="page0.html">-->
