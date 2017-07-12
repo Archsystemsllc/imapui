@@ -32,7 +32,7 @@
 					<ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
 					</ul>
-					<p style="text-align: justify;">From the Base Year to Option
+					<p style="font-family: 'Rubik', sans-serif;text-align: justify;">From the Base Year to Option
 						Year 3 Rural Area Percentage line plot, we would like to see the
 						change trend of the rural area percentage of all combined EPs and
 						GPROs and the difference among reporting options (Claim, Registry,

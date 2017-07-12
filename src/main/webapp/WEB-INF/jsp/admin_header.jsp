@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
 	rel="stylesheet" />
 <link rel="shortcut icon"
@@ -26,8 +27,9 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
-	rel="stylesheet">	
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
+	rel="stylesheet">
 <%-- <link href="${pageContext.request.contextPath}/resources/css/login.css"
 	rel="stylesheet"> --%>
 <link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
@@ -85,41 +87,46 @@
 	</div>
 	<!--/.top-bar--> <nav class="navbar navbar-inverse" role="banner">
 	<div class="container">
-		<div class="navbar-header" style="padding-right: 210px;">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<div class="row ">
-				<div class="navbar-brand">
-					<!--<a class="navbar-brand" href="page0.html">-->
-					<div class="col-sm-5">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/logo.png"
-							alt="logo" height="100px"
-							style="display: block; margin: 0 auto; width: 80%">
+		<table height="110px" >
+			<tr >
+				<td style="padding-bottom: 0px; border:0px; vertical-align: top">
+					<div class="navbar-header">
+						<!-- <button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button> -->
+
+						<div class="navbar-brand" style="display:inline">
+							<!--<a class="navbar-brand" href="page0.html">-->
+							<img
+								src="${pageContext.request.contextPath}/resources/images/logo.png"
+								alt="logo" height="100px" style="float:left;width: 40%">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/ADDA.png"
+								alt="logo" height="100px" style="float:right;width: 45%;">
+						</div>
+
 					</div>
-					<div class="col-sm-5">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/ADDA.png"
-							alt="logo" height="100px"
-							style="display: block; margin: 0 auto; width: 100%;">
+				</td>
+				<td width="51%" style="vertical-align: bottom;border:0px; padding: 0px">
+					<div class="collapse navbar-collapse navbar-right">
+						<ul class="nav navbar-nav">
+							<li class="active" style="margin-left:0px"><a
+								href="${pageContext.request.contextPath}/login">Home</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/dashboard">Hypothesis</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div class="collapse navbar-collapse navbar-right">
-			<ul class="nav navbar-nav">
-				<li class="active"><a
-					href="${pageContext.request.contextPath}/login">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/dashboard">Hypothesis</a></li>	
-				<li><a href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
-				<li><a href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
-				<li><a href="#">Contact Us</a></li>
-			</ul>
-		</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 	<!--/.container--> </nav> <!--/nav--> </header>
 </body>
