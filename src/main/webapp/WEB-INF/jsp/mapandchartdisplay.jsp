@@ -95,6 +95,17 @@ table {
 	border-collapse: separate;
 	border-spacing: 10px;
 }
+
+#loading-gif{
+	margin-left: 8cm;
+	margin-top: 2cm;	
+}
+
+#loading-gif img{
+	height: 90px;
+    width: 90px;	
+}
+
 </style>
 </head>
 
@@ -190,24 +201,27 @@ table {
 						id="displayreport" /></td>
 				</tr> -->
 					<iframe id='mapIframe' hidden="true" frameborder="0" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
-
+                    
 					<div id="messageDisplay"></div>
 
 					<div id="chart-container" style="width: 75%; margin:auto">
-						<canvas id="chart-canvas"></canvas>
+					    <div id="loading-gif" hidden="true" ><img src="${pageContext.request.contextPath}/resources/images/loading3.gif"/></div>
+						<canvas id="chart-canvas"></canvas>						
 					</div>
 				</div>
+				
 			</td>
 		</tr>
 	</table>
-	<script>
+	<script>	    
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
 		var serverContextPath = '${pageContext.request.contextPath}';
 	
 		btn.addEventListener("click", function() {
-	
+			$('#loading-gif').show();
+			$('#chart-canvas').hide();
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
 	
@@ -245,8 +259,10 @@ table {
 			}
 	
 			var ourRequest = new XMLHttpRequest();
-			ourRequest.open('GET', url);
+			ourRequest.open('GET', url);			
 			ourRequest.onload = function() {
+				$('#loading-gif').hide();
+				$('#chart-canvas').show();
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
