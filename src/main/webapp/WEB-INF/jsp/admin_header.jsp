@@ -52,8 +52,9 @@
 				</div>
 				<div class="col-sm-6 col-xs-8">
 					<div class="social">
-						<ul class="social-share">
-							<li><a title="facebook" target="_blank"
+					Welcome ${pageContext.request.userPrincipal.name} | <a href="${pageContext.request.contextPath}">Logout</a>
+						<!-- <ul class="social-share"> -->
+					<!-- 		<li><a title="facebook" target="_blank"
 								href="https://www.facebook.com/archsystemsllc"><i
 									class="fa fa-facebook"></i></a></li>
 							<li><a title="twitter" target="_blank"
@@ -67,10 +68,10 @@
 									class="fa fa-youtube"></i></a></li>
 							<li><a title="google+" target="_blank"
 								href="https://plus.google.com/107095612689266148490"><i
-									class="fa fa-google-plus"></i></a></li>
+									class="fa fa-google-plus"></i></a></li> -->
 							<!-- <li><a href="#"><i class="fa fa-dribbble"></i></a></li> -->
 							<!--   <li><a href="#"><i class="fa fa-skype"></i></a></li> -->
-						</ul>
+				<!-- 		</ul> -->
 						<%--     <div class="search">
                                 <form role="form">
                                     <input type="text" class="search-form" autocomplete="off" placeholder="Search">
