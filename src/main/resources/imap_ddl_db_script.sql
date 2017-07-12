@@ -242,3 +242,39 @@ CREATE TABLE `interactive_maps_uat`.`rate_lookup` (
   `updated_by` VARCHAR(255) NULL,
   `updated_date` DATE NULL,
   PRIMARY KEY (`id`));
+
+  
+--
+-- Table structure for table `RF_TEMPLATE_PROVIDER`
+--
+ CREATE TABLE `RF_TEMPLATE_PROVIDER` (
+  `id` int(11) NOT NULL,
+  `year` text,
+  `reporting_option` text,
+  `parameter` text,
+  `yes_value` int(11) DEFAULT NULL,
+  `no_value` int(11) DEFAULT NULL,
+  `yes_count` int(11) DEFAULT NULL,
+  `no_count` int(11) DEFAULT NULL,
+  `yes_percent` text,
+  `no_percent` text,
+  `total_sum` int(11) DEFAULT NULL,
+  `rp_percent` int(11) DEFAULT NULL,
+  `data_analysis_id` int(11) DEFAULT NULL,
+  `rate_name` text
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `fk_user_role_roleid_idx` (`role_id`),
+  CONSTRAINT `fk_user_role_roleid` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_role_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
