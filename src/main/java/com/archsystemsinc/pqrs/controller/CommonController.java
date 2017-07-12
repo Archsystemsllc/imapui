@@ -26,9 +26,15 @@ public class CommonController {
 	public String home(){
 		return "welcome";
 	}
-	@RequestMapping("/reportingHome")
+	@RequestMapping(value="/reportingHome", method = RequestMethod.GET)
 	public String reportingHome(){
+		log.debug("<- reportingHome ->");
 		return "reporting_home";
+	}
+	@RequestMapping(value="/admin", method = RequestMethod.GET)
+	public String admin(){
+		log.debug("<- admin ->");
+		return "admin";
 	}
 	@RequestMapping(value="/imapServicesApi", method = RequestMethod.GET)
 	public @ResponseBody String imapServicesApi(){
