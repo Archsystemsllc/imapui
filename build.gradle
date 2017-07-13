@@ -17,8 +17,8 @@ dependencies {
     compile 'org.springframework:spring-jdbc:4.3.4.RELEASE'
     compile 'org.springframework:spring-orm:4.3.4.RELEASE'
     compile 'org.springframework.data:spring-data-jpa:1.9.4.RELEASE'
-    //compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
-  //  compile 'org.springframework.security:spring-security-taglibs:4.0.1.RELEASE'
+   compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
+   compile 'org.springframework.security:spring-security-taglibs:4.0.1.RELEASE'
     compile 'org.springframework.security:spring-security-web:4.1.4.RELEASE'
     compile 'org.springframework.security:spring-security-config:4.1.4.RELEASE'
    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto

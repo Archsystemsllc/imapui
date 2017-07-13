@@ -110,17 +110,17 @@ table {
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="admin_header.jsp"></jsp:include>
 
-	<table style="min-height: 600px;">
+	<table style="min-height: 700px;">
 		<tr>
 			<td
 				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px; width: 30%">
 				<div style="color: #fff">
-					<ul style="border-bottom: solid #fff 2px" type="square">
+					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
-					</ul>
-					<p style="text-align: justify;">From the Base Year to Option
+					</ul> -->
+					<p style="text-align: justify;"><br><br>From the Base Year to Option
 						Year 3 Rural Area Percentage line plot, we would like to see the
 						change trend of the rural area percentage of all combined EPs and
 						GPROs and the difference among reporting options (Claim, Registry,
@@ -128,6 +128,7 @@ table {
 				</div>
 			</td>
 			<td style="vertical-align: top;">
+			<h2 style="text-align:center">Interactive Data Analysis</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
@@ -189,7 +190,7 @@ table {
 						<tr>
 							<td colspan="2" style="padding-top:10px"><input class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
-								id="displayreport" /></td>
+								id="displayreport" value="Submit"/></td>
 						</tr>
 					</table>
 				</div>
@@ -200,7 +201,7 @@ table {
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<iframe id='mapIframe' hidden="true" frameborder="0" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
+					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
                     
 					<div id="messageDisplay"></div>
 
@@ -300,7 +301,11 @@ table {
 						title : {
 							display : true,
 							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary',
+<<<<<<< HEAD
 							padding: 20
+=======
+							padding:20
+>>>>>>> branch 'master' of https://github.com/Archsystemsllc/imapui.git
 						},
 						animation : {
 							duration : 1,
@@ -516,8 +521,35 @@ table {
 		};
 	
 		document.getElementById("reportTypeId").onchange = function() {
+			console.log('Inside on change..');
 			var x = document.getElementById("reportTypeId").value;
+			console.log('value of x:'+x);
+			
+			if (x == 'Bar Chart') {
+				// Set the Parameter as "ALL" for Bar Chart
+				$("#parameterLookupId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#parameterLookupId').val(this.value);
+						}
+				});
+			}
+			
+			if (x == 'Line Chart') {
+				// Set Option Year as "ALL" for Line Chart
+				$("#yearLookUpId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#yearLookUpId').val(this.value);
+						}
+				});
+				// Set Reporting Option as "ALL" for Line Chart
+				$("#reportingOptionLookupId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#reportingOptionLookupId').val(this.value);
+						}
+				});
+			}
 			if (x == 'Map') {
+				console.log('Map..');
 				var x = document.getElementById("yesOrNoOptionRow")
 				x.hidden = false;
 			} else {
