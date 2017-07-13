@@ -46,11 +46,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-xs-4">
-					<div class="top-number">
+					<!-- <div class="top-number">
 						<p>
 							<i class="fa fa-phone"></i> +1 (410) 277-9781
 						</p>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-sm-6 col-xs-8">
 					<div class="social">

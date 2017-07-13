@@ -56,20 +56,20 @@
 
 .button {
 	min-width: 15em;
-	margin:2px;
+	margin: 2px;
 }
 
 .arrow {
 	/* background: #FE5F55; */
-	 background: #5D6D7E;
+	background: #95A5A6;
 }
 
 .arrow:hover {
-	background:#1B2631;
+	background: #5D6D7E;
 }
 
 .arrow:active, .arrow:focus {
-	background: #b90c01;
+	background: #1B2631;
 }
 
 .arrow:after {
@@ -137,7 +137,8 @@
 	transform: scale(1.4);
 }
 
-@-webkit-keyframes bounceright {from { -webkit-transform:translateY(-3px);
+@
+-webkit-keyframes bounceright {from { -webkit-transform:translateY(-3px);
 	
 }
 
@@ -146,7 +147,8 @@ to {
 }
 
 }
-@-webkit-keyframes wiggle {from { -webkit-transform:rotate(0deg);
+@
+-webkit-keyframes wiggle {from { -webkit-transform:rotate(0deg);
 	
 }
 
@@ -155,11 +157,22 @@ to {
 }
 
 }
-@keyframes bounceright {
-	from { transform: translateY(-3px);}to{transform: translateY(3px);
+@
+keyframes bounceright {from { transform:translateY(-3px);
+	
+}
+
+to {
+	transform: translateY(3px);
 }
 
 }
-@keyframes wiggle {
-	from { transform: rotate(0deg);}to{transform: rotate(30deg);}
+@
+keyframes wiggle {from { transform:rotate(0deg);
+	
+}
+
+to {
+	transform: rotate(30deg);
+}
 }

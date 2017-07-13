@@ -189,7 +189,7 @@ table {
 						<tr>
 							<td colspan="2" style="padding-top:10px"><input class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
-								id="displayreport" /></td>
+								id="displayreport" value="Submit"/></td>
 						</tr>
 					</table>
 				</div>
