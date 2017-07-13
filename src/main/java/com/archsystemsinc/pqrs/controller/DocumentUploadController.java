@@ -108,11 +108,9 @@ public class DocumentUploadController {
 			System.out.println("Exception in Documents Upload page: " + e.getMessage());	
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("documentuploaderror","error.import.document");			
-		}	
+		}			
 		
-		//model.addAttribute("documentFileUpload", new DocumentUpload());
-		return "redirect:/admin/documentupload";
-		
+		return "redirect:/admin/documentupload";		
 	}
 
 	
@@ -135,17 +133,13 @@ public class DocumentUploadController {
 				totalNumberOfRows = providersFileRowCount - 1;
 				String stringResult = "";
 
-			
-				
-				//long yearId =  2;
-
 				while (providersFileRowIterator.hasNext()) 
 				{
 					Row providersFileRow = (Row) providersFileRowIterator.next();
 					
 					returnObjects = new ArrayList<Object>();
 					
-					if (providersFileRow.getRowNum() > 0 && providersFileRow.getRowNum() <= providersFileRowCount)
+					if (providersFileRow.getRowNum() >= 0 && providersFileRow.getRowNum() <= providersFileRowCount)
 					{
 						System.out.println("ROW - " + providersFileRow.getRowNum());
 						Iterator<Cell> iterator = providersFileRow.cellIterator();
@@ -154,8 +148,28 @@ public class DocumentUploadController {
 						
 						while (iterator.hasNext()) 
 						{
-							Cell hssfCell = (Cell) iterator.next();
+							Cell hssfCell = iterator.next();
 							int cellIndex = hssfCell.getColumnIndex();
+							
+							if(providersFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("id")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("year")
+									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("reporting_option")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("parameter")
+								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("yes_value")
+									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("no_value")
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("yes_count")
+									|| cellIndex == 7 && !hssfCell.getStringCellValue().equals("no_count")
+									|| cellIndex == 8 && !hssfCell.getStringCellValue().equals("yes_percent")
+									|| cellIndex == 9 && !hssfCell.getStringCellValue().equals("no_percent")
+									|| cellIndex == 10 && !hssfCell.getStringCellValue().equals("total_sum")
+									|| cellIndex == 11 && !hssfCell.getStringCellValue().equals("rpPercent")
+										){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
 							
 							switch (cellIndex) 
 							{
@@ -243,7 +257,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_NUMERIC:	
-				                	provider.setYesPercent(hssfCell.getNumericCellValue());
+				                	provider.setYesPercent(hssfCell.getNumericCellValue()*100);
 				                    break;								
 								}
 								break;
@@ -252,7 +266,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_NUMERIC:	
-				                	provider.setNoPercent(hssfCell.getNumericCellValue());
+				                	provider.setNoPercent(hssfCell.getNumericCellValue()*100);
 				                    break;								
 								}
 								break;
@@ -270,7 +284,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_NUMERIC:	
-				                	provider.setRpPercent(hssfCell.getNumericCellValue());
+				                	provider.setRpPercent(hssfCell.getNumericCellValue()*100);
 				                	provider.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
 				                	provider.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
 				                	//System.out.println("hyp ID: " + documentFileUpload.getProviderHypId());
@@ -318,7 +332,7 @@ public class DocumentUploadController {
 					
 					returnObjects = new ArrayList<Object>();
 					
-					if (stateStatFileRow.getRowNum() > 0 && stateStatFileRow.getRowNum() <= stateStatFileRowCount)
+					if (stateStatFileRow.getRowNum() >= 0 && stateStatFileRow.getRowNum() <= stateStatFileRowCount)
 					{
 						System.out.println("ROW - " + stateStatFileRow.getRowNum());
 						Iterator<Cell> iterator = stateStatFileRow.cellIterator();
@@ -329,6 +343,21 @@ public class DocumentUploadController {
 						{
 							Cell hssfCell = (Cell) iterator.next();
 							int cellIndex = hssfCell.getColumnIndex();
+							
+							if(stateStatFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("STATE")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("YEAR")
+									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("EP or GPRO")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("RURAL or URBAN")
+								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("YES or NO")
+									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("Report_O")
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("COUNT")
+								){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
 							
 							switch (cellIndex) 
 							{
@@ -403,9 +432,11 @@ public class DocumentUploadController {
 								{
 								
 								case Cell.CELL_TYPE_NUMERIC:
-									 System.out.println("start");
+									System.out.println("start");
 				                    statewiseStatistic.setCount(BigInteger.valueOf((int)hssfCell.getNumericCellValue()));
 				                    System.out.println("Count" + hssfCell.getNumericCellValue());
+				                    statewiseStatistic.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
+				                    statewiseStatistic.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
 				                    statewiseStatisticService.create(statewiseStatistic);
 				                    System.out.println("stop");
 				                    break;								

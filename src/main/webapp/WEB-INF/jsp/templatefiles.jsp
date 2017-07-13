@@ -89,6 +89,11 @@
 						</tbody>
 					</table>
 				</div>
+				<c:if test="${not empty fileuploaderror}">
+				<div class="successblock">
+							<spring:message code="${fileuploaderror}"></spring:message>
+						</div>
+				</c:if>
 				<div class="container" style="margin:1em auto">
 					<form:form action="${pageContext.request.contextPath}/admin/new-template/"
 						modelAttribute="templateFile" enctype="multipart/form-data"

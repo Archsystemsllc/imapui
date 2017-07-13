@@ -69,8 +69,7 @@
 						</div>
 					</c:if>
 					<c:if test="${not empty documentuploaderror}">
-						<br />
-						<p>${documentuploaderror}</p>
+						<br />						
 						<div class="successblock">
 							<spring:message code="${documentuploaderror}"></spring:message>
 						</div>
