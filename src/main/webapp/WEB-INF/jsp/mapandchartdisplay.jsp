@@ -301,11 +301,7 @@ table {
 						title : {
 							display : true,
 							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary',
-<<<<<<< HEAD
 							padding: 20
-=======
-							padding:20
->>>>>>> branch 'master' of https://github.com/Archsystemsllc/imapui.git
 						},
 						animation : {
 							duration : 1,
