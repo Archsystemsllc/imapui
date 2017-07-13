@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rubik"
+	rel="stylesheet">
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
@@ -24,18 +25,19 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/login.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
+	rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- [if lt IE 9] -->
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <!--     [endif] -->
 </head>
-<body>
-<header id="header">
-		<%-- <div class="top-bar">
+<body id="b">
+	<header id="header"> <%-- <div class="top-bar">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6 col-xs-4">
@@ -68,48 +70,70 @@
 				</div>
 			</div>
 			<!--/.container-->
-		</div> --%>
-		<!--/.top-bar-->
-		<nav class="navbar navbar-inverse" role="banner">
-			<div class="container">
-				<div class="navbar-header" style="min-height:110px;">
-				<!-- 	<button type="button" class="navbar-toggle" data-toggle="collapse"
+		</div> --%> <!--/.top-bar--> <nav class="navbar navbar-inverse"
+		role="banner">
+	<div class="container">
+		<div class="navbar-header" style="min-height: 110px;">
+			<!-- 	<button type="button" class="navbar-toggle" data-toggle="collapse"
 						data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button> -->
-					<div class="row ">
-						<div class="navbar-brand">
-							<!--<a class="navbar-brand" href="page0.html">-->
-							<div class="col-sm-5">
-								<img
-									src="${pageContext.request.contextPath}/resources/images/logo.png"
-									alt="logo" height="100px"
-									style="display: block; margin: 0 auto; width: 80%">
-							</div>
-							<div class="col-sm-5">
-								<img
-									src="${pageContext.request.contextPath}/resources/images/ADDA.png"
-									alt="logo" height="100px"
-									style="display: block; margin: 0 auto; width: 100%;">
-							</div>
+			<div class="row ">
+				<div class="navbar-brand">
+					<!--<a class="navbar-brand" href="page0.html">-->
+					<div class="col-sm-5">
+						<img
+							src="${pageContext.request.contextPath}/resources/images/logo.png"
+							alt="logo" height="100px"
+							style="display: block; margin: 0 auto; width: 80%">
+					</div>
+					<div class="col-sm-5">
+						<img
+							src="${pageContext.request.contextPath}/resources/images/ADDA.png"
+							alt="logo" height="100px"
+							style="display: block; margin: 0 auto; width: 100%;">
+					</div>
+					<div class="col-sm-2">
+						<div style="float: right; padding-top: 60px; height: 100px">
+							<button class="btn btn-primary btn-xs"
+								onclick="increaseFontSizeBy1px()">
+								<i class="fa fa-search-plus"></i>
+							</button>
+							<button class="btn btn-primary btn-xs"
+								onclick="decreaseFontSizeBy1px()">
+								<i class="fa fa-search-minus"></i>
+							</button>
 						</div>
 					</div>
 				</div>
-			<%-- 	<div class="collapse navbar-collapse navbar-right">
+			</div>
+		</div>
+		<%-- 	<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="${pageContext.request.contextPath}/login">Home</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/dashboard">Hypothesis</a></li>
 						<li><a href="#">Contact Us</a></li>
 					</ul>
 				</div> --%>
-			</div>
-			<!--/.container-->
-		</nav>
-		<!--/nav-->
-
-
-	</header>
+	</div>
+	<!--/.container--> </nav> <!--/nav--> </header>
+	<script>
+		function increaseFontSizeBy1px() {
+			var font = parseInt($('#b').css('font-size'));
+	
+			font++;
+			document.getElementById('b').style.fontSize = font + "px";
+		}
+		function decreaseFontSizeBy1px() {
+			var font = parseInt($('#b').css('font-size'));
+	
+			font = font - 1;
+			document.getElementById('b').style.fontSize = font + "px";
+		}
+	</script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 </html>

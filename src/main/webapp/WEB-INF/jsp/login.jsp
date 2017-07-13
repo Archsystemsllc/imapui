@@ -36,17 +36,18 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/login.css"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
+	rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- [if lt IE 9] -->
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <!--     [endif] -->
 </head>
 
-<body>
+<body id="b">
 	<jsp:include page="header_home.jsp" />
-	<div class="container">
+	<div class="container" style="min-height: 580px">
 		<div class="row">
 			<div class="col-xs-8">
 				<br>
@@ -54,13 +55,15 @@
 					<tr>
 						<td><img
 							src="${pageContext.request.contextPath}/resources/images/big-data-theree.png"
-							style="height: 100%; width: 100%; margin:auto"></img></td>
+							style="height: 100%; width: 100%; margin: auto"></img></td>
 					</tr>
 					<tr>
 						<td><br></td>
 					</tr>
 					<tr>
-						<td style="font-family: 'Architects Daughter', cursive; font-size:50px; text-align:center">Hello, I am ADDA!
+						<td
+							style="font-family: 'Architects Daughter', cursive; font-size: 50px; text-align: center">Hello,
+							I am ADDA!
 						<td>
 					<tr>
 				</table>
@@ -71,16 +74,18 @@
 						<div class="login-screen">
 							<form method="POST" action="${contextPath}/login"
 								class="form-signin">
-								<h2 style="text-align: center;">PQRS - Interactive Map</h2>
-								<br>
-								<h4 class='app-title'>Login</h4>
+								<!-- <h2 style="text-align: center;">PQRS - Interactive Map</h2>
+								<br> -->
+								<h1 class='app-title'>
+									Login<br> <br>
+								</h1>
 								<div class="form-group ${error != null ? 'has-error' : ''}">
 									<span>${message}</span> <input name="username" type="text"
-										class="form-control" placeholder="Username" autofocus="true" />
+										class="form-control" placeholder="Username" autofocus="true" /><br>
 									<input name="password" type="password" class="form-control"
-										placeholder="Password" /> <span>${error}</span> <input
+										placeholder="Password" /> <span>${error}</span><input
 										type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
+										value="${_csrf.token}" /><br>
 								</div>
 								<button class="btn btn-lg btn-primary btn-block" type="submit">Log
 									In</button>
