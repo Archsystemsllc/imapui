@@ -23,92 +23,94 @@
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
-	<table style="min-height:600px">
-		<tr>
-			<td
-				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
-				<div style="color: #fff">
-					<ul style="border-bottom: solid #fff 2px" type="square">
-						<li><h2 style="color: #fff;">Description</h2></li>
-					</ul>
-					<p style="font-family: 'Rubik', sans-serif;text-align: justify;">From the Base Year to Option
-						Year 3 Rural Area Percentage line plot, we would like to see the
-						change trend of the rural area percentage of all combined EPs and
-						GPROs and the difference among reporting options (Claim, Registry,
-						EHR, QCDR and GPROWI)</p>
-				</div>
-			</td>
-			<td style="padding: 10px 105px; vertical-align:top">
-				<div class="DataAnalysisScreen">
+	<jsp:include page="admin_header.jsp">
 
-					<script type="text/javascript">console.log("justprint")
-					</script>
-					<div class="table-users">
-						<div class="header">Data Analysis</div>
+		<table style="min-height: 600px">
+			<tr>
+				<td
+					style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
+					<div style="color: #fff">
+						<!-- <ul style="border-bottom: solid #fff 2px" type="square">
+							<li><h2 style="color: #fff;">Description</h2></li>
+						</ul> -->
+						<p style="font-family: 'Rubik', sans-serif; text-align: justify;">From
+							the Base Year to Option Year 3 Rural Area Percentage line plot,
+							we would like to see the change trend of the rural area
+							percentage of all combined EPs and GPROs and the difference among
+							reporting options (Claim, Registry, EHR, QCDR and GPROWI)</p>
+					</div>
+				</td>
+				<td style="padding: 10px 105px; vertical-align: top">
+					<div class="DataAnalysisScreen">
 
-						<table id="dataAnalysisTableId" class="display">
-							<thead style="font-weight: bold">
-								<tr>
-									<th align="center">Data Analysis Name</th>
-									<th align="center">Description</th>
-									<th align="center">Action</th>
-								</tr>
-							</thead>
+						<script type="text/javascript">console.log("justprint")
+						</script>
+						<div class="table-users">
+							<div class="header">Data Analysis</div>
 
-							<tbody>
-
-								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
+							<table id="dataAnalysisTableId" class="display">
+								<thead style="font-weight: bold">
 									<tr>
-										<td><a
-											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
-										</td>
-
-										<td style="text-align: center">${dataAnalysis.dataAnalysisDescription}</td>
-
-										<td style="text-align: center"><a
-											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
-													class="button search" id="view" value="View">View</button></a>
-											<button class="button arrow" id="download" value="Download">Download</button>
-										</td>
-
+										<th align="center">Data Analysis Name</th>
+										<th align="center">Description</th>
+										<th align="center">Action</th>
 									</tr>
+								</thead>
 
-									<c:forEach items="${dataAnalysis.subDataAnalysis}"
-										var="subDataAnalysis">
+								<tbody>
 
-										<c:if
-											test="${subDataAnalysis.subDataAnalysisName ne 'Not Applicable'}">
+									<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
+										<tr>
+											<td><a
+												href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
+											</td>
 
-											<tr>
-												<td>
-													<ul>
-														<li><a
-															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
-														</li>
-													</ul>
-												</td>
+											<td style="text-align: center">${dataAnalysis.dataAnalysisDescription}</td>
 
-												<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
-
-												<td style="text-align: center"><a
-															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+											<td style="text-align: center"><a
+												href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
 														class="button search" id="view" value="View">View</button></a>
-													<button class="button arrow" id="download" value="Download">Download</button></td>
+												<button class="button arrow" id="download" value="Download">Download</button>
+											</td>
 
-											</tr>
+										</tr>
 
-										</c:if>
+										<c:forEach items="${dataAnalysis.subDataAnalysis}"
+											var="subDataAnalysis">
+
+											<c:if
+												test="${subDataAnalysis.subDataAnalysisName ne 'Not Applicable'}">
+
+												<tr>
+													<td>
+														<ul>
+															<li><a
+																href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
+															</li>
+														</ul>
+													</td>
+
+													<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
+
+													<td style="text-align: center"><a
+														href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+																class="button search" id="view" value="View">View</button></a>
+														<button class="button arrow" id="download"
+															value="Download">Download</button></td>
+
+												</tr>
+
+											</c:if>
+
+										</c:forEach>
 
 									</c:forEach>
 
-								</c:forEach>
+								</tbody>
 
-							</tbody>
+							</table>
 
-						</table>
-
-						<!-- 	
+							<!-- 	
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $('#dataAnalysisTableId').DataTable();
@@ -116,11 +118,10 @@
 </script>
 
  -->
+						</div>
 					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
-	<jsp:include page="footer.jsp"></jsp:include>
-</body>
+				</td>
+			</tr>
+		</table>
+		<jsp:include page="footer.jsp"></jsp:include></body>
 </html>

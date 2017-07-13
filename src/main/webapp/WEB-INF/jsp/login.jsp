@@ -45,7 +45,7 @@
 </head>
 
 <body>
-	<jsp:include page="header.jsp" />
+	<jsp:include page="header_home.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8">
