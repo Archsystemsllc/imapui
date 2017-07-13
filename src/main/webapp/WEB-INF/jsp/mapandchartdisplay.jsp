@@ -15,8 +15,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/common.css"
-	rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/common.css"
+	rel="stylesheet"> --%>
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
@@ -239,7 +239,8 @@ table {
 				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
 			}
 			if (reportTypeSelectedText == "Map") {
-				document.getElementById("mapIframe").hidden = false;
+				//document.getElementById("mapIframe").hidden = false;				
+				$('#mapIframe').hide();
 				var epGpro = '0';
 				if (reportingOptionSelectedText == "CLAIMS" || reportingOptionSelectedText == "EHR"
 					|| reportingOptionSelectedText == "REGISTRY"
@@ -255,6 +256,8 @@ table {
 				var yearId = document.getElementById("yearLookUpId").value;
 				var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
 				var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
+				$('#loading-gif').hide();
+				$('#mapIframe').show();
 				document.getElementById("mapIframe").src = url;
 			}
 	
@@ -296,7 +299,8 @@ table {
 						responsive : true,
 						title : {
 							display : true,
-							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary'
+							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary',
+							padding: 20
 						},
 						animation : {
 							duration : 1,
@@ -307,7 +311,7 @@ table {
 								ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
 								ctx.textAlign = 'center';
 								ctx.textBaseline = 'bottom';
-	
+								
 								this.data.datasets.forEach(function(dataset, i) {
 									var meta = chartInstance.controller.getDatasetMeta(i);
 									meta.data.forEach(function(bar, index) {
