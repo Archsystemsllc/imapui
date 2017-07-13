@@ -514,8 +514,35 @@ table {
 		};
 	
 		document.getElementById("reportTypeId").onchange = function() {
+			console.log('Inside on change..');
 			var x = document.getElementById("reportTypeId").value;
+			console.log('value of x:'+x);
+			
+			if (x == 'Bar Chart') {
+				// Set the Parameter as "ALL" for Bar Chart
+				$("#parameterLookupId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#parameterLookupId').val(this.value);
+						}
+				});
+			}
+			
+			if (x == 'Line Chart') {
+				// Set Option Year as "ALL" for Line Chart
+				$("#yearLookUpId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#yearLookUpId').val(this.value);
+						}
+				});
+				// Set Reporting Option as "ALL" for Line Chart
+				$("#reportingOptionLookupId > option").each(function() {
+					if (this.text == 'ALL') {
+							$('#reportingOptionLookupId').val(this.value);
+						}
+				});
+			}
 			if (x == 'Map') {
+				console.log('Map..');
 				var x = document.getElementById("yesOrNoOptionRow")
 				x.hidden = false;
 			} else {

@@ -57,7 +57,6 @@
 							<thead style="font-weight: bold">
 								<tr>
 									<th align="center">Data Analysis Name</th>
-									<th align="center">Description</th>
 									<th align="center">Action</th>
 								</tr>
 							</thead>
@@ -69,8 +68,6 @@
 										<td><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 										</td>
-
-										<td style="text-align: center">${dataAnalysis.dataAnalysisDescription}</td>
 
 										<td style="text-align: center"><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
