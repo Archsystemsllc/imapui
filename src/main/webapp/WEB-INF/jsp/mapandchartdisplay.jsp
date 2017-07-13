@@ -15,8 +15,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/common.css"
-	rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/common.css"
+	rel="stylesheet"> --%>
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
@@ -110,17 +110,17 @@ table {
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="admin_header.jsp"></jsp:include>
 
-	<table style="min-height: 600px;">
+	<table style="min-height: 700px;">
 		<tr>
 			<td
 				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px; width: 30%">
 				<div style="color: #fff">
-					<ul style="border-bottom: solid #fff 2px" type="square">
+					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
-					</ul>
-					<p style="text-align: justify;">From the Base Year to Option
+					</ul> -->
+					<p style="text-align: justify;"><br><br>From the Base Year to Option
 						Year 3 Rural Area Percentage line plot, we would like to see the
 						change trend of the rural area percentage of all combined EPs and
 						GPROs and the difference among reporting options (Claim, Registry,
@@ -128,6 +128,7 @@ table {
 				</div>
 			</td>
 			<td style="vertical-align: top;">
+			<h2 style="text-align:center">Interactive Data Analysis</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
@@ -200,7 +201,7 @@ table {
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<iframe id='mapIframe' hidden="true" frameborder="0" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
+					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
                     
 					<div id="messageDisplay"></div>
 
@@ -296,7 +297,8 @@ table {
 						responsive : true,
 						title : {
 							display : true,
-							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary'
+							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary',
+							padding:20
 						},
 						animation : {
 							duration : 1,

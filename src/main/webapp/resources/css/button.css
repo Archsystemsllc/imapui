@@ -137,8 +137,7 @@
 	transform: scale(1.4);
 }
 
-@
--webkit-keyframes bounceright {from { -webkit-transform:translateY(-3px);
+@-webkit-keyframes bounceright {from { -webkit-transform:translateY(-3px);
 	
 }
 
@@ -147,8 +146,7 @@ to {
 }
 
 }
-@
--webkit-keyframes wiggle {from { -webkit-transform:rotate(0deg);
+@-webkit-keyframes wiggle {from { -webkit-transform:rotate(0deg);
 	
 }
 
@@ -157,8 +155,7 @@ to {
 }
 
 }
-@
-keyframes bounceright {from { transform:translateY(-3px);
+@keyframes bounceright {from { transform:translateY(-3px);
 	
 }
 
@@ -167,8 +164,7 @@ to {
 }
 
 }
-@
-keyframes wiggle {from { transform:rotate(0deg);
+@keyframes wiggle {from { transform:rotate(0deg);
 	
 }
 

@@ -49,6 +49,7 @@ table td {
 	/*   text-align: center; */
 	vertical-align: middle;
     border-bottom: solid 1px;
+    border-top: solid 1px;
 }
 table td a{
 	 font-weight: bold;

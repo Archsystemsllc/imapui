@@ -8,7 +8,8 @@
 <head>
 <title>Hypothesis</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -33,21 +34,22 @@
 	</c:if> --%>
 
 
-	<sec:authorize access="hasAuthority('Administrator') and hasAuthority('Report Viewer')">
+	<sec:authorize
+		access="hasAuthority('Administrator') and hasAuthority('Report Viewer')">
 		<jsp:include page="admin_header.jsp"></jsp:include>
 	</sec:authorize>
-	
+
 	<table style="min-height: 600px">
 
 		<tr>
 			<td width="30%"
 				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
 				<div style="color: #fff">
-					<ul style="border-bottom: solid #fff 2px" type="square">
+					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2
 								style="color: #fff; font-family: 'Rubik', sans-serif;">Description</h2></li>
-					</ul>
-					<p style="text-align: justify; font-family: 'Rubik', sans-serif;">From
+					</ul> -->
+					<p style="text-align: justify; font-family: 'Rubik', sans-serif;"><br><br>From
 						the Base Year to Option Year 3 Rural Area Percentage line plot, we
 						would like to see the change trend of the rural area percentage of
 						all combined EPs and GPROs and the difference among reporting
@@ -79,7 +81,7 @@
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 										</td>
 
-										<td style="text-align: center">${dataAnalysis.dataAnalysisDescription}</td>
+										<td style="text-align:justify; text-align-last: center;">${dataAnalysis.dataAnalysisDescription}</td>
 
 										<td style="text-align: center"><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
@@ -96,7 +98,7 @@
 											test="${subDataAnalysis.subDataAnalysisName ne 'Not Applicable'}">
 
 											<tr>
-												<td>
+												<td style="border:0px">
 													<ul>
 														<li><a
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
@@ -104,9 +106,9 @@
 													</ul>
 												</td>
 
-												<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
+												<td style="text-align-last: center;border:0px;text-align:justify;">${subDataAnalysis.subDataAnalysisDescription}</td>
 
-												<td style="text-align: center"><a
+												<td style="text-align-last: center;border:0px"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 															class="button search" id="view" value="View">View</button></a>
 													<button class="button arrow" id="download" value="Download">Download</button></td>
