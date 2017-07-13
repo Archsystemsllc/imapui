@@ -41,9 +41,8 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <!--     [endif] -->
 </head>
-<body>
-	<header id="header">
-	<%-- <div class="top-bar">
+<body id="b">
+	<header id="header"> <%-- <div class="top-bar">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-xs-4">
@@ -87,12 +86,12 @@
 			</div>
 		</div>
 		<!--/.container-->
-	</div> --%>
-	<!--/.top-bar--> <nav class="navbar navbar-inverse" role="banner">
+	</div> --%> <!--/.top-bar--> <nav class="navbar navbar-inverse"
+		role="banner">
 	<div class="container">
 		<table height="110px">
 			<tr>
-				<td rowspan="2"
+				<td rowspan="3"
 					style="padding-bottom: 0px; border: 0px; vertical-align: top">
 					<div class="navbar-header">
 						<!-- <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -120,10 +119,23 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td width="40%"
+				<td style="float: right;border:0px"><button class="btn btn-primary btn-xs"
+						onclick="increaseFontSizeBy1px()">
+						<i class="fa fa-search-plus"></i>
+					</button>
+					<button class="btn btn-primary btn-xs"
+						onclick="decreaseFontSizeBy1px()">
+						<i class="fa fa-search-minus"></i>
+					</button> <!-- <input type="button" value="Increase Font Size 1px"
+					onclick="increaseFontSizeBy1px()"> <input type="button"
+					value="Increase Font Size 1px" onclick="decreaseFontSizeBy1px()"> -->
+				</td>
+			</tr>
+			<tr>
+				<td width="50%"
 					style="vertical-align: bottom; border: 0px; padding: 0px">
 					<div class="collapse navbar-collapse navbar-right">
-						<ul class="nav navbar-nav" style="font-weight:bold">
+						<ul class="nav navbar-nav" style="font-weight: bold">
 							<%-- <li class="active" style="margin-left:0px"><a
 								href="${pageContext.request.contextPath}/login">Home</a></li> --%>
 							<li class="active" style="margin-left: 0px"><a
@@ -140,5 +152,22 @@
 		</table>
 	</div>
 	<!--/.container--> </nav> <!--/nav--> </header>
+
+	<script>
+		function increaseFontSizeBy1px() {
+			var font = parseInt($('#b').css('font-size'));
+	
+			font++;
+			document.getElementById('b').style.fontSize = font + "px";
+		}
+		function decreaseFontSizeBy1px() {
+			var font = parseInt($('#b').css('font-size'));
+	
+			font = font - 1;
+			document.getElementById('b').style.fontSize = font + "px";
+		}
+	</script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 </html>

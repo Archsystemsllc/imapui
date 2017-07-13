@@ -24,7 +24,7 @@
 
 </head>
 
-<body>
+<body id="b">
 
 	<%-- 	 <c:if test="${sessionScope.user.name == 'Administrator'}">
 		<jsp:include page="admin_header.jsp"></jsp:include>
