@@ -13,11 +13,11 @@
 <link href="${pageContext.request.contextPath}/resources/css/table.css"
 	rel="stylesheet" />
 <link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/images/adda_ico.png"/>
+	href="${pageContext.request.contextPath}/resources/images/adda_ico.png" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/docfile.css" /> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/button.css" /> 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js"></script>
 <script
@@ -34,38 +34,59 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
-	<div class="container">
-		<div id="updates" class="boxed">
+	<table>
+		<tr>
+			<td
+				style="background-color: #327a89; width:30%; vertical-align: top; padding: 0px 25px">
+				<div style="color: #fff">
+					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
+						<li><h2
+								style="color: #fff; font-family: 'Rubik', sans-serif;">Description</h2></li>
+					</ul> -->
+					<p style="text-align: justify; font-family: 'Rubik', sans-serif;">
+						<br></br> <br></br>From the Base Year to Option Year 3 Rural Area
+						Percentage line plot, we would like to see the change trend of the
+						rural area percentage of all combined EPs and GPROs and the
+						difference among reporting options (Claim, Registry, EHR, QCDR and
+						GPROWI)
+					</p>
+				</div>
+			</td>
+			<td>
 
-			<div class="content">
-				<div class="table-users">
-					<div class="header">Download excel screen</div>
-					<table>
-						<tbody>
-							<tr>
-								<th>Name</th>
-								<th>Description</th>
-								<th>Action</th>
-							</tr>
-							<c:forEach var="template" items="${templateFiles}">
-								<tr>
-									<td>
-										<p>${template.uploadedFileName}</p>
-									</td>
-									<td style="text-align: center">
-										<p>${template.uploadedDescription}</p>
-									</td>
-									<td style="text-align: right">
-										<!-- <input type=button href="/admin/download-document/${document.id}"  value='Download'> -->
-										<a href="${pageContext.request.contextPath}/admin/download-template/${template.id}"><button
-												class="btn btn-default">Download</button></a> <!--<input type=button onClick="http://localhost:8484/admin/files/delete-document/${document.id}"  value='Delete'>-->
-										<a href="${pageContext.request.contextPath}/admin/delete-template/${template.id}"><button
-												class="btn btn-default">Delete</button></a>
+				<div id="updates" class="boxed">
 
-									</td>
-								</tr>
-							</c:forEach>
-							<!-- <tr>
+					<div class="content">
+						<div class="table-users" style="width:75%">
+							<div class="header">Download excel screen</div>
+							<table>
+								<tbody>
+									<tr>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Action</th>
+									</tr>
+									<c:forEach var="template" items="${templateFiles}">
+										<tr>
+											<td>
+												<p>${template.uploadedFileName}</p>
+											</td>
+											<td style="text-align: center">
+												<p>${template.uploadedDescription}</p>
+											</td>
+											<td style="text-align: right">
+												<!-- <input type=button href="/admin/download-document/${document.id}"  value='Download'> -->
+												<a
+												href="${pageContext.request.contextPath}/admin/download-template/${template.id}"><button
+														class="button arrow">Download</button></a> <!--<input type=button onClick="http://localhost:8484/admin/files/delete-document/${document.id}"  value='Delete'>-->
+												<a
+												href="${pageContext.request.contextPath}/admin/delete-template/${template.id}"><button
+														class="button phone">Delete</button></a>
+
+											</td>
+										</tr>
+									</c:forEach>
+									<!-- <tr>
 						<td >
 							<p>Hypothesis2: <a href="http://www.archsystemsinc.com/">Hypothesis2</a></p>
 						</td>
@@ -76,44 +97,48 @@
 						</td>
 					</tr> -->
 
-							<tr>
-								<td></td>
-								<td></td>
-								<td style="text-align: right"><a
-									href="${pageContext.request.contextPath}/admin/download-templates"><button
-											class="btn btn-default">Download All</button></a> <a
-									href="${pageContext.request.contextPath}/admin/delete-templates"><button
-											class="btn btn-default">Delete All</button></a> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<c:if test="${not empty fileuploaderror}">
-				<div class="successblock">
-							<spring:message code="${fileuploaderror}"></spring:message>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="text-align: right"><a
+											href="${pageContext.request.contextPath}/admin/download-templates"><button
+													class="button arrow">Download All</button></a> <a
+											href="${pageContext.request.contextPath}/admin/delete-templates"><button
+													class="button phone">Delete All</button></a> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-				</c:if>
-				<div class="container" style="margin:1em auto">
-					<form:form action="${pageContext.request.contextPath}/admin/new-template/"
-						modelAttribute="templateFile" enctype="multipart/form-data"
-						method="post">
-						<p>
-							Description:<br />
-							<form:input type="text" path="uploadedDescription" size="30" />
-						</p>
-						<p>
-							Please specify a file, or a set of files:<br />
-							<form:input type="file" path="uploadedFile" />
-						</p>
-						<div>
-							<input class="btn btn-default" type="submit" value="Send" />
+						<c:if test="${not empty fileuploaderror}">
+							<div class="successblock">
+								<spring:message code="${fileuploaderror}"></spring:message>
+							</div>
+						</c:if>
+						<div class="container" style="margin: 1em auto;width:75%">
+							<form:form
+								action="${pageContext.request.contextPath}/admin/new-template/"
+								modelAttribute="templateFile" enctype="multipart/form-data"
+								method="post">
+								<p>
+									Description:<br />
+									<form:input type="text" path="uploadedDescription" size="30" />
+								</p>
+								<p>
+									Please specify a file, or a set of files:<br />
+									<form:input type="file" path="uploadedFile" />
+								</p>
+								<div>
+									<button class="btn btn-primary" type="submit" value="Send">Send</button> 
+								</div>
+							</form:form>
 						</div>
-					</form:form>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+
+			</td>
+		</tr>
+	</table>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

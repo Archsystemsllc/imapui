@@ -119,8 +119,8 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td style="float: right;border:0px"><button class="btn btn-primary btn-xs"
-						onclick="increaseFontSizeBy1px()">
+				<td style="float: right; border: 0px"><button
+						class="btn btn-primary btn-xs" onclick="increaseFontSizeBy1px()">
 						<i class="fa fa-search-plus"></i>
 					</button>
 					<button class="btn btn-primary btn-xs"

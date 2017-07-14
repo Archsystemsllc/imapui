@@ -43,7 +43,7 @@
 
 		<tr>
 			<td width="30%"
-				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px">
+				style="background-color: #327a89; vertical-align: top; padding: 0px 25px">
 				<div style="color: #fff">
 					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2

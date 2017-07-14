@@ -80,23 +80,23 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button> -->
-			<div class="row ">
-				<div class="navbar-brand">
+			<div class="navbar-brand">
+				<div class="row">
 					<!--<a class="navbar-brand" href="page0.html">-->
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/logo.png"
 							alt="logo" height="100px"
 							style="display: block; margin: 0 auto; width: 80%">
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-8">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/ADDA.png"
 							alt="logo" height="100px"
-							style="display: block; margin: 0 auto; width: 100%;">
+							style="display: block; margin: auto; width: 100%;">
 					</div>
-					<div class="col-sm-2">
-						<div style="float: right; padding-top: 60px; height: 100px">
+					<!-- <div class="col-sm-2">
+						<div style="text-align:right;float: right; padding-top: 60px; height: 100px">
 							<button class="btn btn-primary btn-xs"
 								onclick="increaseFontSizeBy1px()">
 								<i class="fa fa-search-plus"></i>
@@ -106,7 +106,7 @@
 								<i class="fa fa-search-minus"></i>
 							</button>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

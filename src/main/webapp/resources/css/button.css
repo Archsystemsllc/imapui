@@ -94,12 +94,12 @@
 }
 
 .phone:after {
-	content: "\F095";
+	content: "\F014";
 }
 
 .phone:hover:after {
-	-webkit-animation: wiggle .05s alternate ease infinite;
-	animation: wiggle .05s alternate ease infinite;
+	-webkit-animation: wiggle .2s alternate ease infinite;
+	animation: wiggle .2s alternate ease infinite;
 }
 
 .email {

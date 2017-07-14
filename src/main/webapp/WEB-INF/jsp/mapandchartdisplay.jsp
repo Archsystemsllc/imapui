@@ -116,10 +116,10 @@ table {
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
 
-	<table style="min-height: 700px;">
+	<table style="min-height: 750px;">
 		<tr>
 			<td
-				style="background-color: #1B2631; vertical-align: top; padding: 0px 25px; width: 30%">
+				style="background-color: #327a89; vertical-align: top; padding: 0px 25px; width: 30%">
 				<div style="color: #fff">
 					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
@@ -205,7 +205,7 @@ table {
 						</tr>
 					</table>
 				</div>
-				<div class="HypothesisScreen" style="max-height: 520px">
+				<div class="HypothesisScreen" style="max-height: 600px">
 					<!-- 	<tr>
 					<td></td>
 					<td><input class="btn btn-primary btn-sm"
@@ -213,7 +213,7 @@ table {
 						id="displayreport" /></td>
 				</tr> -->
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
-						style="overflow: hidden; width: 80%; height: 550px"
+						style="overflow: hidden; width: 100%; height: 550px"
 						style="margin:auto"></iframe>
 
 					<div id="messageDisplay"></div>
