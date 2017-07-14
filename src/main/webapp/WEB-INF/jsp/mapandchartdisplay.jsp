@@ -132,7 +132,7 @@ table {
 						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
 					</p>
 				</div>
-				<div id="onScreenHelpLabelId" style="color: #fff"><br>On Screen Helper:</div>
+				<div id="onScreenHelpLabelId" style="color: #fff"><br>On Screen User Help:</div>
 				<div style="color: #fff">
 					<p style="text-align: justify;">${subDataAnalysis.onScreenHelpText}</p>
 				</div>
