@@ -49,11 +49,13 @@
 						<li><h2
 								style="color: #fff; font-family: 'Rubik', sans-serif;">Description</h2></li>
 					</ul> -->
-					<p style="text-align: justify; font-family: 'Rubik', sans-serif;"><br><br>From
-						the Base Year to Option Year 3 Rural Area Percentage line plot, we
-						would like to see the change trend of the rural area percentage of
-						all combined EPs and GPROs and the difference among reporting
-						options (Claim, Registry, EHR, QCDR and GPROWI)</p>
+					<p style="text-align: justify; font-family: 'Rubik', sans-serif;">
+						<br>
+						<br>From the Base Year to Option Year 3 Rural Area Percentage
+						line plot, we would like to see the change trend of the rural area
+						percentage of all combined EPs and GPROs and the difference among
+						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
+					</p>
 				</div>
 			</td>
 			<td style="padding: 10px 105px; vertical-align: top">
@@ -95,7 +97,7 @@
 											test="${subDataAnalysis.subDataAnalysisName ne 'Not Applicable'}">
 
 											<tr>
-												<td style="border:0px">
+												<td style="border: 0px">
 													<ul>
 														<li><a
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
@@ -103,7 +105,7 @@
 													</ul>
 												</td>
 
-												<td style="text-align-last: center;border:0px"><a
+												<td style="text-align: center; border: 0px"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 															class="button search" id="view" value="View">View</button></a>
 													<button class="button arrow" id="download" value="Download">Download</button></td>

@@ -30,11 +30,12 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
 	rel="stylesheet">
+
 <link
 	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
 	rel="stylesheet">
-<%-- <link href="${pageContext.request.contextPath}/resources/css/login.css"
-	rel="stylesheet"> --%>
+<link href="${pageContext.request.contextPath}/resources/css/table.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
@@ -54,6 +55,10 @@
 </style> -->
 
 <style>
+table td {
+	border: 0px;
+}
+
 #map {
 	width: 900px;
 	height: 400px;
@@ -96,16 +101,15 @@ table {
 	border-spacing: 10px;
 }
 
-#loading-gif{
+#loading-gif {
 	margin-left: 8cm;
-	margin-top: 2cm;	
+	margin-top: 2cm;
 }
 
-#loading-gif img{
+#loading-gif img {
 	height: 90px;
-    width: 90px;	
+	width: 90px;
 }
-
 </style>
 </head>
 
@@ -120,15 +124,17 @@ table {
 					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
 					</ul> -->
-					<p style="text-align: justify;"><br><br>From the Base Year to Option
-						Year 3 Rural Area Percentage line plot, we would like to see the
-						change trend of the rural area percentage of all combined EPs and
-						GPROs and the difference among reporting options (Claim, Registry,
-						EHR, QCDR and GPROWI)</p>
+					<p style="text-align: justify;">
+						<br>
+						<br>From the Base Year to Option Year 3 Rural Area Percentage
+						line plot, we would like to see the change trend of the rural area
+						percentage of all combined EPs and GPROs and the difference among
+						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
+					</p>
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-			<h2 style="text-align:center">Interactive Data Analysis</h2>
+				<h2 style="text-align: center;font-size:50px;">ADDA</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
@@ -188,33 +194,39 @@ table {
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="padding-top:10px"><input class="btn btn-primary btn-sm"
+							<td colspan="2" style="padding-top: 10px"><input
+								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
-								id="displayreport" value="Submit"/></td>
+								id="displayreport" value="Submit" /></td>
 						</tr>
 					</table>
 				</div>
-				<div class="HypothesisScreen" style="max-height:520px">
+				<div class="HypothesisScreen" style="max-height: 520px">
 					<!-- 	<tr>
 					<td></td>
 					<td><input class="btn btn-primary btn-sm"
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no" style="overflow:hidden;width:80%;height:550px" style="margin:auto"></iframe>
-                    
+					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
+						style="overflow: hidden; width: 80%; height: 550px"
+						style="margin:auto"></iframe>
+
 					<div id="messageDisplay"></div>
 
-					<div id="chart-container" style="width: 75%; margin:auto">
-					    <div id="loading-gif" hidden="true" ><img src="${pageContext.request.contextPath}/resources/images/loading3.gif"/></div>
-						<canvas id="chart-canvas"></canvas>						
+					<div id="chart-container" style="width: 75%; margin: auto">
+						<div id="loading-gif" hidden="true">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
+						</div>
+						<canvas id="chart-canvas"></canvas>
 					</div>
 				</div>
-				
+
 			</td>
 		</tr>
 	</table>
-	<script>	    
+	<script>
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
@@ -263,7 +275,7 @@ table {
 			}
 	
 			var ourRequest = new XMLHttpRequest();
-			ourRequest.open('GET', url);			
+			ourRequest.open('GET', url);
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
@@ -300,8 +312,8 @@ table {
 						responsive : true,
 						title : {
 							display : true,
-							text : titleYearTextVal+' '+reportingOptionSelectedText+' Reporting Option Eligible Professionals Summary',
-							padding: 20
+							text : titleYearTextVal + ' ' + reportingOptionSelectedText + ' Reporting Option Eligible Professionals Summary',
+							padding : 20
 						},
 						animation : {
 							duration : 1,
@@ -312,7 +324,7 @@ table {
 								ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
 								ctx.textAlign = 'center';
 								ctx.textBaseline = 'bottom';
-								
+	
 								this.data.datasets.forEach(function(dataset, i) {
 									var meta = chartInstance.controller.getDatasetMeta(i);
 									meta.data.forEach(function(bar, index) {
@@ -502,7 +514,7 @@ table {
 						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
 					}
 				}
-
+	
 				<!-- Different Chart Display :: END -->
 	
 			};
@@ -519,29 +531,29 @@ table {
 		document.getElementById("reportTypeId").onchange = function() {
 			console.log('Inside on change..');
 			var x = document.getElementById("reportTypeId").value;
-			console.log('value of x:'+x);
-			
+			console.log('value of x:' + x);
+	
 			if (x == 'Bar Chart') {
 				// Set the Parameter as "ALL" for Bar Chart
 				$("#parameterLookupId > option").each(function() {
 					if (this.text == 'ALL') {
-							$('#parameterLookupId').val(this.value);
-						}
+						$('#parameterLookupId').val(this.value);
+					}
 				});
 			}
-			
+	
 			if (x == 'Line Chart') {
 				// Set Option Year as "ALL" for Line Chart
 				$("#yearLookUpId > option").each(function() {
 					if (this.text == 'ALL') {
-							$('#yearLookUpId').val(this.value);
-						}
+						$('#yearLookUpId').val(this.value);
+					}
 				});
 				// Set Reporting Option as "ALL" for Line Chart
 				$("#reportingOptionLookupId > option").each(function() {
 					if (this.text == 'ALL') {
-							$('#reportingOptionLookupId').val(this.value);
-						}
+						$('#reportingOptionLookupId').val(this.value);
+					}
 				});
 			}
 			if (x == 'Map') {
