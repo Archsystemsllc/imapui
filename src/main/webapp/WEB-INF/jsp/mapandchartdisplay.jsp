@@ -144,7 +144,7 @@ table {
 
 						<tr>
 							<td><label for="yearLookUpId">Optional Year : </label></td>
-							<td><select id="yearLookUpId" name="yearLookUpId">
+							<td><select id="yearLookUpId" name="yearLookUpId" title="Select the appropriate Year">
 									<option value="">Select</option>
 									<c:forEach items="${yearLookups}" var="yearLookUp">
 										<option value="${yearLookUp.id}"
@@ -157,7 +157,7 @@ table {
 							<td><label for="reportingOptionLookupId">Reporting
 									Option : </label></td>
 							<td><select id="reportingOptionLookupId"
-								name="reportingOptionLookupId">
+								name="reportingOptionLookupId" title="Select the appropriate Reporting Option">
 									<option value="">Select</option>
 									<c:forEach items="${reportingOptionLookups}"
 										var="reportingOptionLookup">
@@ -170,7 +170,7 @@ table {
 						<tr>
 							<td><label for="parameterLookupId">Parameter Name :
 							</label></td>
-							<td><select id="parameterLookupId" name="parameterLookupId">
+							<td><select id="parameterLookupId" name="parameterLookupId" title="Select the approriate Parameter">
 									<option value="">Select</option>
 									<c:forEach items="${parameterLookups}" var="parameterLookup">
 										<option value="${parameterLookup.id}"
@@ -181,7 +181,7 @@ table {
 
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
-							<td><select id="reportTypeId" name="reportTypeId">
+							<td><select id="reportTypeId" name="reportTypeId" title="Select the approriate Graph to View">
 									<option value="">Select</option>
 									<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
@@ -191,14 +191,14 @@ table {
 
 						<tr id="yesOrNoOptionRow" hidden="true">
 							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
-							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId">
+							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId" title="Select the appropriate Yes or No Option">
 									<option value="">Select</option>
 									<option value="0">No</option>
 									<option value="1">Yes</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="padding-top: 10px"><input
+							<td colspan="2" style="padding-top: 10px"><input title="Click on Submit Button to view the Graph"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
