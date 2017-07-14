@@ -65,7 +65,7 @@
 
 								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
 									<tr>
-										<td><a
+										<td><a title = "${dataAnalysis.dataAnalysisDescription}"
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 										</td>
 
@@ -86,13 +86,11 @@
 											<tr>
 												<td>
 													<ul>
-														<li><a
+														<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
 														</li>
 													</ul>
 												</td>
-
-												<td style="text-align: center">${subDataAnalysis.subDataAnalysisDescription}</td>
 
 												<td style="text-align: center"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button

@@ -78,14 +78,14 @@
 
 								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
 									<tr>
-										<td><a
+										<td><a title = "${dataAnalysis.dataAnalysisDescription}"
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 										</td>
 
 										<td style="text-align: center"><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
-													class="button search" id="view" value="View">View</button></a>
-											<button class="button arrow" id="download" value="Download">Download</button>
+													title = "Click to view the Graphs" class="button search" id="view" value="View">View</button></a>
+											<button title = "Click to download the Data" class="button arrow" id="download" value="Download">Download</button>
 										</td>
 
 									</tr>
@@ -99,7 +99,7 @@
 											<tr>
 												<td style="border: 0px">
 													<ul>
-														<li><a
+														<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
 														</li>
 													</ul>
@@ -107,8 +107,8 @@
 
 												<td style="text-align: center; border: 0px"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-															class="button search" id="view" value="View">View</button></a>
-													<button class="button arrow" id="download" value="Download">Download</button></td>
+															title = "Click to view the Graphs" class="button search" id="view" value="View">View</button></a>
+													<button title = "Click to download the Data" class="button arrow" id="download" value="Download">Download</button></td>
 
 											</tr>
 
