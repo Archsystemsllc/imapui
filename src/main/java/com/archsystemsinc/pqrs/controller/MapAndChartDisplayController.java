@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.archsystemsinc.pqrs.constant.ChartNameEnum;
 import com.archsystemsinc.pqrs.model.ParameterLookup;
 import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
+import com.archsystemsinc.pqrs.model.SubDataAnalysis;
 import com.archsystemsinc.pqrs.model.YearLookup;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
 import com.archsystemsinc.pqrs.service.ReportingOptionLookUpService;
+import com.archsystemsinc.pqrs.service.SubDataAnalysisService;
 import com.archsystemsinc.pqrs.service.YearLookUpService;
 
 /**
@@ -32,6 +34,9 @@ import com.archsystemsinc.pqrs.service.YearLookUpService;
 @Controller
 public class MapAndChartDisplayController {
 
+	@Autowired
+	private SubDataAnalysisService subDataAnalysisService;
+	
 	@Autowired
 	private YearLookUpService yearLookUpService;
 	
@@ -57,6 +62,9 @@ public class MapAndChartDisplayController {
 		
 		model.addAttribute("dataAnalysisId", dataAnalysisId);
 		model.addAttribute("subDataAnalysisId", subDataAnalysisId);
+		
+		final SubDataAnalysis subDataAnalysis = subDataAnalysisService.findById(subDataAnalysisId);
+		model.addAttribute("subDataAnalysis",subDataAnalysis);
 		
 		final List<YearLookup> yearLookups = yearLookUpService.findAll();			
 		model.addAttribute("yearLookups", yearLookups);

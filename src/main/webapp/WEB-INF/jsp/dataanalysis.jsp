@@ -71,8 +71,8 @@
 
 										<td style="text-align: center"><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
-													class="button search" id="view" value="View">View</button></a>
-											<button class="button arrow" id="download" value="Download">Download</button>
+													title = "Click to view the Graphs" class="button search" id="view" value="View">View</button></a>
+											<button title = "Click to download the Data" class="button arrow" id="download" value="Download">Download</button>
 										</td>
 
 									</tr>
@@ -96,8 +96,8 @@
 
 												<td style="text-align: center"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-															class="button search" id="view" value="View">View</button></a>
-													<button class="button arrow" id="download" value="Download">Download</button></td>
+															title = "Click to view the Graphs" class="button search" id="view" value="View">View</button></a>
+													<button title = "Click to download the Data" class="button arrow" id="download" value="Download">Download</button></td>
 
 											</tr>
 

@@ -132,6 +132,10 @@ table {
 						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
 					</p>
 				</div>
+				<div id="onScreenHelpLabelId" style="color: #fff"><br>On Screen Helper:</div>
+				<div style="color: #fff">
+					<p style="text-align: justify;">${subDataAnalysis.onScreenHelpText}</p>
+				</div>
 			</td>
 			<td style="vertical-align: top;">
 				<h2 style="text-align: center;font-size:50px;">ADDA</h2>

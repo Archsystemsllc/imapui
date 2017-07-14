@@ -31,6 +31,9 @@ public class SubDataAnalysis implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	private int id;
+	
+	@Column(name="on_screen_help_text")
+	private String onScreenHelpText;
 
 	@Column(name="sub_data_analysis_description")
 	private String subDataAnalysisDescription;
@@ -62,6 +65,14 @@ public class SubDataAnalysis implements Serializable {
 		this.id = id;
 	}
 
+	public String getOnScreenHelpText() {
+		return this.onScreenHelpText;
+	}
+
+	public void setOnScreenHelpText(String onScreenHelpText) {
+		this.onScreenHelpText = onScreenHelpText;
+	}
+	
 	public String getSubDataAnalysisDescription() {
 		return this.subDataAnalysisDescription;
 	}
