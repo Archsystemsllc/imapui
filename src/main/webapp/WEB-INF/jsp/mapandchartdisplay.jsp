@@ -143,8 +143,8 @@ table {
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
 						<tr>
-							<td><label for="yearLookUpId">Optional Year : </label></td>
-							<td><select id="yearLookUpId" name="yearLookUpId" title="Select the appropriate Year">
+							<td><label for="yearLookUpId">Option Year : </label></td>
+							<td><select id="yearLookUpId" name="yearLookUpId" title="Select one of the option years or ALL where available">
 									<option value="">Select</option>
 									<c:forEach items="${yearLookups}" var="yearLookUp">
 										<option value="${yearLookUp.id}"
@@ -157,7 +157,7 @@ table {
 							<td><label for="reportingOptionLookupId">Reporting
 									Option : </label></td>
 							<td><select id="reportingOptionLookupId"
-								name="reportingOptionLookupId" title="Select the appropriate Reporting Option">
+								name="reportingOptionLookupId" title="Select one of the reporting options">
 									<option value="">Select</option>
 									<c:forEach items="${reportingOptionLookups}"
 										var="reportingOptionLookup">
@@ -170,7 +170,7 @@ table {
 						<tr>
 							<td><label for="parameterLookupId">Parameter Name :
 							</label></td>
-							<td><select id="parameterLookupId" name="parameterLookupId" title="Select the approriate Parameter">
+							<td><select id="parameterLookupId" name="parameterLookupId" title="Select one of the parameter names">
 									<option value="">Select</option>
 									<c:forEach items="${parameterLookups}" var="parameterLookup">
 										<option value="${parameterLookup.id}"
@@ -181,7 +181,7 @@ table {
 
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
-							<td><select id="reportTypeId" name="reportTypeId" title="Select the approriate Graph to View">
+							<td><select id="reportTypeId" name="reportTypeId" title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
 									<option value="">Select</option>
 									<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
@@ -191,14 +191,14 @@ table {
 
 						<tr id="yesOrNoOptionRow" hidden="true">
 							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
-							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId" title="Select the appropriate Yes or No Option">
+							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId" title="Click here to choose YES/NO">
 									<option value="">Select</option>
 									<option value="0">No</option>
 									<option value="1">Yes</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="padding-top: 10px"><input title="Click on Submit Button to view the Graph"
+							<td colspan="2" style="padding-top: 10px"><input title="Click the button to submit the selections above and view the results"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
@@ -317,7 +317,7 @@ table {
 						title : {
 							display : true,
 							text : titleYearTextVal + ' ' + reportingOptionSelectedText + ' Reporting Option Eligible Professionals Summary',
-							padding : 20
+							padding : 40
 						},
 						animation : {
 							duration : 1,
