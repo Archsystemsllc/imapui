@@ -49,12 +49,16 @@
 .hidden {
 	display: none;
 }
+
+table td {
+	border: 0px;
+}
 </style>
 
 </head>
 <body>
 	<jsp:include page="admin_header.jsp" />
-	<table style="min-height:580px">
+	<table style="min-height: 580px">
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
@@ -72,79 +76,100 @@
 					</p>
 				</div>
 			</td>
-			<td>
-				<table>
-					<!-- <div class="container" style="min-height: 600px"> -->
-					
-						<div id="updates">
-							<h2 class="title">Upload excel data screen</h2>
-							<div class="content">
-
-								<form:form
-									action="${pageContext.request.contextPath}/admin/documentupload/"
-									modelAttribute="documentFileUpload"
-									enctype="multipart/form-data" method="post">
-									<c:if test="${not empty documentuploadsuccess}">
-										<br />
-										<div class="successblock">
-											<spring:message code="${documentuploadsuccess}"></spring:message>
-										</div>
-									</c:if>
-									<c:if test="${not empty documentuploaderror}">
-										<br />
-										<div class="successblock">
-											<spring:message code="${documentuploaderror}"></spring:message>
-										</div>
-									</c:if>
-									<form:errors path="*" cssClass="errorblock" element="div" />
-									<div>
-										<form:select path="providerHypId" id="ddl1"
-											onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
-											<option value="0">Select</option>
-											<c:forEach var="category" items="${dataAnalysisCategories}">
-												<option value="${category.id}">${category.dataAnalysisName}</option>
-											</c:forEach>
-										</form:select>
-										<form:select path="providerSubHypId" id="ddl2" class="hidden">
-											<!--<option value="0">NA</option>-->
-											<!--<c:forEach var="subCategory"
+			<td style="vertical-align: top; text-align: center;">
+				<!-- <div class="container" style="min-height: 600px"> -->
+				<div id="updates">
+					<h2 class="title" style="font-size:30px">Upload excel data</h2>
+					<div class="content">
+						<form:form
+							action="${pageContext.request.contextPath}/admin/documentupload/"
+							modelAttribute="documentFileUpload" enctype="multipart/form-data"
+							method="post">
+							<c:if test="${not empty documentuploadsuccess}">
+								<br />
+								<div class="successblock">
+									<spring:message code="${documentuploadsuccess}"></spring:message>
+								</div>
+							</c:if>
+							<c:if test="${not empty documentuploaderror}">
+								<br />
+								<div class="successblock">
+									<spring:message code="${documentuploaderror}"></spring:message>
+								</div>
+							</c:if>
+							<form:errors path="*" cssClass="errorblock" element="div" />
+							<div>
+								<form:select path="providerHypId" id="ddl1"
+									onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
+									<option value="0">Select</option>
+									<c:forEach var="category" items="${dataAnalysisCategories}">
+										<option value="${category.id}">${category.dataAnalysisName}</option>
+									</c:forEach>
+								</form:select>
+								<form:select path="providerSubHypId" id="ddl2" class="hidden">
+									<!--<option value="0">NA</option>-->
+									<!--<c:forEach var="subCategory"
 							items="${subDataAnalysisCategories}">
 							<option value="${subCategory.id}">${subCategory.subDataAnalysisName}</option>
 						</c:forEach>-->
-										</form:select>
-									</div>
-									<p>
-										Document Provider :
-										<form:input type="file" path="provider" size="40" />
-									</p>
-
-									<div class="btn-group btn-xs">
-										<input class="btn btn-primary" type="submit" value="Upload"
-											id="provider-upload" /> <input class="btn btn-info"
-											type="reset" value="Reset" />
-									</div>
-									<p>
-										Document Specialty :
-										<form:input type="file" path="specialty" size="40" />
-									</p>
-									<div class="btn-group btn-xs">
-										<input class="btn btn-primary" type="submit" value="Upload" />
-										<input class="btn btn-info" type="reset" value="Reset" />
-									</div>
-									<p>
-										Document Statewise :
-										<form:input type="file" path="statewise" size="40" />
-									</p>
-									<div class="btn-group btn-xs">
-										<input class="btn btn-primary" type="submit" value="Upload" />
-										<input class="btn btn-info" type="reset" value="Reset" />
-									</div>
-								</form:form>
-
+								</form:select>
 							</div>
-						</div>
-					<!-- </div> -->
-				</table>
+							<br></br>
+							<table>
+								<tr>
+									<td>
+										<p>Document Provider :</p>
+									</td>
+									<td>
+										<p>
+											<form:input type="file" path="provider" size="40" />
+										</p>
+									</td>
+									<td>
+										<div class="btn-group btn-xs">
+											<input class="btn btn-primary" type="submit" value="Upload"
+												id="provider-upload" /> <input class="btn btn-info"
+												type="reset" value="Reset" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>Document Specialty :</p>
+									</td>
+									<td>
+										<p>
+											<form:input type="file" path="specialty" size="40" />
+										</p>
+									</td>
+									<td>
+										<div class="btn-group btn-xs">
+											<input class="btn btn-primary" type="submit" value="Upload" />
+											<input class="btn btn-info" type="reset" value="Reset" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>Document Statewise :</p>
+									</td>
+									<td>
+										<p>
+											<form:input type="file" path="statewise" size="40" />
+										</p>
+									</td>
+									<td>
+										<div class="btn-group btn-xs">
+											<input class="btn btn-primary" type="submit" value="Upload" />
+											<input class="btn btn-info" type="reset" value="Reset" />
+										</div>
+									</td>
+								</tr>
+							</table>
+						</form:form>
+					</div>
+				</div> <!-- </div> -->
+
 			</td>
 		</tr>
 	</table>

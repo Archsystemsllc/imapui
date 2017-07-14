@@ -119,11 +119,11 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td style="float: right; border: 0px"><button
+				<td style="float: right; border: 0px"><button title="increase font size"
 						class="btn btn-primary btn-xs" onclick="increaseFontSizeBy1px()">
 						<i class="fa fa-search-plus"></i>
 					</button>
-					<button class="btn btn-primary btn-xs"
+					<button title="decrease font size" class="btn btn-primary btn-xs"
 						onclick="decreaseFontSizeBy1px()">
 						<i class="fa fa-search-minus"></i>
 					</button> <!-- <input type="button" value="Increase Font Size 1px"
