@@ -185,7 +185,7 @@ table td {
 				$('#provider-upload').attr("disabled", "disabled");
 			} else {
 				$.ajax({
-					url : "http://localhost/imapservices/api/subdata/hypothesis/" + seleHypoId,
+					url : "http://localhost:8080/imapservices/api/subdata/hypothesis/" + seleHypoId,
 					type : 'GET',
 					dataType : 'json',
 					success : function(data) {

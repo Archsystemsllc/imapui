@@ -34,7 +34,7 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
     }
     
     private MultipartConfigElement getMultipartConfigElement() {
-        MultipartConfigElement multipartConfigElement = new MultipartConfigElement("C:/temp/");
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement("/tmp/");
         return multipartConfigElement;
     }
 }
