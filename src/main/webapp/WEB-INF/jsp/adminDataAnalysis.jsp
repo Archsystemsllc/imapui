@@ -130,6 +130,11 @@
 </script>
 
  -->
+	 <script type="text/javascript">
+	 $(document).ready(function () {
+		 $('.nav > li').eq(0).addClass('active');	 
+	 });
+	 </script>
 					</div>
 				</div>
 			</td>

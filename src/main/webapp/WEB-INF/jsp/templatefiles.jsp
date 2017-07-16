@@ -140,5 +140,10 @@
 		</tr>
 	</table>
 	<jsp:include page="footer.jsp"></jsp:include>
+	<script type="text/javascript">
+	$(document).ready(function () {
+				 $('.nav > li').eq(2).addClass('active');			 
+	});		
+	</script>
 </body>
 </html>

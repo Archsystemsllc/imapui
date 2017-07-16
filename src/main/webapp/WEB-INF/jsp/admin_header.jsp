@@ -138,7 +138,7 @@
 						<ul class="nav navbar-nav" style="font-weight: bold">
 							<%-- <li class="active" style="margin-left:0px"><a
 								href="${pageContext.request.contextPath}/login">Home</a></li> --%>
-							<li class="active" style="margin-left: 0px"><a
+							<li style="margin-left: 0px"><a
 								href="${pageContext.request.contextPath}/admin/dashboard">Home</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
