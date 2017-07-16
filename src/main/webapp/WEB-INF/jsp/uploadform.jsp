@@ -49,7 +49,6 @@
 .hidden {
 	display: none;
 }
-
 </style>
 
 </head>
@@ -76,94 +75,100 @@
 			<td style="vertical-align: top; text-align: center;">
 				<!-- <div class="container" style="min-height: 600px"> -->
 				<div id="updates">
-					<h2 class="title" style="font-size:30px">Upload excel data</h2>
-					<div class="content">
-						<form:form
-							action="${pageContext.request.contextPath}/admin/documentupload/"
-							modelAttribute="documentFileUpload" enctype="multipart/form-data"
-							method="post">
-							<c:if test="${not empty documentuploadsuccess}">
-								<br />
-								<div class="successblock">
-									<spring:message code="${documentuploadsuccess}"></spring:message>
-								</div>
-							</c:if>
-							<c:if test="${not empty documentuploaderror}">
-								<br />
-								<div class="successblock">
-									<spring:message code="${documentuploaderror}"></spring:message>
-								</div>
-							</c:if>
-							<form:errors path="*" cssClass="errorblock" element="div" />
-							<div>
-								<form:select path="providerHypId" id="ddl1"
-									onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
-									<option value="0">Select</option>
-									<c:forEach var="category" items="${dataAnalysisCategories}">
-										<option value="${category.id}">${category.dataAnalysisName}</option>
-									</c:forEach>
-								</form:select>
-								<form:select path="providerSubHypId" id="ddl2" class="hidden">
-									<!--<option value="0">NA</option>-->
-									<!--<c:forEach var="subCategory"
+					<div class='table-users' style="width: 85%">
+						<div class="header" style="font-size: 30px">Upload excel
+							data</div>
+						<div class="content">
+							<form:form
+								action="${pageContext.request.contextPath}/admin/documentupload/"
+								modelAttribute="documentFileUpload"
+								enctype="multipart/form-data" method="post">
+								<c:if test="${not empty documentuploadsuccess}">
+									<br />
+									<div class="successblock">
+										<spring:message code="${documentuploadsuccess}"></spring:message>
+									</div>
+								</c:if>
+								<c:if test="${not empty documentuploaderror}">
+									<br />
+									<div class="successblock">
+										<spring:message code="${documentuploaderror}"></spring:message>
+									</div>
+								</c:if>
+								<form:errors path="*" cssClass="errorblock" element="div" />
+								<table>
+									<tr>
+										<td colspan="3"><form:select path="providerHypId"
+												id="ddl1"
+												onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
+												<option value="0">Select</option>
+												<c:forEach var="category" items="${dataAnalysisCategories}">
+													<option value="${category.id}">${category.dataAnalysisName}</option>
+												</c:forEach>
+											</form:select> <form:select path="providerSubHypId" id="ddl2"
+												class="hidden">
+												<!--<option value="0">NA</option>-->
+												<!--<c:forEach var="subCategory"
 							items="${subDataAnalysisCategories}">
 							<option value="${subCategory.id}">${subCategory.subDataAnalysisName}</option>
 						</c:forEach>-->
-								</form:select>
-							</div>
-							<br></br>
-							<table class="table-users">
-								<tr>
-									<td>
-										<p>Document Provider :</p>
-									</td>
-									<td>
-										<p>
-											<form:input type="file" path="provider" size="40" />
-										</p>
-									</td>
-									<td>
-										<div class="btn-group btn-xs">
-											<input class="btn btn-primary" type="submit" value="Upload"
-												id="provider-upload" /> <input class="btn btn-info"
-												type="reset" value="Reset" />
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<p>Document Specialty :</p>
-									</td>
-									<td>
-										<p>
-											<form:input type="file" path="specialty" size="40" />
-										</p>
-									</td>
-									<td>
-										<div class="btn-group btn-xs">
-											<input class="btn btn-primary" type="submit" value="Upload" />
-											<input class="btn btn-info" type="reset" value="Reset" />
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<p>Document Statewise :</p>
-									</td>
-									<td>
-										<p>
-											<form:input type="file" path="statewise" size="40" />
-										</p>
-									</td>
-									<td>
-										<div class="btn-group btn-xs">
-											<input class="btn btn-primary" type="submit" value="Upload" />
-											<input class="btn btn-info" type="reset" value="Reset" />
-										</div>
-									</td>
-								</tr>
-							</table>
-						</form:form>
+											</form:select></td>
+									</tr>
+
+
+									<tr>
+										<td>
+											<p>Document Provider :</p>
+										</td>
+										<td>
+											<p>
+												<form:input type="file" path="provider" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload"
+													id="provider-upload" /> <input class="btn btn-info"
+													type="reset" value="Reset" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>Document Specialty :</p>
+										</td>
+										<td>
+											<p>
+												<form:input type="file" path="specialty" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" />
+												<input class="btn btn-info" type="reset" value="Reset" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>Document Statewise :</p>
+										</td>
+										<td>
+											<p>
+												<form:input type="file" path="statewise" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" />
+												<input class="btn btn-info" type="reset" value="Reset" />
+											</div>
+										</td>
+									</tr>
+								</table>
+
+							</form:form>
+						</div>
 					</div>
 				</div> <!-- </div> -->
 
@@ -212,6 +217,10 @@
 			ddl.options.add(opt);
 		}
 	</script>
-
+	<script type="text/javascript">
+	$(document).ready(function () {
+				 $('.nav > li').eq(1).addClass('active');			 
+	});		
+	</script>
 </body>
 </html>

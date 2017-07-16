@@ -101,6 +101,13 @@ table {
 	border-spacing: 10px;
 }
 
+/* table td:last-child {
+	text-align: center;
+} */
+table td:first-child {
+	text-align: right;
+}
+
 #loading-gif {
 	margin-left: 8cm;
 	margin-top: 2cm;
@@ -109,6 +116,11 @@ table {
 #loading-gif img {
 	height: 90px;
 	width: 90px;
+}
+
+#NoData {
+	color: yellow;
+	text-align: center;
 }
 </style>
 </head>
@@ -125,26 +137,29 @@ table {
 						<li><h2 style="color: #fff;">Description</h2></li>
 					</ul> -->
 					<p style="text-align: justify;">
-						<br>
-						<br>From the Base Year to Option Year 3 Rural Area Percentage
-						line plot, we would like to see the change trend of the rural area
-						percentage of all combined EPs and GPROs and the difference among
-						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
+						<br> <br>From the Base Year to Option Year 3 Rural Area
+						Percentage line plot, we would like to see the change trend of the
+						rural area percentage of all combined EPs and GPROs and the
+						difference among reporting options (Claim, Registry, EHR, QCDR and
+						GPROWI)
 					</p>
 				</div>
-				<div id="onScreenHelpLabelId" style="color: #fff"><br>On Screen User Help:</div>
+				<div id="onScreenHelpLabelId" style="color: #fff">
+					<br>On Screen User Help:
+				</div>
 				<div style="color: #fff">
 					<p style="text-align: justify;">${subDataAnalysis.onScreenHelpText}</p>
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center;font-size:50px;">ADDA</h2>
+				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
-							<td><select id="yearLookUpId" name="yearLookUpId" title="Select one of the option years or ALL where available">
+							<td><select id="yearLookUpId" name="yearLookUpId"
+								title="Select one of the option years or ALL where available">
 									<option value="">Select</option>
 									<c:forEach items="${yearLookups}" var="yearLookUp">
 										<option value="${yearLookUp.id}"
@@ -157,7 +172,8 @@ table {
 							<td><label for="reportingOptionLookupId">Reporting
 									Option : </label></td>
 							<td><select id="reportingOptionLookupId"
-								name="reportingOptionLookupId" title="Select one of the reporting options">
+								name="reportingOptionLookupId"
+								title="Select one of the reporting options">
 									<option value="">Select</option>
 									<c:forEach items="${reportingOptionLookups}"
 										var="reportingOptionLookup">
@@ -170,7 +186,8 @@ table {
 						<tr>
 							<td><label for="parameterLookupId">Parameter Name :
 							</label></td>
-							<td><select id="parameterLookupId" name="parameterLookupId" title="Select one of the parameter names">
+							<td><select id="parameterLookupId" name="parameterLookupId"
+								title="Select one of the parameter names">
 									<option value="">Select</option>
 									<c:forEach items="${parameterLookups}" var="parameterLookup">
 										<option value="${parameterLookup.id}"
@@ -181,7 +198,8 @@ table {
 
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
-							<td><select id="reportTypeId" name="reportTypeId" title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
+							<td><select id="reportTypeId" name="reportTypeId"
+								title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
 									<option value="">Select</option>
 									<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
@@ -191,14 +209,16 @@ table {
 
 						<tr id="yesOrNoOptionRow" hidden="true">
 							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
-							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId" title="Click here to choose YES/NO">
+							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId"
+								title="Click here to choose YES/NO">
 									<option value="">Select</option>
 									<option value="0">No</option>
 									<option value="1">Yes</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="padding-top: 10px"><input title="Click the button to submit the selections above and view the results"
+							<td colspan="2" style="padding-top: 10px"><input
+								title="Click the button to submit the selections above and view the results"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
@@ -503,7 +523,7 @@ table {
 					}
 					if (barChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
+						document.getElementById("messageDisplay").innerHTML = "<span id="NoData">No Data Available For The Selected Options!</span>";
 					}
 				}
 				if (reportTypeSelectedText == "Line Chart") {
@@ -515,7 +535,7 @@ table {
 					}
 					if (lineChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "No Data Available For The Selected Options!";
+						document.getElementById("messageDisplay").innerHTML = "<span id="NoData">No Data Available For The Selected Options!</span>";
 					}
 				}
 	
