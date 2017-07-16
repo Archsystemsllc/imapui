@@ -50,9 +50,6 @@
 	display: none;
 }
 
-table td {
-	border: 0px;
-}
 </style>
 
 </head>
@@ -115,7 +112,7 @@ table td {
 								</form:select>
 							</div>
 							<br></br>
-							<table>
+							<table class="table-users">
 								<tr>
 									<td>
 										<p>Document Provider :</p>

@@ -110,13 +110,14 @@
 				</div>
 			</div>
 		</div>
-		<%-- 	<div class="collapse navbar-collapse navbar-right">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="${pageContext.request.contextPath}/login">Home</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/dashboard">Hypothesis</a></li>
-						<li><a href="#">Contact Us</a></li>
-					</ul>
-				</div> --%>
+		<div class="collapse navbar-collapse navbar-right">
+			<ul class="nav navbar-nav" style="padding-top:80px">
+				<%-- <li class="active"><a
+					href="${pageContext.request.contextPath}/login">Home</a></li> --%>
+				<li><a href="${pageContext.request.contextPath}/admin/dashboard">Hypothesis</a></li>
+				<li><a href="#">Contact Us</a></li>
+			</ul>
+		</div>
 	</div>
 	<!--/.container--> </nav> <!--/nav--> </header>
 	<script>
