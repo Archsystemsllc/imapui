@@ -17,7 +17,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/button.css" /> 
+	href="${pageContext.request.contextPath}/resources/css/button.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js"></script>
 <script
@@ -37,7 +37,7 @@
 	<table>
 		<tr>
 			<td
-				style="background-color: #327a89; width:30%; vertical-align: top; padding: 0px 25px">
+				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
 				<div style="color: #fff">
 					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2
@@ -57,7 +57,7 @@
 				<div id="updates" class="boxed">
 
 					<div class="content">
-						<div class="table-users" style="width:75%">
+						<div class="table-users" style="width: 75%">
 							<div class="header">Download excel screen</div>
 							<table>
 								<tbody>
@@ -104,7 +104,8 @@
 											href="${pageContext.request.contextPath}/admin/download-templates"><button
 													class="button arrow">Download All</button></a> <a
 											href="${pageContext.request.contextPath}/admin/delete-templates"><button
-													class="button phone">Delete All</button></a> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
+													class="button phone">Delete All</button></a><button
+													class="button search1" onclick="addFile()">Add</button> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
 										</td>
 									</tr>
 								</tbody>
@@ -115,7 +116,7 @@
 								<spring:message code="${fileuploaderror}"></spring:message>
 							</div>
 						</c:if>
-						<div class="container" style="margin: 1em auto;width:75%">
+						<div class="container" id="addTemplate" style="margin: 1em auto; width: 75%;display:none">
 							<form:form
 								action="${pageContext.request.contextPath}/admin/new-template/"
 								modelAttribute="templateFile" enctype="multipart/form-data"
@@ -129,7 +130,7 @@
 									<form:input type="file" path="uploadedFile" />
 								</p>
 								<div>
-									<button class="btn btn-primary" type="submit" value="Send">Send</button> 
+									<button class="btn btn-primary" type="submit" value="Send">Send</button>
 								</div>
 							</form:form>
 						</div>
@@ -144,6 +145,11 @@
 	$(document).ready(function () {
 				 $('.nav > li').eq(2).addClass('active');			 
 	});		
+	</script>
+	<script>
+	function addFile(){
+		$('#addTemplate').toggle();
+	}
 	</script>
 </body>
 </html>

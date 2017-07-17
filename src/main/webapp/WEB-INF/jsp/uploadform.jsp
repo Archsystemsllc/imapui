@@ -118,7 +118,7 @@
 
 									<tr>
 										<td>
-											<p>Document Provider :</p>
+											<p>Provider Data:</p>
 										</td>
 										<td>
 											<p>
@@ -135,7 +135,7 @@
 									</tr>
 									<tr>
 										<td>
-											<p>Document Specialty :</p>
+											<p>Specialty Data:</p>
 										</td>
 										<td>
 											<p>
@@ -151,7 +151,7 @@
 									</tr>
 									<tr>
 										<td>
-											<p>Document Statewise :</p>
+											<p>State Statistics Data:</p>
 										</td>
 										<td>
 											<p>
@@ -177,49 +177,71 @@
 	</table>
 	<jsp:include page="footer.jsp" />
 	<script type="text/javascript">
-		function configureDropDownLists(ddl, ddl2) {
-			var ele = document.getElementById("ddl1");
-			var seleHypoId = ele.options[ele.selectedIndex].value;
-			$('#ddl2').empty();
-	
-			if (seleHypoId === "0") {
-				$('#ddl2').addClass('hidden');
-				$('#provider-upload').attr("disabled", "disabled");
-			} else {
-				$.ajax({
-					url : "http://localhost:8080/imapservices/api/subdata/hypothesis/" + seleHypoId,
-					type : 'GET',
-					dataType : 'json',
-					success : function(data) {
-						if (data.length == 0) {
-							$('#ddl2').addClass('hidden');
-						} else {
-							$('#ddl2').removeClass('hidden');
-							for (i = 0; i < data.length; i++) {
-								createOption(ddl2, data[i].subDataAnalysisName, data[i].id);
-							}
-						}
-						$('#provider-upload').removeAttr('disabled');
-	
-					},
-					error : function(request, error) {
-						alert("Request: " + JSON.stringify(request));
-					}
-				});
+    var data;
+    
+	function configureDropDownLists(ddl, ddl2) {
+		var ele = document.getElementById("ddl1");
+		var seleHypoId = ele.options[ele.selectedIndex].value;
+		var subData;
+		var subDataArray = [];
+		$('#ddl2').empty();
+		
+		if (seleHypoId === "0") {
+			$('#ddl2').addClass('hidden');
+			$('#provider-upload').attr("disabled", "disabled");
+		} else {	
+			
+			for(i = 0; i < data.length; i++){
+				if(data[i].id == seleHypoId && data[i].subDataAnalysis.length > 0 ){
+					
+					for(j = 0; j < data[i].subDataAnalysis.length; j++){							
+						subData = new Object();
+						subData.id = data[i].subDataAnalysis[j].id;
+						subData.name = data[i].subDataAnalysis[j].subDataAnalysisName;							
+						subDataArray.push(subData);							
+					}						
+				}
 			}
-	
+			if (subDataArray.length == 0) {
+				$('#ddl2').addClass('hidden');
+			} else {
+				$('#ddl2').removeClass('hidden');
+				for (i = 0; i < subDataArray.length; i++) {						
+					createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
+				}
+			}
+			$('#provider-upload').removeAttr('disabled');
 		}
+
+	}
+
+	function createOption(ddl, text, value) {
+		var opt = document.createElement('option');
+		opt.value = value;
+		opt.text = text;
+		ddl.options.add(opt);
+	}
 	
-		function createOption(ddl, text, value) {
-			var opt = document.createElement('option');
-			opt.value = value;
-			opt.text = text;
-			ddl.options.add(opt);
-		}
+	function subDataAnalysis() {
+		$.ajax({
+			url : "http://localhost:8080/imapservices/api/dataanalysis/",
+			type : 'GET',
+			dataType : 'json',
+			success : function(hypData) {					
+				data = hypData;				
+			},
+			error : function(request, error) {
+				//alert("Request: " + JSON.stringify(request));
+				alert("Request: " + failed);
+			}
+		});
+	}
+
 	</script>
 	<script type="text/javascript">
 	$(document).ready(function () {
-				 $('.nav > li').eq(1).addClass('active');			 
+				 $('.nav > li').eq(1).addClass('active');	
+				 subDataAnalysis();
 	});		
 	</script>
 </body>

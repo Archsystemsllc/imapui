@@ -137,6 +137,17 @@
 	transform: scale(1.4);
 }
 
+.search1:after {
+	content: "\f067";
+}
+
+.search1:hover:after {
+	-webkit-animation: none;
+	-webkit-transform: scale(1.4);
+	animation: none;
+	transform: scale(1.4);
+}
+
 @-webkit-keyframes bounceright {from { -webkit-transform:translateY(-3px);
 	
 }

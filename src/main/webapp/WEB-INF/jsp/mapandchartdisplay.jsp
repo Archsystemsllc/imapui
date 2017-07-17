@@ -122,6 +122,10 @@ table td:first-child {
 	color: yellow;
 	text-align: center;
 }
+
+/* #mapIframe{
+background: url("${pageContext.request.contextPath}/resources/images/loading3.gif")
+} */
 </style>
 </head>
 
@@ -232,10 +236,20 @@ table td:first-child {
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
-						style="overflow: hidden; width: 100%; height: 550px"
-						style="margin:auto"></iframe>
-
+					<div id="chart-container" style="width: 100%; margin: auto">
+						<div id="loading-gif" hidden="true" >
+							<img
+								src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
+						</div>
+						<iframe id='mapIframe' hidden="true" frameborder="0"
+							scrolling="no"
+							style="overflow: hidden; width: 100%; height: 550px"
+							style="margin:auto"></iframe>
+					</div>
+					<%-- <div id="loadinggif">
+						<img
+							src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
+					</div> --%>
 					<div id="messageDisplay"></div>
 
 					<div id="chart-container" style="width: 75%; margin: auto">
@@ -251,6 +265,12 @@ table td:first-child {
 		</tr>
 	</table>
 	<script>
+/* 	$('mapIframe').ready(function () {
+	    $('#loadinggif').css('display', 'none');
+	});
+	$('mapIframe').load(function () {
+	    $('#loadinggif').css('display', 'none');
+	}); */
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
@@ -276,8 +296,9 @@ table td:first-child {
 				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
 			}
 			if (reportTypeSelectedText == "Map") {
-				//document.getElementById("mapIframe").hidden = false;				
+				//document.getElementById("mapIframe").hidden = false;		
 				$('#mapIframe').hide();
+				/* $('#loading-gif').show(); */
 				var epGpro = '0';
 				if (reportingOptionSelectedText == "CLAIMS" || reportingOptionSelectedText == "EHR"
 					|| reportingOptionSelectedText == "REGISTRY"
@@ -292,10 +313,11 @@ table td:first-child {
 				var yesNoId = document.getElementById("yesOrNoOptionId").value;
 				var yearId = document.getElementById("yearLookUpId").value;
 				var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-				var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
-				$('#loading-gif').hide();
-				$('#mapIframe').show();
+				var url = serverContextPath + '/maps/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';				
+				
 				document.getElementById("mapIframe").src = url;
+				/* $('#loading-gif').hide(); */
+				$('#mapIframe').show();
 			}
 	
 			var ourRequest = new XMLHttpRequest();
@@ -523,7 +545,7 @@ table td:first-child {
 					}
 					if (barChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "<span id="NoData">No Data Available For The Selected Options!</span>";
+						document.getElementById("messageDisplay").innerHTML = "<span id='NoData'>No Data Available For The Selected Options!</span>";
 					}
 				}
 				if (reportTypeSelectedText == "Line Chart") {
@@ -535,7 +557,7 @@ table td:first-child {
 					}
 					if (lineChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "<span id="NoData">No Data Available For The Selected Options!</span>";
+						document.getElementById("messageDisplay").innerHTML = "<span id='NoData'>No Data Available For The Selected Options!</span>";
 					}
 				}
 	

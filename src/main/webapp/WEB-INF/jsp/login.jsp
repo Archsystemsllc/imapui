@@ -49,26 +49,7 @@
 	<jsp:include page="header_home.jsp" />
 	<div class="container" style="min-height: 580px">
 		<div class="row">
-			<div class="col-xs-8">
-				<br>
-				<table>
-					<tr>
-						<td><img
-							src="${pageContext.request.contextPath}/resources/images/big-data-theree.png"
-							style="height: 100%; width: 100%; margin: auto"></img></td>
-					</tr>
-					<tr>
-						<td><br></td>
-					</tr>
-					<tr>
-						<td
-							style="font-family: 'Architects Daughter', cursive; font-size: 50px; text-align: center">Hello,
-							I am ADDA!
-						<td>
-					<tr>
-				</table>
-			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-12">
 				<div id="log_in" style="padding-bottom: 100px">
 					<div class="login">
 						<div class="login-screen">
