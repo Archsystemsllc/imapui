@@ -278,3 +278,11 @@ CREATE TABLE `user_role` (
   CONSTRAINT `fk_user_role_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+--
+-- Alter Table structure for table `sub_data_analysis`
+--
+ALTER TABLE `interactive_maps_uat`.`sub_data_analysis` 
+ADD COLUMN `on_screen_help_text` VARCHAR(2048) NULL AFTER `sub_data_analysis_description`;
+
+
