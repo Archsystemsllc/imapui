@@ -54,7 +54,7 @@
 						<br>From the Base Year to Option Year 3 Rural Area Percentage
 						line plot, we would like to see the change trend of the rural area
 						percentage of all combined EPs and GPROs and the difference among
-						reporting options (Claim, Registry, EHR, QCDR and GPROWI)
+						reporting options (Claims, Registry, EHR, QCDR and GPROWI)
 					</p>
 				</div>
 			</td>
