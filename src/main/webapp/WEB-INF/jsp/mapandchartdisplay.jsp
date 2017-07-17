@@ -119,8 +119,12 @@ table td:first-child {
 }
 
 #NoData {
-	color: yellow;
+	background-color: #FFD42A;
+	width: 40%;
+	color:#000;
+	font-weight:bold;
 	text-align: center;
+	margin:auto;
 }
 
 /* #mapIframe{
@@ -236,16 +240,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						style="display: block; margin: auto; width: 60%;" type="submit"
 						id="displayreport" /></td>
 				</tr> -->
-					<div id="chart-container" style="width: 100%; margin: auto">
+					<%-- <div id="chart-container" style="width: 100%; margin: auto">
 						<div id="loading-gif" hidden="true" >
 							<img
 								src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
-						</div>
-						<iframe id='mapIframe' hidden="true" frameborder="0"
-							scrolling="no"
-							style="overflow: hidden; width: 100%; height: 550px"
-							style="margin:auto"></iframe>
-					</div>
+						</div> --%>
+					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
+						style="overflow: hidden; width: 100%; height: 550px"
+						style="margin:auto"></iframe>
+					<!-- </div> -->
 					<%-- <div id="loadinggif">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
@@ -545,7 +548,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					}
 					if (barChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "<span id='NoData'>No Data Available For The Selected Options!</span>";
+						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
 				if (reportTypeSelectedText == "Line Chart") {
@@ -557,7 +560,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					}
 					if (lineChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
-						document.getElementById("messageDisplay").innerHTML = "<span id='NoData'>No Data Available For The Selected Options!</span>";
+						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
 	

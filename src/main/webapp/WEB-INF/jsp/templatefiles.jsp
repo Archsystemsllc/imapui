@@ -34,7 +34,7 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
-	<table>
+	<table style="min-height: 600px;">
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
@@ -52,12 +52,12 @@
 					</p>
 				</div>
 			</td>
-			<td>
+			<td style="vertical-align: top">
 
 				<div id="updates" class="boxed">
 
 					<div class="content">
-						<div class="table-users" style="width: 75%">
+						<div class="table-users" style="width: 80%">
 							<div class="header">Download excel screen</div>
 							<table>
 								<tbody>
@@ -104,8 +104,9 @@
 											href="${pageContext.request.contextPath}/admin/download-templates"><button
 													class="button arrow">Download All</button></a> <a
 											href="${pageContext.request.contextPath}/admin/delete-templates"><button
-													class="button phone">Delete All</button></a><button
-													class="button search1" onclick="addFile()">Add</button> <!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
+													class="button phone">Delete All</button></a>
+										<button class="button search1" onclick="addFile()">Add</button>
+											<!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
 										</td>
 									</tr>
 								</tbody>
@@ -116,7 +117,8 @@
 								<spring:message code="${fileuploaderror}"></spring:message>
 							</div>
 						</c:if>
-						<div class="container" id="addTemplate" style="margin: 1em auto; width: 75%;display:none">
+						<div class="container" id="addTemplate"
+							style="margin: 1em auto; width: 75%; display: none">
 							<form:form
 								action="${pageContext.request.contextPath}/admin/new-template/"
 								modelAttribute="templateFile" enctype="multipart/form-data"

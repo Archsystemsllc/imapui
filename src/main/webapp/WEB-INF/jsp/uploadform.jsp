@@ -117,7 +117,7 @@
 
 
 									<tr>
-										<td>
+										<td style="text-align:right;">
 											<p>Provider Data:</p>
 										</td>
 										<td>
@@ -134,7 +134,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>
+										<td style="text-align:right;">
 											<p>Specialty Data:</p>
 										</td>
 										<td>
@@ -150,7 +150,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>
+										<td style="text-align:right;">
 											<p>State Statistics Data:</p>
 										</td>
 										<td>
