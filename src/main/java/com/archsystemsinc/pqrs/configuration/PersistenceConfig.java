@@ -51,7 +51,7 @@ public class PersistenceConfig {
     }
     @Bean
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
-		String activeProfile = System.getProperty("spring.profiles.active",	"local");
+		String activeProfile = System.getProperty("spring.profiles.active",	"prod");
 		String propertiesFilename = "application-" + activeProfile
 				+ ".properties";
 		System.out.println("propertiesFilename:" + propertiesFilename);
