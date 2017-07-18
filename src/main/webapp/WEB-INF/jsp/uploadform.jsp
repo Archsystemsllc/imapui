@@ -224,7 +224,7 @@
 	
 	function subDataAnalysis() {
 		$.ajax({
-			url : "http://localhost:8080/imapservices/api/dataanalysis/",
+			url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",
 			type : 'GET',
 			dataType : 'json',
 			success : function(hypData) {					
