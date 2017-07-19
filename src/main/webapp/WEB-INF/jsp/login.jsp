@@ -47,7 +47,7 @@
 
 <body id="b">
 	<jsp:include page="header_home.jsp" />
-	<div class="container" id="mid" style="min-height:500px">
+	<div class="container" id="mid">
 		<div class="row">
 			<div class="col-xs-12">
 				<div id="log_in">
@@ -81,13 +81,15 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<jsp:include page="footer.jsp" />
-	<script type="text/javascript">
+		<script type="text/javascript">
 	var h;
-	h=screen.height-300;
+	h=screen.height-336;
+	/* alert(document.getElementById('mid').style.height); */
 	document.getElementById('mid').style.minHeight=h+'px';
 	</script>
+	</div>
+	<jsp:include page="footer.jsp" />
+
 	<!-- /container -->
 	<!-- <section id="services" class="service-item">
 		<div class="container">

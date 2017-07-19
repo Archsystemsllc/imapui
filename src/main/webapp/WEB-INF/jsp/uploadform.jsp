@@ -54,7 +54,7 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp" />
-	<table style="min-height: 580px">
+	<table>
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
@@ -67,8 +67,8 @@
 						<br></br> <br></br>From the Base Year to Option Year 3 Rural Area
 						Percentage line plot, we would like to see the change trend of the
 						rural area percentage of all combined EPs and GPROs and the
-						difference among reporting options (Claims, Registry, EHR, QCDR and
-						GPROWI)
+						difference among reporting options (Claims, Registry, EHR, QCDR
+						and GPROWI)
 					</p>
 				</div>
 			</td>
@@ -117,7 +117,7 @@
 
 
 									<tr>
-										<td style="text-align:right;">
+										<td style="text-align: right;">
 											<p>Provider Data:</p>
 										</td>
 										<td>
@@ -134,7 +134,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td style="text-align:right;">
+										<td style="text-align: right;">
 											<p>Specialty Data:</p>
 										</td>
 										<td>
@@ -150,7 +150,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td style="text-align:right;">
+										<td style="text-align: right;">
 											<p>State Statistics Data:</p>
 										</td>
 										<td>
@@ -174,8 +174,15 @@
 
 			</td>
 		</tr>
+
 	</table>
 	<jsp:include page="footer.jsp" />
+	<script type="text/javascript">
+	var h;
+	h=screen.height-300;
+	alert(document.getElementById('mid').style.height);
+	document.getElementById('mid').style.minHeight=h+'px';
+	</script>
 	<script type="text/javascript">
     var data;
     

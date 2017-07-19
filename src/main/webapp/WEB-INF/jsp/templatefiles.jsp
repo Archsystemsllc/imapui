@@ -34,7 +34,7 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
-	<table id="mid" style="min-height:600px">
+	<table id="mid">
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
