@@ -34,7 +34,7 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
-	<table style="min-height: 600px;">
+	<table id="mid" style="min-height:600px">
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
@@ -118,7 +118,7 @@
 							</div>
 						</c:if>
 						<div class="container" id="addTemplate"
-							style="margin: 1em auto; width: 75%; display: none">
+							style="margin:auto; width: 30%; display: none">
 							<form:form
 								action="${pageContext.request.contextPath}/admin/new-template/"
 								modelAttribute="templateFile" enctype="multipart/form-data"
@@ -131,8 +131,8 @@
 									Please specify a file, or a set of files:<br />
 									<form:input type="file" path="uploadedFile" />
 								</p>
-								<div>
-									<button class="btn btn-primary" type="submit" value="Send">Send</button>
+								<div style="margin:auto;width:40%">
+									<button style="margin:auto;width:80%" class="btn btn-primary" type="submit" value="Send">Send</button>
 								</div>
 							</form:form>
 						</div>
@@ -144,9 +144,16 @@
 	</table>
 	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript">
+	var h;
+	h=screen.height-357;
+	document.getElementById('mid').style.minHeight=h+'px';
 	$(document).ready(function () {
 				 $('.nav > li').eq(2).addClass('active');			 
 	});		
+	 var h;
+	 h=window.innerHeight;
+	 h=h-200;
+	 document.getElementById("#MID").style.minHeight=h+"px";
 	</script>
 	<script>
 	function addFile(){

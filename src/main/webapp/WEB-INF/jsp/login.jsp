@@ -47,10 +47,10 @@
 
 <body id="b">
 	<jsp:include page="header_home.jsp" />
-	<div class="container" style="min-height: 580px">
+	<div class="container" id="mid" style="min-height:500px">
 		<div class="row">
 			<div class="col-xs-12">
-				<div id="log_in" style="padding-bottom: 100px">
+				<div id="log_in">
 					<div class="login">
 						<div class="login-screen">
 							<form method="POST" action="${contextPath}/login"
@@ -83,7 +83,11 @@
 		</div>
 	</div>
 	<jsp:include page="footer.jsp" />
-
+	<script type="text/javascript">
+	var h;
+	h=screen.height-300;
+	document.getElementById('mid').style.minHeight=h+'px';
+	</script>
 	<!-- /container -->
 	<!-- <section id="services" class="service-item">
 		<div class="container">

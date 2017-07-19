@@ -39,7 +39,7 @@
 		<jsp:include page="admin_header.jsp"></jsp:include>
 	</sec:authorize>
 
-	<table style="min-height: 600px">
+	<table id="mid">
 
 		<tr>
 			<td width="30%"
@@ -50,11 +50,11 @@
 								style="color: #fff; font-family: 'Rubik', sans-serif;">Description</h2></li>
 					</ul> -->
 					<p style="text-align: justify; font-family: 'Rubik', sans-serif;">
-						<br>
-						<br>From the Base Year to Option Year 3 Rural Area Percentage
-						line plot, we would like to see the change trend of the rural area
-						percentage of all combined EPs and GPROs and the difference among
-						reporting options (Claims, Registry, EHR, QCDR and GPROWI)
+						<br> <br>From the Base Year to Option Year 3 Rural Area
+						Percentage line plot, we would like to see the change trend of the
+						rural area percentage of all combined EPs and GPROs and the
+						difference among reporting options (Claims, Registry, EHR, QCDR
+						and GPROWI)
 					</p>
 				</div>
 			</td>
@@ -78,14 +78,17 @@
 
 								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
 									<tr>
-										<td><a title = "${dataAnalysis.dataAnalysisDescription}"
+										<td><a title="${dataAnalysis.dataAnalysisDescription}"
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
 										</td>
 
 										<td style="text-align: center"><a
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
-													title = "Select View to see the results of the Analysis" class="button search" id="view" value="View">View</button></a>
-											<button title = "Select to Download the report for the Hypothesis selected" class="button arrow" id="download" value="Download">Download</button>
+													title="Select View to see the results of the Analysis"
+													class="button search" id="view" value="View">View</button></a>
+											<button
+												title="Select to Download the report for the Hypothesis selected"
+												class="button arrow" id="download" value="Download">Download</button>
 										</td>
 
 									</tr>
@@ -99,7 +102,8 @@
 											<tr>
 												<td style="border: 0px">
 													<ul>
-														<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
+														<li><a
+															title="${subDataAnalysis.subDataAnalysisDescription}"
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
 														</li>
 													</ul>
@@ -107,8 +111,11 @@
 
 												<td style="text-align: center; border: 0px"><a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-															title = "Select View to see the results of the Analysis" class="button search" id="view" value="View">View</button></a>
-													<button title = "Select to Download the report for the Hypothesis selected" class="button arrow" id="download" value="Download">Download</button></td>
+															title="Select View to see the results of the Analysis"
+															class="button search" id="view" value="View">View</button></a>
+													<button
+														title="Select to Download the report for the Hypothesis selected"
+														class="button arrow" id="download" value="Download">Download</button></td>
 
 											</tr>
 
@@ -130,10 +137,14 @@
 </script>
 
  -->
-	 <script type="text/javascript">
+<script type="text/javascript">
+	 var h;
+		h=screen.height-357;
+		document.getElementById('mid').style.minHeight=h+'px';
 	 $(document).ready(function () {
 		 $('.nav > li').eq(0).addClass('active');	 
 	 });
+
 	 </script>
 					</div>
 				</div>

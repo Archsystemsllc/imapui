@@ -121,10 +121,10 @@ table td:first-child {
 #NoData {
 	background-color: #FFD42A;
 	width: 40%;
-	color:#000;
-	font-weight:bold;
+	color: #000; font-weight : bold; text-align : center;
+	margin: auto;
 	text-align: center;
-	margin:auto;
+	font-weight: bold;
 }
 
 /* #mapIframe{
@@ -136,7 +136,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
 
-	<table style="min-height: 750px;">
+	<table id="mid" style="min-height:600px">
 		<tr>
 			<td
 				style="background-color: #327a89; vertical-align: top; padding: 0px 25px; width: 30%">
@@ -148,8 +148,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						<br> <br>From the Base Year to Option Year 3 Rural Area
 						Percentage line plot, we would like to see the change trend of the
 						rural area percentage of all combined EPs and GPROs and the
-						difference among reporting options (Claims, Registry, EHR, QCDR and
-						GPROWI)
+						difference among reporting options (Claims, Registry, EHR, QCDR
+						and GPROWI)
 					</p>
 				</div>
 				<div id="onScreenHelpLabelId" style="color: #fff">
@@ -268,6 +268,10 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		</tr>
 	</table>
 	<script>
+	<script type="text/javascript">
+	var h;
+	h=screen.height-357;
+	document.getElementById('mid').style.minHeight=h+'px';
 /* 	$('mapIframe').ready(function () {
 	    $('#loadinggif').css('display', 'none');
 	});
