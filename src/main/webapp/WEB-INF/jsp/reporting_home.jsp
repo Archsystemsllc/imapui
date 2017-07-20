@@ -59,6 +59,10 @@
 </head>
 <body ng-app="myApp" class="ng-cloak">
 	<jsp:include page="header.jsp" />
+	
+	<div ng-controller="DemoController as dctrl">
+	
+	</div>
 	<div class="container" style="min-height: 600px;">
 		<h2 align="center">Welcome to PQRS Interactive Map Data Analysis
 			Reporting Application</h2>

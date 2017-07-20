@@ -2,20 +2,19 @@
 
 angular.module('myApp').factory('ReportingService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost/imapservices/api/';
-
-    var factory = {
+     var factory = {
     		dataAnalysisOptions: dataAnalysisOptions        
     };
 
     return factory;
 
-    function dataAnalysisOptions() {
+    function dataAnalysisOptions(configData) {
+    	console.log("configData::"+configData.restUrl)
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+"dataanalysis")
+        $http.get(configData.restUrl+"dataanalysis")
             .then(
             function (response) {
-            	console.log("**********:"+JSON.stringify(response.data))
+            	//console.log("**********:"+JSON.stringify(response.data))
                 deferred.resolve(response.data);
             },
             function(errResponse){
