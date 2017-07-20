@@ -3,6 +3,10 @@
  */
 package com.archsystemsinc.pqrs.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,8 +23,8 @@ public class CommonController {
 	
 	private static final Logger log = Logger.getLogger(CommonController.class);
 	
-	@Value("${imapservices.api}")
-	String imapServicesApi;
+	@Value("${config.file.path}")
+	String configFilePath;
 	
 	@RequestMapping("/home")
 	public String home(){
@@ -36,10 +40,18 @@ public class CommonController {
 		log.debug("<- admin ->");
 		return "admin";
 	}
-	@RequestMapping(value="/imapServicesApi", method = RequestMethod.GET)
-	public @ResponseBody String imapServicesApi(){
-		log.debug("<--imapServicesApi-->:"+imapServicesApi);
-		imapServicesApi = org.codehaus.jettison.json.JSONObject.quote(imapServicesApi);
-		return imapServicesApi;
+	@RequestMapping(value = "/config", method = RequestMethod.GET)
+	public @ResponseBody String config() {
+		log.debug("<--config-" + configFilePath);
+		String contents = "ERROR";
+		try {
+			contents = new String(Files.readAllBytes(Paths.get(configFilePath)));
+		} catch (IOException e) {
+			log.error("Error while reading config:" + configFilePath);
+			e.printStackTrace();
+		}
+		log.debug("-->config-" + contents);
+		return contents;
+
 	}
 }

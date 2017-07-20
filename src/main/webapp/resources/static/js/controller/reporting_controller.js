@@ -1,17 +1,18 @@
 'use strict';
-
-angular.module('myApp').controller('ReportingController', ['$scope', 'ReportingService', function($scope, ReportingService) {
+angular.module('myApp').controller('DemoController', ["configData", function DemoController(configData) {
+	  this.configData = configData;
+	  
+	}]);
+angular.module('myApp').controller('ReportingController', ['configData', 'ReportingService', function(configData, ReportingService) {
     var self = this;
     self.dataAnalysis={id:null,dataAnalysisDescription:'',dataAnalysisName:''};
     self.dataAnalysis=[];
-
-    
-
-
+    this.configData = configData;
+   
     dataAnalysisOptions();
 
     function dataAnalysisOptions(){
-    	ReportingService.dataAnalysisOptions()
+    	ReportingService.dataAnalysisOptions(configData)
             .then(
             function(d) {
                 self.dataAnalysis = d;
