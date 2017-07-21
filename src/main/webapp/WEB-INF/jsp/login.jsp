@@ -61,12 +61,18 @@
 									Login<br> <br>
 								</h1>
 								<div class="form-group ${error != null ? 'has-error' : ''}">
-									<span>${message}</span> <input name="username" type="text"
-										class="form-control" placeholder="Username" autofocus="true" /><br>
-									<input name="password" type="password" class="form-control"
-										placeholder="Password" /> <span>${error}</span><input
-										type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" /><br>
+									<span>${message}</span>
+									<!-- <div class="input-group"><span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span> -->
+									<input style="margin: 0px" name="username" type="text"
+										class="form-control" placeholder="Username" autofocus="true" />
+									<!-- </div> -->
+									<br>
+									<!-- <div class="input-group"><span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span> -->
+									<input style="margin: 0px" name="password" type="password"
+										class="form-control" placeholder="Password" />
+									<!-- </div> -->
+									<span>${error}</span> <input type="hidden"
+										name="${_csrf.parameterName}" value="${_csrf.token}" /> <br>
 								</div>
 								<button class="btn btn-lg btn-primary btn-block" type="submit">Log
 									In</button>

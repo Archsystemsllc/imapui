@@ -54,7 +54,7 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp" />
-	<table>
+	<table id="mid">
 		<tr>
 			<td
 				style="background-color: #327a89; width: 30%; vertical-align: top; padding: 0px 25px">
@@ -179,8 +179,8 @@
 	<jsp:include page="footer.jsp" />
 	<script type="text/javascript">
 	var h;
-	h=screen.height-300;
-	alert(document.getElementById('mid').style.height);
+	h=screen.height-357;
+	/* alert(document.getElementById('mid').style.height); */
 	document.getElementById('mid').style.minHeight=h+'px';
 	</script>
 	<script type="text/javascript">

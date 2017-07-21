@@ -41,7 +41,7 @@
 				&nbsp;&nbsp;Copyright &copy; - 2017 Arch Systems, LLC. All Rights Reserved.
 			</div>
 			<div class="col-sm-6">
-				<ul class="pull-right" style="margin-top: 25px">
+				<ul class="pull-right" style="margin-top: 14px">
 					<li><a href="#">Home</a></li>
 					<li><a href="#">About Us</a></li>
 					<li><a href="#">Faq</a></li>

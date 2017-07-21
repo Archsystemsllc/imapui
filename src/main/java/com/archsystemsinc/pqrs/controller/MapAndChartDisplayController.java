@@ -26,7 +26,16 @@ import com.archsystemsinc.pqrs.service.SubDataAnalysisService;
 import com.archsystemsinc.pqrs.service.YearLookUpService;
 
 /**
- * This is the Spring Controller Class for Hypothesis Screen(Map and Chart) Functionality
+ * This is the Spring Controller Class for ADDA Screen(Graph Display Screen) Functionality.
+ * 
+ * This controller class loads the drop down value data for all selection criteria from the look up tables 
+ * and send it to ADDA(Graph Display) Screen.
+ * 
+ * Associated Database Tables:
+ * Option year : year_lookup
+ * Reporting Option : reporting_option_lookup
+ * Parameter Name : parameter_lookup
+ * 
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
@@ -48,14 +57,24 @@ public class MapAndChartDisplayController {
 	
 	/**
 	 * 
-	 * This is the controller method for Map and Chart Display screen and it provides the information to be displayed in that screen.
+	 * This is the controller method for Graph Display screen and it provides the information to be displayed in that screen.
+	 * 
+	 * This controller class loads the drop down value data for all selection criteria from the look up tables 
+	 * and send it to ADDA(Graph Display) Screen.
+	 * 
+	 * Associated Database Tables:
+	 * Option year : year_lookup
+	 * Reporting Option : reporting_option_lookup
+	 * Parameter Name : parameter_lookup
+	 * 
+	 * View Page: mapandchartdisplay.jsp
 	 * 
 	 * @param dataanalysis
 	 * @param subdataanalysis
 	 * @param request
 	 * @param currentUser
 	 * @param model
-	 * @return
+	 * @return String
 	 */
 	@RequestMapping("/mapandchartdisplay/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}")
 	public String mapAndChartScreen(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, HttpServletRequest request, Principal currentUser, Model model ) {
@@ -75,6 +94,7 @@ public class MapAndChartDisplayController {
 		final List<ParameterLookup> parameterLookups = parameterLookUpService.findAll();			
 		model.addAttribute("parameterLookups", parameterLookups);
 		
+		// Gets the different type of Chart Name from the constant class: ChartNameEnum.
 		List<String> reportTypes = new ArrayList<String>();
 		for (ChartNameEnum chartName : ChartNameEnum.values()) {
 			reportTypes.add(chartName.getChartName());
@@ -82,6 +102,7 @@ public class MapAndChartDisplayController {
 		
 		model.addAttribute("reportTypes", reportTypes);
 		
+		// View Page: mapandchartdisplay.jsp
 		return "mapandchartdisplay";
 		
 	}

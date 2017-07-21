@@ -51,7 +51,7 @@ FOREIGN KEY (year) REFERENCES year_lookup(id);
 
 ALTER TABLE provider_Hypothesis
 ADD CONSTRAINT FK_ReportingOptionProviderHypothesis
-FOREIGN KEY (reporting_option) REFERENCES reporting_type_lookup(id);
+FOREIGN KEY (reporting_option) REFERENCES reporting_option_lookup(id);
 
 **/
 
@@ -284,5 +284,42 @@ CREATE TABLE `user_role` (
 --
 ALTER TABLE `interactive_maps_uat`.`sub_data_analysis` 
 ADD COLUMN `on_screen_help_text` VARCHAR(2048) NULL AFTER `sub_data_analysis_description`;
+
+---------
+
+-----------------------------------
+-- @AUTHOR : murugaraj kandaswamy    Date : 7/18/2017
+---   Hypothesis 3 Implementation
+---------------------------------
+
+
+CREATE TABLE `interactive_maps_uat`.`exclusion_trends` (
+  `id` INT NOT NULL,
+  `data_analysis_id` INT NULL,
+  `sub_data_analysis_id` INT NULL,
+  `year_id` INT NULL,
+  `reporting_option_id` INT NULL,
+  `mean_exclusion_rate_percent` DOUBLE NULL,
+  `created_by` VARCHAR(255) NULL,
+  `created_date` DATE NULL,
+  `updated_by` VARCHAR(255) NULL,
+  `updated_date` DATE NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE interactive_maps_uat.exclusion_trends
+ADD CONSTRAINT FK_DataAnalysisExclusionTrends
+FOREIGN KEY (data_analysis_id) REFERENCES data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.exclusion_trends
+ADD CONSTRAINT FK_SubDataAnalysisExclusionTrends
+FOREIGN KEY (sub_data_analysis_id) REFERENCES sub_data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.exclusion_trends
+ADD CONSTRAINT FK_YearExclusionTrends
+FOREIGN KEY (year_id) REFERENCES year_lookup(id);
+
+ALTER TABLE interactive_maps_uat.exclusion_trends
+ADD CONSTRAINT FK_ReportingOptionExclusionTrends
+FOREIGN KEY (reporting_option_id) REFERENCES reporting_option_lookup(id);
 
 

@@ -136,7 +136,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
 
-	<table id="mid" style="min-height:600px">
+	<table id="mid">
 		<tr>
 			<td
 				style="background-color: #327a89; vertical-align: top; padding: 0px 25px; width: 30%">
@@ -234,25 +234,9 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
-					<!-- 	<tr>
-					<td></td>
-					<td><input class="btn btn-primary btn-sm"
-						style="display: block; margin: auto; width: 60%;" type="submit"
-						id="displayreport" /></td>
-				</tr> -->
-					<%-- <div id="chart-container" style="width: 100%; margin: auto">
-						<div id="loading-gif" hidden="true" >
-							<img
-								src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
-						</div> --%>
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
 						style="overflow: hidden; width: 100%; height: 550px"
 						style="margin:auto"></iframe>
-					<!-- </div> -->
-					<%-- <div id="loadinggif">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
-					</div> --%>
 					<div id="messageDisplay"></div>
 
 					<div id="chart-container" style="width: 75%; margin: auto">
@@ -267,7 +251,6 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			</td>
 		</tr>
 	</table>
-	<script>
 	<script type="text/javascript">
 	var h;
 	h=screen.height-357;
@@ -284,7 +267,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var serverContextPath = '${pageContext.request.contextPath}';
 	
 		btn.addEventListener("click", function() {
-			$('#loading-gif').show();
+			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
@@ -440,7 +423,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					};
 					<!-- BAR CHART :: JAVA SCRIPT ###### END  -->
 	
-				} <!-- Bar Chart If Logic Ends-->
+				}  /* Bar Chart If Logic Ends */
 	
 				if (reportTypeSelectedText == "Line Chart") {
 					lineChartData = JSON.parse(ourRequest.responseText);
@@ -448,8 +431,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	
 					<!-- LINE CHART :: JAVA SCRIPT ###### START  -->
 					var lineChartDataAvail = lineChartData.dataAvailable;
-					var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary'
-					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText
+					var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary';
+					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText;
 	
 					var lineconfig = {
 						type : 'line',

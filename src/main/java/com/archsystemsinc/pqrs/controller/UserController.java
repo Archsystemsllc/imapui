@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * This is the Spring Controller Class for User Login Functionality
+ * This is the Spring Controller Class for User Login Functionality.
+ * 
+ * This class provides the functionalities for 1. User Registration,
+ * 2. Re-directing to the welcome Page, and 3. The Login Page.
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
@@ -29,6 +32,12 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    /**
+     * This method provides the functionalities for the User Registration.
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -36,6 +45,16 @@ public class UserController {
         return "registration";
     }
 
+    /**
+     * 
+     * This method provides the functionalities for the user to re-direct to the welcome
+     * page after successful login.
+     * 
+     * @param userForm
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
@@ -51,6 +70,15 @@ public class UserController {
         return "redirect:/welcome";
     }
 
+    /**
+     * 
+     *  This method provides the functionalities for the User to login to the application.
+     * 
+     * @param model
+     * @param error
+     * @param logout
+     * @return
+     */
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)

@@ -18,7 +18,14 @@ import com.archsystemsinc.pqrs.model.ProviderHypothesis;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
 
 /**
- * This is the Spring Controller Class for Bar and Line Chart Implementation.
+ * This is the Rest Controller Class for Bar and Line Chart Implementation for Hypothesis 1 and 2.
+ * 
+ * This class contains APIs for getting the data for Bar and Line Chart.
+ * 1. Bar Chart API Method: gets the Percent value of five reporting options(CLAIMS, EHR, REGISTRY, GPROWI, and QCDR)
+ * from the Database; sets it as the array list of value for each reporting options and returns as JSON object to client 
+ * which calls this API. 
+ * 2. Line Chart API Method: gets the Yes and No Percent, and Yes and No Count value for Option Year and the Reporting Option(example : CLAIMS) combination 
+ * from the Database; sets it as the array list of value and returns as JSON object to client which calls this API.
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
@@ -33,6 +40,9 @@ public class ProviderHypothesisController {
 	/**
 	 * 
 	 * This method returns the JSON Object that has the details for Bar Chart Display.
+	 * 
+	 * This method gets the Yes and No Percent, and Yes and No Count value for Option Year and the Reporting Option(example : CLAIMS) combination 
+	 * from the Database; sets it as the array list of value and returns as JSON object to client which calls this API.
 	 * 
 	 * @param dataAnalysisName
 	 * @param subdataAnalysisName
@@ -61,6 +71,7 @@ public class ProviderHypothesisController {
 		List<String> yesCountValues = new ArrayList<String>();
 		List<String> noCountValues = new ArrayList<String>();
 		
+		// Iterate over all the records returned from the Database and sets the Yes and No Percents, and Yes and No Count Value.
 		for (ProviderHypothesis providerHypothesis : providerHypothesisList){
 			parameters.add(providerHypothesis.getParameterLookup().getParameterName());
 			yesPercents.add(providerHypothesis.getYesPercent());
@@ -85,6 +96,10 @@ public class ProviderHypothesisController {
 	/**
 	 * 
 	 * This method returns the JSON Object that has the details for Line Chart Display.
+	 * 
+	 * This method gets the Percent value of five reporting options(CLAIMS, EHR, REGISTRY, GPROWI, and QCDR)
+	 * from the Database; sets it as the array list of value for each reporting options and returns as JSON object to client 
+	 * which calls this API.
 	 * 
 	 * @param dataAnalysisName
 	 * @param subdataAnalysisName

@@ -20,12 +20,38 @@ import com.archsystemsinc.pqrs.model.YearLookup;
  */
 public interface ProviderHypothesisRepository extends JpaRepository<ProviderHypothesis, Long>{
 
+	/**
+	 * 
+	 * @param yearLookup
+	 * @param reportingOptionLookup
+	 * @return
+	 */
 	List<ProviderHypothesis> findByYearLookupAndReportingOptionLookup(YearLookup yearLookup, ReportingOptionLookup reportingOptionLookup);
 	
+	/**
+	 * 
+	 * @param dataAnalysis
+	 * @param subDataAnalysis
+	 * @param yearLookup
+	 * @param reportingOptionLookup
+	 * @return
+	 */
 	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(DataAnalysis dataAnalysis, SubDataAnalysis subDataAnalysis, YearLookup yearLookup, ReportingOptionLookup reportingOptionLookup);
 	
+	/**
+	 * 
+	 * @param parameterLookup
+	 * @return
+	 */
 	List<ProviderHypothesis> findByParameterLookup(ParameterLookup parameterLookup);
 	
+	/**
+	 * 
+	 * @param dataAnalysis
+	 * @param subDataAnalysis
+	 * @param parameterLookup
+	 * @return
+	 */
 	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndParameterLookup(DataAnalysis dataAnalysis, SubDataAnalysis subDataAnalysis, ParameterLookup parameterLookup);
 	
 }

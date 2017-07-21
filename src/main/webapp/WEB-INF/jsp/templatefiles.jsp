@@ -149,11 +149,7 @@
 	document.getElementById('mid').style.minHeight=h+'px';
 	$(document).ready(function () {
 				 $('.nav > li').eq(2).addClass('active');			 
-	});		
-	 var h;
-	 h=window.innerHeight;
-	 h=h-200;
-	 document.getElementById("#MID").style.minHeight=h+"px";
+	});	
 	</script>
 	<script>
 	function addFile(){
