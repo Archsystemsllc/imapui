@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>INTERACTIVE MAPS</title>
+<title>ADDA - Download</title>
 <link href="${pageContext.request.contextPath}/resources/css/table.css"
 	rel="stylesheet" />
 <link rel="shortcut icon"
@@ -47,8 +47,8 @@
 						<br></br> <br></br>From the Base Year to Option Year 3 Rural Area
 						Percentage line plot, we would like to see the change trend of the
 						rural area percentage of all combined EPs and GPROs and the
-						difference among reporting options (Claims, Registry, EHR, QCDR and
-						GPROWI)
+						difference among reporting options (Claims, Registry, EHR, QCDR
+						and GPROWI)
 					</p>
 				</div>
 			</td>
@@ -60,6 +60,11 @@
 						<div class="table-users" style="width: 80%">
 							<div class="header">Download excel screen</div>
 							<table>
+								<colgroup>
+									<col width="30%"></col>
+									<col width="30%"></col>
+									<col width="40%"></col>
+								</colgroup>
 								<tbody>
 									<tr>
 										<th>Name</th>
@@ -105,7 +110,7 @@
 													class="button arrow">Download All</button></a> <a
 											href="${pageContext.request.contextPath}/admin/delete-templates"><button
 													class="button phone">Delete All</button></a>
-										<button class="button search1" onclick="addFile()">Add</button>
+											<button class="button search1" onclick="addFile()">Add</button>
 											<!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
 										</td>
 									</tr>
@@ -118,21 +123,22 @@
 							</div>
 						</c:if>
 						<div class="container" id="addTemplate"
-							style="margin:auto; width: 30%; display: none">
+							style="margin: auto; width: 30%; display: none">
 							<form:form
 								action="${pageContext.request.contextPath}/admin/new-template/"
 								modelAttribute="templateFile" enctype="multipart/form-data"
 								method="post">
 								<p>
 									Description:<br />
-									<form:input type="text" path="uploadedDescription" size="30" />
+									<form:input type="text" path="uploadedDescription" size="40" />
 								</p>
 								<p>
 									Please specify a file, or a set of files:<br />
 									<form:input type="file" path="uploadedFile" />
 								</p>
-								<div style="margin:auto;width:40%">
-									<button style="margin:auto;width:80%" class="btn btn-primary" type="submit" value="Send">Send</button>
+								<div style="margin: auto; width: 30%">
+									<button style="margin: auto; width: 80%"
+										class="btn btn-primary" type="submit" value="Send">Send</button>
 								</div>
 							</form:form>
 						</div>

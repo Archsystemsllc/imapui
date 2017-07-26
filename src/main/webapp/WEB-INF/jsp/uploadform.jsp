@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>INTERACTIVE MAPS</title>
+<title>ADDA - Upload</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
@@ -97,6 +97,11 @@
 								</c:if>
 								<form:errors path="*" cssClass="errorblock" element="div" />
 								<table>
+									<colgroup>
+										<col width="30%"></col>
+										<col width="40%"></col>
+										<col width="30%"></col>
+									</colgroup>
 									<tr>
 										<td colspan="3"><form:select path="providerHypId"
 												id="ddl1"

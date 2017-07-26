@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>INTERACTIVE MAPS</title>
+<title>ADDA</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>INTERACTIVE MAPS</title>
+<title>ADDA</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"
@@ -121,7 +121,9 @@ table td:first-child {
 #NoData {
 	background-color: #FFD42A;
 	width: 40%;
-	color: #000; font-weight : bold; text-align : center;
+	color: #000;
+	font-weight: bold;
+	text-align: center;
 	margin: auto;
 	text-align: center;
 	font-weight: bold;
@@ -161,38 +163,41 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			</td>
 			<td style="vertical-align: top;">
 				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
-				<div class="HypothesisScreen" style="padding: 20px 250px;">
-					<table style="border-collapse: separate; border-spacing: 2px;">
-                        <tr id="excluFreqRow">
+				<div class="HypothesisScreen" style="padding: 20px 25%;">
+					<table style="border-collapse: separate; border-spacing: 2px;width:100%">
+						<colgroup>
+							<col width="35%"></col>
+							<col width="65%"></col>
+						</colgroup>
+						<tr id="excluFreqRow">
 							<td><label for="excluFreqRowId">Exc/Fre Option :</label></td>
 							<td><select id="excluFreqRowId" name="excluFreqRowId"
-								title="Click here to choose Exc/Fre">									
+								title="Click here to choose Exc/Fre">
 									<option value="1">Exclusion</option>
 									<option value="2">Frequency</option>
 							</select></td>
-						</tr>						
+						</tr>
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
 							<td><select id="yearLookUpId" name="yearLookUpId"
 								title="Select one of the option years or ALL where available">
-									<option value="">Select</option>									
+									<option value="">Select</option>
 									<c:forEach items="${yearLookups}" var="yearLookUp">
 										<option value="${yearLookUp.id}"
 											${yearLookUp.id == yearLookUpId ? 'selected="selected"' : ''}>${yearLookUp.yearName}</option>
 									</c:forEach>
 							</select></td>
-						</tr>                       
-                        <tr>
-							<td><label for="measureLookupId">Measure Name :
-							</label></td>
-							<td><label for="id_label_multiple"> <select id="measureLookupId" name="measureLookupId" multiple="multiple" 
-								title="Select one of the measure names">
-									<option value="">Select</option>
-									<c:forEach items="${measureLookups}" var="measureLookup">
-										<option value="${measureLookup.id}"
-											${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId}</option>
-									</c:forEach>
-							</select></label></td>
+						</tr>
+						<tr>
+							<td><label for="measureLookupId">Measure Name : </label></td>
+							<td><label for="id_label_multiple" style="width:100%"> <select
+									id="measureLookupId" name="measureLookupId" multiple="multiple"
+									title="Select one of the measure names" >
+										<c:forEach items="${measureLookups}" var="measureLookup">
+											<option value="${measureLookup.id}"
+												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId}</option>
+										</c:forEach>
+								</select></label></td>
 						</tr>
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
@@ -235,11 +240,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</div>
 						<canvas id="chart-canvas"></canvas>
 					</div>
-					
+
 				</div>
-                
-                <div id ="summary"></div>			
-				
+
+				<div id="summary"></div>
+
 			</td>
 		</tr>
 	</table>

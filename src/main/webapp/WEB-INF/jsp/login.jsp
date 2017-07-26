@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Log in - PQRS Interactive Map</title>
+<title>Log in - ADDA</title>
 <link href="${contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -39,13 +39,13 @@
 <link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
 	rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- [if lt IE 9] -->
+<!--   [if lt IE 9]
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<!--     [endif] -->
+    [endif] -->
 </head>
 
-<body id="b">
+<body id="b"  style="height:100%">
 	<jsp:include page="header_home.jsp" />
 	<div class="container" id="mid">
 		<div class="row">
@@ -89,7 +89,7 @@
 		</div>
 		<script type="text/javascript">
 	var h;
-	h=screen.height-336;
+	h=screen.height-330;
 	/* alert(document.getElementById('mid').style.height); */
 	document.getElementById('mid').style.minHeight=h+'px';
 	</script>
