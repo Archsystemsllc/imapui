@@ -63,7 +63,7 @@
 
 							<tbody>
 
-								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">
+								<c:forEach items="${dataAnalysisList}" var="dataAnalysis">								    
 									<tr>
 										<td><a title = "${dataAnalysis.dataAnalysisDescription}"
 											href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
@@ -82,23 +82,42 @@
 
 										<c:if
 											test="${subDataAnalysis.subDataAnalysisName ne 'Not Applicable'}">
-
-											<tr>
-												<td>
-													<ul>
-														<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
-															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
-														</li>
-													</ul>
-												</td>
-
-												<td style="text-align: center"><a
-													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
-															title = "Select view to see the results of the Analysis" class="button search" id="view" value="View">View</button></a>
-													<button title = "Select to download the report for the Hypothesis selected" class="button arrow" id="download" value="Download">Download</button></td>
-
-											</tr>
-
+                                           <c:choose>
+											    <c:when test="${dataAnalysis.id =='3'}">
+											       <tr>
+														<td>
+															<ul>
+																<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
+																	href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
+																</li>
+															</ul>
+														</td>
+		
+														<td style="text-align: center"><a
+															href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+																	title = "Select view to see the results of the Analysis" class="button search" id="view" value="View">View</button></a>
+															<button title = "Select to download the report for the Hypothesis selected" class="button arrow" id="download" value="Download">Download</button>
+														</td>
+													</tr>
+											    </c:when>    
+											    <c:otherwise>
+											       <tr>
+														<td>
+															<ul>
+																<li><a title = "${subDataAnalysis.subDataAnalysisDescription}"
+																	href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}">${subDataAnalysis.subDataAnalysisName}</a>
+																</li>
+															</ul>
+														</td>
+		
+														<td style="text-align: center"><a
+															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
+																	title = "Select view to see the results of the Analysis" class="button search" id="view" value="View">View</button></a>
+															<button title = "Select to download the report for the Hypothesis selected" class="button arrow" id="download" value="Download">Download</button>
+														</td>
+													</tr>
+											    </c:otherwise>
+											</c:choose>
 										</c:if>
 
 									</c:forEach>

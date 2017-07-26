@@ -323,3 +323,43 @@ ADD CONSTRAINT FK_ReportingOptionExclusionTrends
 FOREIGN KEY (reporting_option_id) REFERENCES reporting_option_lookup(id);
 
 
+--
+--
+--
+CREATE TABLE `interactive_maps_uat`.`measure_wise_exclusion_rate` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `year_id` INT NULL,
+  `measure_id` VARCHAR(45) NULL,
+  `mean_exclusive_rate` DOUBLE NULL,
+  `exclusion_decisions` VARCHAR(45) NULL,
+  `frequencies` INT NULL,
+  `created_by` VARCHAR(45) NULL,
+  `updated_by` VARCHAR(45) NULL,
+  `created_date` VARCHAR(45) NULL,
+  `record_status` INT NULL,
+  `data_analysis_id` INT NULL,
+  `sub_data_analysis_id` INT NULL,
+  PRIMARY KEY (`id`));
+  
+--
+--
+ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
+ADD CONSTRAINT FK_DataAnalysisMeasureWiseExclusionRate
+FOREIGN KEY (data_analysis_id) REFERENCES data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
+ADD CONSTRAINT FK_SubDataAnalysisMeasureWiseExclusionRate
+FOREIGN KEY (sub_data_analysis_id) REFERENCES sub_data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
+ADD CONSTRAINT FK_YearLookupMeasureWiseExclusionRate
+FOREIGN KEY (year_id) REFERENCES year_lookup(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
+ADD CONSTRAINT FK_MeasureLookupMeasureWiseExclusionRate
+FOREIGN KEY (measure_lookup_id) REFERENCES measure_lookup(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
+ADD CONSTRAINT FK_CategoryLookupMeasureWiseExclusionRate
+FOREIGN KEY (category_id) REFERENCES category_lookup(id);
+

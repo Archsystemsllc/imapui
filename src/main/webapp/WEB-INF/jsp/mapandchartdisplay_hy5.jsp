@@ -163,7 +163,14 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
-                        
+                        <tr id="excluFreqRow">
+							<td><label for="excluFreqRowId">Exc/Fre Option :</label></td>
+							<td><select id="excluFreqRowId" name="excluFreqRowId"
+								title="Click here to choose Exc/Fre">									
+									<option value="1">Exclusion</option>
+									<option value="2">Frequency</option>
+							</select></td>
+						</tr>						
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
 							<td><select id="yearLookUpId" name="yearLookUpId"
@@ -174,34 +181,19 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 											${yearLookUp.id == yearLookUpId ? 'selected="selected"' : ''}>${yearLookUp.yearName}</option>
 									</c:forEach>
 							</select></td>
-						</tr>	
-						<tr>
-						    
-							<td><label for="reportingOptionLookupId">Reporting
-									Option : </label></td>
-							<td><select id="reportingOptionLookupId"
-								name="reportingOptionLookupId"
-								title="Select one of the reporting options">
-									<option value="">Select</option>
-									<c:forEach items="${reportingOptionLookups}"
-										var="reportingOptionLookup">
-										<option value="${reportingOptionLookup.id}"
-											${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
-									</c:forEach>
-							</select></td>
 						</tr>                       
-						<tr>
-							<td><label for="parameterLookupId">Parameter Name :
+                        <tr>
+							<td><label for="measureLookupId">Measure Name :
 							</label></td>
-							<td><select id="parameterLookupId" name="parameterLookupId"
-								title="Select one of the parameter names">
+							<td><label for="id_label_multiple"> <select id="measureLookupId" name="measureLookupId" multiple="multiple" 
+								title="Select one of the measure names">
 									<option value="">Select</option>
-									<c:forEach items="${parameterLookups}" var="parameterLookup">
-										<option value="${parameterLookup.id}"
-											${parameterLookup.id == parameterLookupId ? 'selected="selected"' : ''}>${parameterLookup.parameterName}</option>
+									<c:forEach items="${measureLookups}" var="measureLookup">
+										<option value="${measureLookup.id}"
+											${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId}</option>
 									</c:forEach>
-							</select></td>
-						</tr> 
+							</select></label></td>
+						</tr>
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
@@ -212,7 +204,6 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 									</c:forEach>
 							</select></td>
 						</tr>
-
 						<tr id="yesOrNoOptionRow" hidden="true">
 							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
 							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId"
@@ -244,8 +235,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</div>
 						<canvas id="chart-canvas"></canvas>
 					</div>
+					
 				</div>
-
+                
+                <div id ="summary"></div>			
+				
 			</td>
 		</tr>
 	</table>
@@ -262,26 +256,48 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
-		var serverContextPath = '${pageContext.request.contextPath}';
+		var measureParameters = '';
+		//var serverContextPath = '${pageContext.request.contextPath}';
+		var serverContextPath = 'http://localhost/imapservices';
 	
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
+			$('#summary').hide();
+			measureParameters = '';
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
 	
 			var yearId = document.getElementById("yearLookUpId").value;
 			var yearSelectedText = $("#yearLookUpId option:selected").text();
-			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
-			var reportingOptionSelectedText = $("#reportingOptionLookupId option:selected").text();
-			var parameterId = document.getElementById("parameterLookupId").value;
-			var parameterSelectedText = $("#parameterLookupId option:selected").text();
-	
+			
+			
+			var measureId = document.getElementById("measureLookupId").value;
+			var measureSelectedText = $("#measureLookupId option:selected").text();			
+			
+			
+	        var multiSelectedMeasure = function(){	        	
+	        	var selectedMeasures = document.getElementById('measureLookupId');
+	        	for(var i =0; i < selectedMeasures.options.length; i++){
+	        		if(selectedMeasures.options[i].selected){	        			
+	        			measureParameters = measureParameters + ',' + selectedMeasures.options[i].value;	        			
+	        		}
+	        	}	        	
+	        }
+	        
+	        
 			if (reportTypeSelectedText == "Bar Chart") {
 				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
 			}
 			if (reportTypeSelectedText == "Line Chart") {
-				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
+				multiSelectedMeasure();				
+				var url;
+				
+				if($('#excluFreqRowId').val() === '1'){
+					url = serverContextPath + '/api/measureExclusionRate/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
+				}else if($('#excluFreqRowId').val() === '2'){
+					url = serverContextPath + '/api/measureFrequency/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
+				}
 			}
 			if (reportTypeSelectedText == "Map") {
 				//document.getElementById("mapIframe").hidden = false;		
@@ -313,6 +329,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
+				$('#summary').show();
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
@@ -425,47 +442,46 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	
 				if (reportTypeSelectedText == "Line Chart") {
 					lineChartData = JSON.parse(ourRequest.responseText);
-					//console.log(lineChartData);
-	
+					
 					<!-- LINE CHART :: JAVA SCRIPT ###### START  -->
-					var lineChartDataAvail = lineChartData.dataAvailable;
-					var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary';
-					var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText;
-	
-					var lineconfig = {
+					var lineChartDataAvail = lineChartData.dataAvailable;				
+				    
+					var titletext;
+					var yaxeslabelstring;
+					var lineconfig;
+					
+					if($('#excluFreqRowId').val() === '1'){
+						titletext = 'Measures'
+					    yaxeslabelstring = 'Mean Exclusion Rate';
+						
+					lineconfig = {
 						type : 'line',
 						data : {
 							labels : lineChartData.uniqueYears,
 							datasets : [ {
-								label : "CLAIMS",
+								label : "Measure-" + lineChartData.measureIdList[0],
 								fill : false,
 								backgroundColor : window.chartColors.yellow,
 								borderColor : window.chartColors.yellow,
-								data : lineChartData.claimsPercents,
+								data : lineChartData.measureData1,
 							}, {
-								label : "EHR",
-								fill : false,
-								backgroundColor : window.chartColors.green,
-								borderColor : window.chartColors.green,
-								data : lineChartData.ehrPercents,
-							}, {
-								label : "Registry",
+								label : "Measure-" + lineChartData.measureIdList[1],
 								fill : false,
 								backgroundColor : window.chartColors.orange,
 								borderColor : window.chartColors.orange,
-								data : lineChartData.registryPercents,
+								data : lineChartData.measureData2,
 							}, {
-								label : "GPROWI",
+								label : "Measure-" + lineChartData.measureIdList[2],
 								fill : false,
 								backgroundColor : window.chartColors.darkblue,
 								borderColor : window.chartColors.darkblue,
-								data : lineChartData.gprowiPercents,
+								data : lineChartData.measureData3,
 							}, {
-								label : "QCDR",
+								label : "Measure-" + lineChartData.measureIdList[3],
 								fill : false,
 								backgroundColor : window.chartColors.brown,
 								borderColor : window.chartColors.brown,
-								data : lineChartData.qcdrPercents,
+								data : lineChartData.measureData4,
 							} ]
 						},
 						options : {
@@ -507,8 +523,92 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 									}
 								} ]
 							}
-						}
-					};
+						  }
+						};
+					}else if($('#excluFreqRowId').val() === '2'){
+						titletext = 'Measures'
+						yaxeslabelstring = 'Frequency';
+							
+						lineconfig = {
+							type : 'line',
+							data : {
+								labels : lineChartData.uniqueYears,
+								datasets : [ {
+									label : "Measure-" + lineChartData.measureIdList[0],
+									fill : false,
+									backgroundColor : window.chartColors.yellow,
+									borderColor : window.chartColors.yellow,
+									data : lineChartData.measureData1,
+								}, {
+									label : "Measure-" + lineChartData.measureIdList[1],
+									fill : false,
+									backgroundColor : window.chartColors.orange,
+									borderColor : window.chartColors.orange,
+									data : lineChartData.measureData2,
+								}, {
+									label : "Measure-" + lineChartData.measureIdList[2],
+									fill : false,
+									backgroundColor : window.chartColors.darkblue,
+									borderColor : window.chartColors.darkblue,
+									data : lineChartData.measureData3,
+								}, {
+									label : "Measure-" + lineChartData.measureIdList[3],
+									fill : false,
+									backgroundColor : window.chartColors.brown,
+									borderColor : window.chartColors.brown,
+									data : lineChartData.measureData4,
+								} ]
+							},
+							options : {
+								responsive : true,
+								title : {
+									display : true,
+									text : titletext
+								},
+								legend : {
+									position : 'bottom',
+								},
+								tooltips : {
+									mode : 'index',
+									intersect : false,
+								},
+								hover : {
+									mode : 'nearest',
+									intersect : true
+								},
+								scales : {
+									xAxes : [ {
+										display : true,
+										scaleLabel : {
+											display : true,
+											labelString : 'YEAR'
+										}
+									} ],
+									yAxes : [ {
+										display : true,
+										scaleLabel : {
+											display : true,
+											labelString : yaxeslabelstring
+										},
+										ticks : {
+											callback : function(label, index, labels) {
+												return label;
+											},
+											display : true
+										}
+									} ]
+								}
+							  }
+							};
+					}
+					
+					$("#summary").empty();
+					$('#summary').append('<p>Summary</p>');
+					$('#summary').append('<p>Measure     Allowable Exclusion    Reporting Options</p>');
+					$.each(lineChartData.measureIdList, function(index, value) {						  
+						  $('#summary').append('<p>' + 'Measure-' +value + '    ' + lineChartData.allowableExclusionsList[index] + '    ' + lineChartData.reportingOptionsList[index] + '</p>');
+					});
+					
 					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
 	
 				} <!-- Line Chart If Logic Ends-->
@@ -599,6 +699,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				x.hidden = true;
 			}
 		};
+		
+		
+		$("#measureLookupId").on('change', function(e) {
+		    if (Object.keys($(this).val()).length > 4) {
+		        $('option[value="' + $(this).val().toString().split(',')[4] + '"]').prop('selected', false);
+		    }
+		});
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

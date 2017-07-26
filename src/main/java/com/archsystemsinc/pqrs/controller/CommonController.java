@@ -6,10 +6,15 @@ package com.archsystemsinc.pqrs.controller;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +39,8 @@ public class CommonController {
 	public String reportingHome(){
 		log.debug("<- reportingHome ->");
 		return "reporting_home";
-	}
+	}	
+
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(){
 		log.debug("<- admin ->");
@@ -46,6 +52,7 @@ public class CommonController {
 		String contents = "ERROR";
 		try {
 			contents = new String(Files.readAllBytes(Paths.get(configFilePath)));
+			//contents = new String(Files.readAllBytes(Paths.get(getClass().getResource("/"+configFilePath).toURI())));	
 		} catch (IOException e) {
 			log.error("Error while reading config:" + configFilePath);
 			e.printStackTrace();
