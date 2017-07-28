@@ -279,7 +279,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					//var titletext = 'Base Year to Option Year 3 ' + parameterSelectedText + ' Percentage Summary';
 					//var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText;
 					
-					var titletext = 'Base Year to Option Year 3 Percentage Summary';
+					var titletext = 'Base Year to Option Year 3 Exclusion Rate Summary';
 					var yaxeslabelstring = 'yaxeslabelstring';
 	
 					var lineconfig = {

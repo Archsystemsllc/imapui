@@ -95,11 +95,13 @@
 									<c:choose>
 										<c:when test="${dataAnalysis.id =='2'}">
 											<tr>
-												<td><a title="${dataAnalysis.dataAnalysisDescription}"
-													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5">${dataAnalysis.dataAnalysisName}</a>
+												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em;">${dataAnalysis.dataAnalysisName}<%-- <a
+													title="${dataAnalysis.dataAnalysisDescription}"
+													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5">${dataAnalysis.dataAnalysisName}</a> --%>
 												</td>
 
-												<td style="text-align: center"><a
+												<td
+													style="text-align: center; border-top: 1px solid #327A81;"><a
 													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5"><button
 															title="Select View to see the results of the Analysis"
 															class="button search" id="view" value="View">View</button></a>
@@ -112,17 +114,19 @@
 										</c:when>
 										<c:otherwise>
 											<tr>
-												<td><a title="${dataAnalysis.dataAnalysisDescription}"
-													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a>
+												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em">${dataAnalysis.dataAnalysisName}<%-- <a
+													title="${dataAnalysis.dataAnalysisDescription}"
+													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0">${dataAnalysis.dataAnalysisName}</a> --%>
 												</td>
 
-												<td style="text-align: center"><a
+												<td
+													style="text-align: center; border-top: 1px solid #327A81;"><%-- <a
 													href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/0"><button
 															title="Select View to see the results of the Analysis"
 															class="button search" id="view" value="View">View</button></a>
 													<button
 														title="Select to Download the report for the Hypothesis selected"
-														class="button arrow" id="download" value="Download">Download</button>
+														class="button arrow" id="download" value="Download">Download</button> --%>
 												</td>
 
 											</tr>
@@ -180,7 +184,7 @@
 											<c:choose>
 												<c:when test="${dataAnalysis.id =='2'}">
 													<tr>
-														<td>
+														<td style="border: 0px">
 															<ul>
 																<li><a
 																	title="${subDataAnalysis.subDataAnalysisDescription}"
@@ -189,7 +193,7 @@
 															</ul>
 														</td>
 
-														<td style="text-align: center"><a
+														<td style="text-align: center; border: 0px"><a
 															href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>
@@ -201,7 +205,7 @@
 												</c:when>
 												<c:when test="${dataAnalysis.id =='3'}">
 													<tr>
-														<td>
+														<td style="border: 0px">
 															<ul>
 																<li><a
 																	title="${subDataAnalysis.subDataAnalysisDescription}"
@@ -210,7 +214,7 @@
 															</ul>
 														</td>
 
-														<td style="text-align: center"><a
+														<td style="text-align: center; border: 0px"><a
 															href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>
@@ -222,7 +226,7 @@
 												</c:when>
 												<c:otherwise>
 													<tr>
-														<td>
+														<td style="border: 0px">
 															<ul>
 																<li><a
 																	title="${subDataAnalysis.subDataAnalysisDescription}"
@@ -231,7 +235,7 @@
 															</ul>
 														</td>
 
-														<td style="text-align: center"><a
+														<td style="text-align: center; border: 0px"><a
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>

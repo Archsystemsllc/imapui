@@ -101,25 +101,27 @@ table {
 	border-spacing: 10px;
 }
 
- table td:last-child {
+table td:last-child {
 	text-align: center;
-	width:40%;
-} 
-table td:first-child {
-	width:30%;
-} 
+	width: 40%;
+}
 
- table th:last-child {
+table td:first-child {
+	width: 30%;
+	text-align: right;
+}
+
+table th:last-child {
 	text-align: center;
-	width:40%;
-} 
+	width: 40%;
+}
+
 table th:first-child {
-	width:30%;
-} 
+	width: 30%;
+}
 /* table td:first-child {
 	text-align: right;
 } */
-
 #loading-gif {
 	margin-left: 8cm;
 	margin-top: 1cm;
@@ -153,7 +155,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	<table id="mid">
 		<tr>
 			<td
-				style="background-color: #327a89; vertical-align: top; padding: 0px 25px; width: 30%">
+				style="background-color: #327a89; vertical-align: top; padding: 0px 25px; width: 15%">
 				<div style="color: #fff">
 					<!-- <ul style="border-bottom: solid #fff 2px" type="square">
 						<li><h2 style="color: #fff;">Description</h2></li>
@@ -179,8 +181,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					<table
 						style="border-collapse: separate; border-spacing: 2px; width: 100%">
 						<colgroup>
-							<col width="35%"></col>
-							<col width="65%"></col>
+							<col width="38%"></col>
+							<col width="62%"></col>
 						</colgroup>
 						<tr id="excluFreqRow">
 							<td><label for="excluFreqRowId">Exc/Fre Option :</label></td>
@@ -202,13 +204,17 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
-							<td><label for="measureLookupId">Measure Name : </label></td>
+							<td><label for="measureLookupId">Measure Name :</label>
+							<p style="font-size: 13px; font-weight: normal;">(hold "Ctrl"
+									to select more)</p></td>
 							<td><label for="id_label_multiple" style="width: 100%">
 									<select id="measureLookupId" name="measureLookupId"
-									multiple="multiple" title="Select one of the measure names">
+									multiple="multiple" title="Select up to 4 of the measures">
+										<option disabled>Select up to 4 more measures </option>
 										<c:forEach items="${measureLookups}" var="measureLookup">
+
 											<option value="${measureLookup.id}"
-												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId}</option>
+												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId} - ${measureLookup.measureName}</option>
 										</c:forEach>
 								</select>
 							</label></td>
@@ -257,7 +263,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 
 				</div>
 
-				<div id="summary" style="display:initial;"></div>
+				<div id="summary" style="display: initial;"></div>
 
 			</td>
 		</tr>
@@ -626,7 +632,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					$('#summary').append("<div class='header'>Summary</div>");
 					$('#summary').append("<table style='border:1px solid #327A81;'><tr><th>Measure</th><th>Allowable Exclusion</th><th>Reporting Options</th></tr></table>")
 					$.each(lineChartData.measureIdList, function(index, value) {						  
-						 $('#summary').append("<table><tr style='border:0px 1px 1px 1px solid #327a81;'><td>" + "Measure-" + value + "</td><td>" + lineChartData.allowableExclusionsList[index] + "</td><td>" + lineChartData.reportingOptionsList[index] + "</td></tr></table>" 
+						 $('#summary').append("<table><tr style='border-bottom:1px solid #327a81;border-left:1px solid #327a81;border-right:1px solid #327a81;border-top:0px;'><td>" + "Measure-" + value + "</td><td>" + lineChartData.allowableExclusionsList[index] + "</td><td>" + lineChartData.reportingOptionsList[index] + "</td></tr></table>" 
 					);
 					});
 					
