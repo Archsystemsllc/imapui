@@ -101,16 +101,28 @@ table {
 	border-spacing: 10px;
 }
 
-/* table td:last-child {
+ table td:last-child {
 	text-align: center;
-} */
+	width:40%;
+} 
 table td:first-child {
+	width:30%;
+} 
+
+ table th:last-child {
+	text-align: center;
+	width:40%;
+} 
+table th:first-child {
+	width:30%;
+} 
+/* table td:first-child {
 	text-align: right;
-}
+} */
 
 #loading-gif {
 	margin-left: 8cm;
-	margin-top: 2cm;
+	margin-top: 1cm;
 }
 
 #loading-gif img {
@@ -164,7 +176,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			<td style="vertical-align: top;">
 				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
 				<div class="HypothesisScreen" style="padding: 20px 25%;">
-					<table style="border-collapse: separate; border-spacing: 2px;width:100%">
+					<table
+						style="border-collapse: separate; border-spacing: 2px; width: 100%">
 						<colgroup>
 							<col width="35%"></col>
 							<col width="65%"></col>
@@ -174,7 +187,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							<td><select id="excluFreqRowId" name="excluFreqRowId"
 								title="Click here to choose Exc/Fre">
 									<option value="1">Exclusion</option>
-									<option value="2">Frequency</option>
+									<option value="2" selected>Frequency</option>
 							</select></td>
 						</tr>
 						<tr>
@@ -190,14 +203,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</tr>
 						<tr>
 							<td><label for="measureLookupId">Measure Name : </label></td>
-							<td><label for="id_label_multiple" style="width:100%"> <select
-									id="measureLookupId" name="measureLookupId" multiple="multiple"
-									title="Select one of the measure names" >
+							<td><label for="id_label_multiple" style="width: 100%">
+									<select id="measureLookupId" name="measureLookupId"
+									multiple="multiple" title="Select one of the measure names">
 										<c:forEach items="${measureLookups}" var="measureLookup">
 											<option value="${measureLookup.id}"
 												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId}</option>
 										</c:forEach>
-								</select></label></td>
+								</select>
+							</label></td>
 						</tr>
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
@@ -243,7 +257,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 
 				</div>
 
-				<div id="summary"></div>
+				<div id="summary" style="display:initial;"></div>
 
 			</td>
 		</tr>
@@ -263,7 +277,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var lineChartData = null;
 		var measureParameters = '';
 		//var serverContextPath = '${pageContext.request.contextPath}';
-		var serverContextPath = 'http://localhost/imapservices';
+		var serverContextPath = 'http://localhost:8080/imapservices';
 	
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
@@ -456,7 +470,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					var lineconfig;
 					
 					if($('#excluFreqRowId').val() === '1'){
-						titletext = 'Measures'
+						titletext = 'Mean Exclusion Rate'
 					    yaxeslabelstring = 'Mean Exclusion Rate';
 						
 					lineconfig = {
@@ -531,7 +545,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						  }
 						};
 					}else if($('#excluFreqRowId').val() === '2'){
-						titletext = 'Measures'
+						titletext = 'Mean Exclusion Rate'
 						yaxeslabelstring = 'Frequency';
 							
 						lineconfig = {
@@ -608,11 +622,20 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					}
 					
 					$("#summary").empty();
-					$('#summary').append('<p>Summary</p>');
+					$
+					$('#summary').append("<div class='header'>Summary</div>");
+					$('#summary').append("<table style='border:1px solid #327A81;'><tr><th>Measure</th><th>Allowable Exclusion</th><th>Reporting Options</th></tr></table>")
+					$.each(lineChartData.measureIdList, function(index, value) {						  
+						 $('#summary').append("<table><tr style='border:0px 1px 1px 1px solid #327a81;'><td>" + "Measure-" + value + "</td><td>" + lineChartData.allowableExclusionsList[index] + "</td><td>" + lineChartData.reportingOptionsList[index] + "</td></tr></table>" 
+					);
+					});
+					
+					/* $('#summary').append('<p>Summary</p>');
 					$('#summary').append('<p>Measure     Allowable Exclusion    Reporting Options</p>');
 					$.each(lineChartData.measureIdList, function(index, value) {						  
-						  $('#summary').append('<p>' + 'Measure-' +value + '    ' + lineChartData.allowableExclusionsList[index] + '    ' + lineChartData.reportingOptionsList[index] + '</p>');
-					});
+						 $('#summary').append('<p>' + 'Measure-' +value + '    ' + lineChartData.allowableExclusionsList[index] + '    ' + lineChartData.reportingOptionsList[index] + '</p>' 
+					);
+					}); */
 					
 					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
 	

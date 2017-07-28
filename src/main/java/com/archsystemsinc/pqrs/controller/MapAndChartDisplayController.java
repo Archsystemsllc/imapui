@@ -168,4 +168,33 @@ public class MapAndChartDisplayController {
 		// View Page: mapandchartdisplay.jsp
 		return "mapandchartdisplay_hy5";		
 	}
+	@RequestMapping("/exclusion/mapandchartdisplay/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}")
+	public String mapAndChartScreenHy3(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, HttpServletRequest request, Principal currentUser, Model model, final RedirectAttributes redirectAttributes) {
+		
+		model.addAttribute("dataAnalysisId", dataAnalysisId);
+		model.addAttribute("subDataAnalysisId", subDataAnalysisId);
+		
+		final SubDataAnalysis subDataAnalysis = subDataAnalysisService.findById(subDataAnalysisId);
+		model.addAttribute("subDataAnalysis",subDataAnalysis);
+		 
+		final List<YearLookup> yearLookups = yearLookUpService.findAll();			
+		model.addAttribute("yearLookups", yearLookups);
+		
+		final List<ReportingOptionLookup> reportingOptionLookups = reportingOptionLookUpService.findAll();			
+		model.addAttribute("reportingOptionLookups", reportingOptionLookups);
+		
+		final List<ParameterLookup> parameterLookups = parameterLookUpService.findAll();			
+		model.addAttribute("parameterLookups", parameterLookups);
+		
+		// Gets the different type of Chart Name from the constant class: ChartNameEnum.
+		List<String> reportTypes = new ArrayList<String>();
+		for (ChartNameEnum chartName : ChartNameEnum.values()) {
+			reportTypes.add(chartName.getChartName());
+		}
+		
+		model.addAttribute("reportTypes", reportTypes);
+		
+		// View Page: mapandchartdisplay.jsp
+		return "mapandchartdisplay_hy3";		
+	}
 }
