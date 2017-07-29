@@ -95,9 +95,9 @@
 									<c:choose>
 										<c:when test="${dataAnalysis.id =='2'}">
 											<tr>
-												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em;">${dataAnalysis.dataAnalysisName}<%-- <a
+												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em;"><a
 													title="${dataAnalysis.dataAnalysisDescription}"
-													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5">${dataAnalysis.dataAnalysisName}</a> --%>
+													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5">${dataAnalysis.dataAnalysisName}</a>
 												</td>
 
 												<td

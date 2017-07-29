@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>INTERACTIVE MAPS</title>
+<title>Hypothesis 3</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"
@@ -153,30 +153,30 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					</p>
 				</div>
 				<div id="onScreenHelpLabelId" style="color: #fff">
-					<br>On Screen User Help:
+				<!-- <br>On Screen User Help: -->
 				</div>
 				<div style="color: #fff">
 					<p style="text-align: justify;">${subDataAnalysis.onScreenHelpText}</p>
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
+				<h2 style="text-align: center; font-size: 30px;">Hypothesis 3</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
                         
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
-							<td><select id="yearLookUpId" name="yearLookUpId"
-								title="Select one of the option years or ALL where available">
-									<option value="">Select</option>									
+							<td><select id="yearLookUpId" name="yearLookUpId" title="Select one of the option years or ALL where available">
+									<%-- <option value="">Select</option>									
 									<c:forEach items="${yearLookups}" var="yearLookUp">
 										<option value="${yearLookUp.id}"
 											${yearLookUp.id == yearLookUpId ? 'selected="selected"' : ''}>${yearLookUp.yearName}</option>
-									</c:forEach>
-							</select></td>
+									</c:forEach> --%>
+									<option value="5">All</option>
+							</select>
+							</td>
 						</tr>	
 						<tr>
-						    
 							<td><label for="reportingOptionLookupId">Reporting
 									Option : </label></td>
 							<td><select id="reportingOptionLookupId"
@@ -194,10 +194,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
 								title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
-									<option value="">Select</option>
+									<%-- <option value="">Select</option>
 									<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
-									</c:forEach>
+									</c:forEach> --%>
+									<option value="Line Chart">Line Chart</option>
 							</select></td>
 						</tr>						
 						<tr>
@@ -280,7 +281,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					//var yaxeslabelstring = 'Percent of EPs & GPROs in ' + parameterSelectedText;
 					
 					var titletext = 'Base Year to Option Year 3 Exclusion Rate Summary';
-					var yaxeslabelstring = 'yaxeslabelstring';
+					var yaxeslabelstring = 'Mean Exclusion Rate';
 	
 					var lineconfig = {
 						type : 'line',
@@ -289,8 +290,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							datasets : [ {
 								label : "CLAIMS",
 								fill : false,
-								backgroundColor : window.chartColors.yellow,
-								borderColor : window.chartColors.yellow,
+								backgroundColor : window.chartColors.purple,
+								borderColor : window.chartColors.purple,
 								data : lineChartData.claimsPercents,
 							}, {
 								label : "EHR",
@@ -307,8 +308,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							}, {
 								label : "GPROWI",
 								fill : false,
-								backgroundColor : window.chartColors.darkblue,
-								borderColor : window.chartColors.darkblue,
+								backgroundColor : window.chartColors.blue,
+								borderColor : window.chartColors.blue,
 								data : lineChartData.gprowiPercents,
 							}, {
 								label : "QCDR",
