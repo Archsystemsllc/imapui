@@ -76,6 +76,7 @@ public class PersistenceConfig {
         return em;
     }
 
+    /*
     @Bean
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -86,8 +87,9 @@ public class PersistenceConfig {
 
         return dataSource;
     }
-
-   /* @Bean
+	*/
+    
+   @Bean
     @Resource(name="jdbc/imap")
     public DataSource dataSource() {
         final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
@@ -95,7 +97,7 @@ public class PersistenceConfig {
         DataSource dataSource = dsLookup.getDataSource("java:comp/env/jdbc/imap");
         return dataSource;
     }
-    */
+   
     @Bean
     public PlatformTransactionManager transactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
