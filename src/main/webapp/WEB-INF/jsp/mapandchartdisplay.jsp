@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>ADDA</title>
+<title>Hypothesis 1&2</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"
@@ -122,7 +122,8 @@ table td:first-child {
 	background-color: #FFD42A;
 	width: 40%;
 	color: #000;
-	font-weight: bold; text-align : center;
+	font-weight: bold;
+	text-align: center;
 	margin: auto;
 	text-align: center;
 	font-weight: bold;
@@ -162,7 +163,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 50px;">ADDA</h2>
+				<h2 style="text-align: center; font-size: 30px;">Hypothesis 1&2</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
@@ -266,7 +267,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var lineChartData = null;
 		//var serverContextPath = '${pageContext.request.contextPath}';
         var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';	
-		
+       // var serverContextPath = 'http://localhost:8080/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
@@ -442,8 +443,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							datasets : [ {
 								label : "CLAIMS",
 								fill : false,
-								backgroundColor : window.chartColors.yellow,
-								borderColor : window.chartColors.yellow,
+								backgroundColor : window.chartColors.purple,
+								borderColor : window.chartColors.purple,
 								data : lineChartData.claimsPercents,
 							}, {
 								label : "EHR",
