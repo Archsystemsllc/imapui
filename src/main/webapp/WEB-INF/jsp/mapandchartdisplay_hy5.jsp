@@ -298,7 +298,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var lineChartData = null;
 		var measureParameters = '';
 		//var serverContextPath = '${pageContext.request.contextPath}';
-		//var serverContextPath = 'http://localhost:8080/imapservices';
+		//var serverContextPath = 'http://localhost/imapservices';
 	    var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
@@ -487,40 +487,26 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					var lineChartDataAvail = lineChartData.dataAvailable;				
 					var titletext;
 					var yaxeslabelstring;
+					var precisionDigits;
+					var percentLabel = "";
 					var lineconfig;
 					if($('#excluFreqRowId').val() === '1'){
 						titletext = 'Mean Exclusion Rate'
 					    yaxeslabelstring = 'Mean Exclusion Rate';
+						precisionDigits = 3;
+						percentLabel = ' %';
+					}else if($('#excluFreqRowId').val() === '2'){
+						titletext = 'Mean Exclusion Rate'
+						yaxeslabelstring = 'Frequency';
+						precisionDigits = 6;
+						percentLabel = ' Hz';
+					}
 						
 					lineconfig = {
 						type : 'line',
 						data : {
 							labels : lineChartData.uniqueYears,
-							datasets : [ {
-								label : "Measure-" + lineChartData.measureIdList[0],
-								fill : false,
-								backgroundColor : window.chartColors.green,
-								borderColor : window.chartColors.green,
-								data : lineChartData.measureData1,
-							}, {
-								label : "Measure-" + lineChartData.measureIdList[1],
-								fill : false,
-								backgroundColor : window.chartColors.orange,
-								borderColor : window.chartColors.orange,
-								data : lineChartData.measureData2,
-							}, {
-								label : "Measure-" + lineChartData.measureIdList[2],
-								fill : false,
-								backgroundColor : window.chartColors.blue,
-								borderColor : window.chartColors.blue,
-								data : lineChartData.measureData3,
-							}, {
-								label : "Measure-" + lineChartData.measureIdList[3],
-								fill : false,
-								backgroundColor : window.chartColors.brown,
-								borderColor : window.chartColors.brown,
-								data : lineChartData.measureData4,
-							} ]
+							datasets : []
 						},
 						options : {
 							responsive : true,
@@ -555,91 +541,71 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 									},
 									ticks : {
 										callback : function(label, index, labels) {
-											return label + ' %';
+											return Number(label).toPrecision(precisionDigits) + percentLabel;
 										},
 										display : true
 									}
 								} ]
 							}
 						  }
-						};
-					}else if($('#excluFreqRowId').val() === '2'){
-						titletext = 'Mean Exclusion Rate'
-						yaxeslabelstring = 'Frequency';
-							
-						lineconfig = {
-							type : 'line',
-							data : {
-								labels : lineChartData.uniqueYears,
-								datasets : [ {
-									label : "Measure-" + lineChartData.measureIdList[0],
-									fill : false,
-									backgroundColor : window.chartColors.green,
-									borderColor : window.chartColors.green,
-									data : lineChartData.measureData1,
-								}, {
-									label : "Measure-" + lineChartData.measureIdList[1],
-									fill : false,
-									backgroundColor : window.chartColors.orange,
-									borderColor : window.chartColors.orange,
-									data : lineChartData.measureData2,
-								}, {
-									label : "Measure-" + lineChartData.measureIdList[2],
-									fill : false,
-									backgroundColor : window.chartColors.blue,
-									borderColor : window.chartColors.blue,
-									data : lineChartData.measureData3,
-								}, {
-									label : "Measure-" + lineChartData.measureIdList[3],
-									fill : false,
-									backgroundColor : window.chartColors.brown,
-									borderColor : window.chartColors.brown,
-									data : lineChartData.measureData4,
-								} ]
-							},
-							options : {
-								responsive : true,
-								title : {
-									display : true,
-									text : titletext
-								},
-								legend : {
-									position : 'bottom',
-								},
-								tooltips : {
-									mode : 'index',
-									intersect : false,
-								},
-								hover : {
-									mode : 'nearest',
-									intersect : true
-								},
-								scales : {
-									xAxes : [ {
-										display : true,
-										scaleLabel : {
-											display : true,
-											labelString : 'YEAR'
-										}
-									} ],
-									yAxes : [ {
-										display : true,
-										scaleLabel : {
-											display : true,
-											labelString : yaxeslabelstring
-										},
-										ticks : {
-											callback : function(label, index, labels) {
-												return label;
-											},
-											display : true
-										}
-									} ]
+					};				
+					
+					function addData(){		
+						
+						for (var key in lineChartData) {
+							  if (lineChartData.hasOwnProperty(key)) {
+							    console.log(key + " -> " + lineChartData[key]);	
+							    
+							    switch(key) {
+								    case "measureData1":		
+								    	lineconfig.data.datasets.push({
+											label : "Measure-" + lineChartData.measureIdList[0],
+											fill : false,
+											backgroundColor : window.chartColors.green,
+											borderColor : window.chartColors.green,
+											data : lineChartData.measureData1,
+										});								    	
+								    	console.log("measureData1: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "measureData2":
+								    	lineconfig.data.datasets.push({
+											label : "Measure-" + lineChartData.measureIdList[1],
+											fill : false,
+											backgroundColor : window.chartColors.orange,
+											borderColor : window.chartColors.orange,
+											data : lineChartData.measureData2,
+										});								    	
+								    	console.log("measureData2: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "measureData3":
+								    	lineconfig.data.datasets.push( {
+											label : "Measure-" + lineChartData.measureIdList[2],
+											fill : false,
+											backgroundColor : window.chartColors.blue,
+											borderColor : window.chartColors.blue,
+											data : lineChartData.measureData3,
+										});
+								    	console.log("measureData3: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "measureData4":
+								    	lineconfig.data.datasets.push({
+											label : "Measure-" + lineChartData.measureIdList[3],
+											fill : false,
+											backgroundColor : window.chartColors.brown,
+											borderColor : window.chartColors.brown,
+											data : lineChartData.measureData4,
+										});
+								    	console.log("measureData4: " + key + " -> " + lineChartData[key]);
+								        break;								    
+								    default:
+								        break;
 								}
 							  }
-							};
+						}
+						
+						
 					}
-					
+					addData();
 				 	/* $("#summary").empty();
 					$('#summary').append("<div class='header'>Summary</div>");
 					$('#summary').append("<table style='border:1px solid #327A81;'><tr><th>Measure</th><th>Allowable Exclusion</th><th>Reporting Options</th></tr></table>")
