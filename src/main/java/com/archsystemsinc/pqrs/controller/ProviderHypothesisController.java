@@ -124,7 +124,7 @@ public class ProviderHypothesisController {
 		List<Double> registryPercents = new ArrayList<Double>();
 		List<Double> gprowiPercents = new ArrayList<Double>();
 		List<Double> qcdrPercents = new ArrayList<Double>();
-		
+		System.out.println("Size: " + providerHypothesisList.size());
 		providerHypothesisService.setRPPercentValue(providerHypothesisList, claimsPercents, ehrPercents, registryPercents, gprowiPercents, qcdrPercents);
 		
 		lineChartDataMap.put("uniqueYears", uniqueYears);

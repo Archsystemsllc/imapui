@@ -243,6 +243,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var lineChartData = null;
 		//var serverContextPath = '${pageContext.request.contextPath}';
 		//var serverContextPath = 'http://localhost:8080/imapservices';
+		//var serverContextPath = 'http://localhost/imapservices';
 		var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
 		
 	
@@ -262,7 +263,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			
 			if (reportTypeSelectedText == "Line Chart") {
 				//var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
-				var url = serverContextPath + '/api/h3/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
+				//var url = serverContextPath + '/api/h3/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
+				var url = serverContextPath + '/api/h3/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingId/' + reportingOptionId;
 			}			
 	
 			var ourRequest = new XMLHttpRequest();
@@ -287,37 +289,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						type : 'line',
 						data : {
 							labels : lineChartData.uniqueYears,
-							datasets : [ {
-								label : "CLAIMS",
-								fill : false,
-								backgroundColor : window.chartColors.purple,
-								borderColor : window.chartColors.purple,
-								data : lineChartData.claimsPercents,
-							}, {
-								label : "EHR",
-								fill : false,
-								backgroundColor : window.chartColors.green,
-								borderColor : window.chartColors.green,
-								data : lineChartData.ehrPercents,
-							}, {
-								label : "Registry",
-								fill : false,
-								backgroundColor : window.chartColors.orange,
-								borderColor : window.chartColors.orange,
-								data : lineChartData.registryPercents,
-							}, {
-								label : "GPROWI",
-								fill : false,
-								backgroundColor : window.chartColors.blue,
-								borderColor : window.chartColors.blue,
-								data : lineChartData.gprowiPercents,
-							}, {
-								label : "QCDR",
-								fill : false,
-								backgroundColor : window.chartColors.brown,
-								borderColor : window.chartColors.brown,
-								data : lineChartData.qcdrPercents,
-							} ]
+							datasets : []
 						},
 						options : {
 							responsive : true,
@@ -351,8 +323,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 										labelString : yaxeslabelstring
 									},
 									ticks : {
-										callback : function(label, index, labels) {
-											return label + ' %';
+										callback : function(label, index, labels) {											
+											return Number(label).toPrecision(3) + ' %';
 										},
 										display : true
 									}
@@ -360,6 +332,72 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							}
 						}
 					};
+					function addData(){						
+						
+						for (var key in lineChartData) {
+							  if (lineChartData.hasOwnProperty(key)) {
+							    console.log(key + " -> " + lineChartData[key]);
+							    
+							    switch(key) {
+								    case "claimsPercents":		
+								    	lineconfig.data.datasets.push({
+											label : "CLAIMS",
+											fill : false,
+											backgroundColor : window.chartColors.purple,
+											borderColor : window.chartColors.purple,
+											data : lineChartData.claimsPercents,
+										});								    	
+								    	console.log("gprowiPercents: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "ehrPercents":
+								    	lineconfig.data.datasets.push({
+											label : "EHR",
+											fill : false,
+											backgroundColor : window.chartColors.green,
+											borderColor : window.chartColors.green,
+											data : lineChartData.ehrPercents,
+										});								    	
+								    	console.log("gprowiPercents: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "registryPercents":
+								    	lineconfig.data.datasets.push({
+											label : "Registry",
+											fill : false,
+											backgroundColor : window.chartColors.orange,
+											borderColor : window.chartColors.orange,
+											data : lineChartData.registryPercents,
+										});
+								    	console.log("gprowiPercents: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "gprowiPercents":
+								    	lineconfig.data.datasets.push({
+											label : "GPROWI",
+											fill : false,
+											backgroundColor : window.chartColors.blue,
+											borderColor : window.chartColors.blue,
+											data : lineChartData.gprowiPercents,
+										});
+								    	console.log("gprowiPercents: " + key + " -> " + lineChartData[key]);
+								        break;
+								    case "qcdrPercents":
+								    	lineconfig.data.datasets.push({
+											label : "QCDR",
+											fill : false,
+											backgroundColor : window.chartColors.brown,
+											borderColor : window.chartColors.brown,
+											data : lineChartData.qcdrPercents,
+										});
+								    	console.log("registryPercents: "+ key + " -> " + lineChartData[key]);
+								        break;
+								    default:
+								        break;
+								}
+							  }
+						}
+						
+						
+					}
+					addData();
 					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
 	
 				} <!-- Line Chart If Logic Ends-->
