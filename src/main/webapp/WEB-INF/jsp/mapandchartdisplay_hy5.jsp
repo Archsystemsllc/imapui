@@ -218,6 +218,24 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
+							<td><label for="yearLookUpId">Search Measure ID/Name : </label></td>
+							<td>
+								<label for="id_label_multiple" style="width: 100%">
+									<input type="text" size="30" id="measuretxt" title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
+									<input type="button" id="searchMeasure" value="Search">
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td><label for="measureLookupId">Search Results :</label>
+								<p style="font-size: 13px; font-weight: normal;">(Double Click to add)</p></td>
+							<td><label for="id_label_multiple" style="width: 100%">
+									<select id="searchMeasureLookupId" name="searchMeasureLookupId"
+									multiple="multiple" title="Search Results for measures">
+								</select>
+							</label></td>
+						</tr>
+						<tr>
 							<td><label for="measureLookupId">Measure Name :</label>
 								<p style="font-size: 13px; font-weight: normal;">(hold
 									"Ctrl" to select more)</p></td>
@@ -225,11 +243,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 									<select id="measureLookupId" name="measureLookupId"
 									multiple="multiple" title="Select up to 4 of the measures">
 										<option disabled>Select up to 4 more measures </option>
-										<c:forEach items="${measureLookups}" var="measureLookup">
+										<%-- <c:forEach items="${measureLookups}" var="measureLookup">
 
 											<option value="${measureLookup.id}"
 												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId} - ${measureLookup.measureName}</option>
-										</c:forEach>
+										</c:forEach> --%>
 								</select>
 							</label></td>
 						</tr>
@@ -736,6 +754,27 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		        $('option[value="' + $(this).val().toString().split(',')[4] + '"]').prop('selected', false);
 		    }
 		});
+		
+		$('#measuretxt').keydown(function (e){
+		    if(e.keyCode == 13){
+		        $("#searchMeasure").click();
+		    }
+		})
+		
+		$("#searchMeasure").bind("click", function() {
+            $.get("/imapservices/api/measure/search/" + $('#measuretxt').val(), function(data) {
+				$("#searchMeasureLookupId").empty();
+                $.each(data, function(i, measure) {
+				    $('#searchMeasureLookupId').append( new Option(measure.measureId + " - " +  measure.measureName,measure.id) );
+                });
+
+            });
+        });
+		
+		$('#searchMeasureLookupId').dblclick(function() {
+		    $('#measureLookupId').append( new Option($("#searchMeasureLookupId option:selected").text(),$("#searchMeasureLookupId option:selected").val()) );
+		});
+		
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
