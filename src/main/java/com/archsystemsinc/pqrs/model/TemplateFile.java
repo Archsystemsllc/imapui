@@ -46,6 +46,10 @@ public class TemplateFile implements Serializable{
 	@Column(name = "uploaded_filetype", nullable = true)
 	private String uploadedFileType;
 	
+	/** uploaded file title*/
+	@Column(name = "uploaded_title", nullable = true)
+	private String uploadedTitle;
+	
 	/** uploaded file description*/
 	@Column(name = "uploaded_description", nullable = true)
 	private String uploadedDescription;
@@ -108,6 +112,13 @@ public class TemplateFile implements Serializable{
 
 	public void setUploadedFileType(String uploadedFileType) {
 		this.uploadedFileType = uploadedFileType;
+	}
+	public String getUploadedTitle() {
+		return uploadedTitle;
+	}
+
+	public void setUploadedTitle(String uploadedTitle) {
+		this.uploadedTitle = uploadedTitle;
 	}
 
 	public String getUploadedDescription() {

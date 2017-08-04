@@ -67,14 +67,14 @@
 								</colgroup>
 								<tbody>
 									<tr>
-										<th>Name</th>
+										<th>Title</th>
 										<th>Description</th>
 										<th>Action</th>
 									</tr>
 									<c:forEach var="template" items="${templateFiles}">
 										<tr>
 											<td>
-												<p>${template.uploadedFileName}</p>
+												<p>${template.uploadedTitle}</p>
 											</td>
 											<td style="text-align: center">
 												<p>${template.uploadedDescription}</p>
@@ -85,7 +85,7 @@
 												href="${pageContext.request.contextPath}/admin/download-template/${template.id}"><button
 														class="button arrow">Download</button></a> <!--<input type=button onClick="http://localhost:8484/admin/files/delete-document/${document.id}"  value='Delete'>-->
 												<a
-												href="${pageContext.request.contextPath}/admin/delete-template/${template.id}"><button
+												href="${pageContext.request.contextPath}/admin/delete-template/${template.id}" onclick="return confirm('Are you sure you want to delete this item?');"><button
 														class="button phone">Delete</button></a>
 
 											</td>
@@ -108,7 +108,7 @@
 										<td style="text-align: right"><a
 											href="${pageContext.request.contextPath}/admin/download-templates"><button
 													class="button arrow">Download All</button></a> <a
-											href="${pageContext.request.contextPath}/admin/delete-templates"><button
+											href="${pageContext.request.contextPath}/admin/delete-templates" onclick="return confirm('Are you sure you want to delete this item?');"><button
 													class="button phone">Delete All</button></a>
 											<button class="button search1" onclick="addFile()">Add</button>
 											<!-- <input type=button onClick="location.href='file:///C:/Suganthi/Test/ornamental1/index1.html'"  value='Download All'> -->
@@ -129,6 +129,10 @@
 								modelAttribute="templateFile" enctype="multipart/form-data"
 								method="post">
 								<p>
+									Title:<br />
+									<form:input type="text" path="uploadedTitle" size="40" />
+								</p>
+								<p>
 									Description:<br />
 									<form:input type="text" path="uploadedDescription" size="40" />
 								</p>
@@ -137,8 +141,8 @@
 									<form:input type="file" path="uploadedFile" />
 								</p>
 								<div style="margin: auto; width: 30%">
-									<button style="margin: auto; width: 80%"
-										class="btn btn-primary" type="submit" value="Send">Send</button>
+									<button style="margin: auto; width: 100%"
+										class="btn btn-primary" type="submit" value="Send">Submit</button>
 								</div>
 							</form:form>
 						</div>
