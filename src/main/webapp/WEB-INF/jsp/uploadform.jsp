@@ -127,14 +127,14 @@
 										</td>
 										<td>
 											<p>
-												<form:input type="file" path="provider" size="40" />
+												<form:input id="provider-input" type="file" path="provider" size="40" />
 											</p>
 										</td>
 										<td>
 											<div class="btn-group btn-xs">
 												<input class="btn btn-primary" type="submit" value="Upload"
 													id="provider-upload" /> <input class="btn btn-info"
-													type="reset" value="Reset" />
+													type="reset" value="Reset" id="provider-reset" />
 											</div>
 										</td>
 									</tr>
@@ -144,13 +144,13 @@
 										</td>
 										<td>
 											<p>
-												<form:input type="file" path="specialty" size="40" />
+												<form:input id="specialty-input" type="file" path="specialty" size="40" />
 											</p>
 										</td>
 										<td>
 											<div class="btn-group btn-xs">
-												<input class="btn btn-primary" type="submit" value="Upload" />
-												<input class="btn btn-info" type="reset" value="Reset" />
+												<input class="btn btn-primary" type="submit" value="Upload" id="specialty-upload"/>
+												<input class="btn btn-info" type="reset" value="Reset" id="specialty-reset"/>
 											</div>
 										</td>
 									</tr>
@@ -160,13 +160,13 @@
 										</td>
 										<td>
 											<p>
-												<form:input type="file" path="statewise" size="40" />
+												<form:input id="statewise-input" type="file" path="statewise" size="40" />
 											</p>
 										</td>
 										<td>
 											<div class="btn-group btn-xs">
-												<input class="btn btn-primary" type="submit" value="Upload" />
-												<input class="btn btn-info" type="reset" value="Reset" />
+												<input class="btn btn-primary" type="submit" value="Upload" id="statewise-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="statewise-reset"/>
 											</div>
 										</td>
 									</tr>
@@ -176,13 +176,13 @@
 										</td>
 										<td>
 											<p>
-												<form:input type="file" path="measureWiseExclusionRate" size="40" />
+												<form:input id="measureWiseExclusionRate-input" type="file" path="measureWiseExclusionRate" size="40" />
 											</p>
 										</td>
 										<td>
 											<div class="btn-group btn-xs">
-												<input class="btn btn-primary" type="submit" value="Upload" />
-												<input class="btn btn-info" type="reset" value="Reset" />
+												<input class="btn btn-primary" type="submit" value="Upload" id="measureWiseExclusionRate-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="measureWiseExclusionRate-reset" />
 											</div>
 										</td>
 									</tr>
@@ -272,7 +272,14 @@
 	$(document).ready(function () {
 				 $('.nav > li').eq(1).addClass('active');	
 				 subDataAnalysis();
-	});		
+	});	
+	$("input[type='reset']").on("click", function(event){
+		event.preventDefault();
+	     // stops the form from resetting after this function
+	     
+	     $(this).parent().parent().parent().find("input[type='file']").val("");
+	     
+	});
 	</script>
 </body>
 </html>
