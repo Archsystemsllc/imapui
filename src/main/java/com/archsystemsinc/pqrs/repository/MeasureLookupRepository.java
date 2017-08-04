@@ -11,5 +11,6 @@ import com.archsystemsinc.pqrs.model.MeasureLookup;
  *
  */
 public interface MeasureLookupRepository extends JpaRepository<MeasureLookup,Long>{
-	MeasureLookup findById(final int id);	
+	MeasureLookup findById(final int id);
+	MeasureLookup findByMeasureId(final String id);
 }

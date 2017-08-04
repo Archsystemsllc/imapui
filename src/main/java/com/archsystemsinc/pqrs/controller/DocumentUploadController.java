@@ -26,11 +26,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.archsystemsinc.pqrs.model.CategoryLookup;
 import com.archsystemsinc.pqrs.model.DocumentUpload;
+import com.archsystemsinc.pqrs.model.MeasureLookup;
+import com.archsystemsinc.pqrs.model.MeasureWiseExclusionRate;
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
 import com.archsystemsinc.pqrs.model.Speciality;
 import com.archsystemsinc.pqrs.model.StatewiseStatistic;
+import com.archsystemsinc.pqrs.service.CategoryLookupService;
 import com.archsystemsinc.pqrs.service.DataAnalysisService;
+import com.archsystemsinc.pqrs.service.MeasureLookupService;
+import com.archsystemsinc.pqrs.service.MeasureWiseExclusionRateService;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
 import com.archsystemsinc.pqrs.service.ReportingOptionLookUpService;
@@ -73,6 +79,15 @@ public class DocumentUploadController {
 	@Autowired
 	private SubDataAnalysisService subDataAnalysisService;
 	
+	@Autowired
+	private MeasureLookupService measureLookupService;
+	
+	@Autowired
+	private CategoryLookupService categoryLookupService;
+	
+	@Autowired
+	private MeasureWiseExclusionRateService measureWiseExclusionRateService;
+	
 	@RequestMapping(value = "/admin/documentupload", method = RequestMethod.GET)
 	public String documentUploadGet(final Model model, HttpSession session) {		
 		
@@ -101,6 +116,9 @@ public class DocumentUploadController {
 			}else if(documentFileUpload.getStatewise().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(3L);
 				stateWiseStatistics(documentFileUpload);
+			}else if(documentFileUpload.getMeasureWiseExclusionRate().getSize() > 0){
+				documentFileUpload.setDocumentTypeId(4L);
+				documentUploadMeasureWiseExclusionRate(documentFileUpload);
 			}			
             
 			redirectAttributes.addFlashAttribute("documentuploadsuccess","success.import.document");
@@ -569,6 +587,215 @@ public class DocumentUploadController {
 				}
 
 			}			
+	}
+	
+	public void documentUploadMeasureWiseExclusionRate(
+			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
+		int totalNumberOfRows = 0;
+		int totalProRowsCreatedOrUpdated = 0;
+		ArrayList<Object> returnObjects = null;		
+				
+		if (documentFileUpload.getMeasureWiseExclusionRate() != null) {
+				
+				Workbook measureWiseExclusionRateFileWorkbook = WorkbookFactory.create(documentFileUpload.getMeasureWiseExclusionRate().getInputStream());
+				Sheet measureWiseExclusionRateFileSheet = measureWiseExclusionRateFileWorkbook.getSheetAt(0);
+				Iterator<Row> measureWiseExclusionRateFileRowIterator = measureWiseExclusionRateFileSheet.rowIterator();
+                int measureWiseExclusionRateFileRowCount = measureWiseExclusionRateFileSheet.getPhysicalNumberOfRows();
+				totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
+				String stringResult = "";
+
+				while (measureWiseExclusionRateFileRowIterator.hasNext()) 
+				{
+					Row measureWiseExclusionRateFileRow = (Row) measureWiseExclusionRateFileRowIterator.next();
+					
+					returnObjects = new ArrayList<Object>();
+					
+					if (measureWiseExclusionRateFileRow.getRowNum() >= 0 && measureWiseExclusionRateFileRow.getRowNum() <= measureWiseExclusionRateFileRowCount)
+					{
+						System.out.println("ROW - " + measureWiseExclusionRateFileRow.getRowNum());
+						Iterator<Cell> iterator = measureWiseExclusionRateFileRow.cellIterator();
+						MeasureWiseExclusionRate measureWiseExclusionRate = new MeasureWiseExclusionRate();
+						MeasureLookup measureLookup = new MeasureLookup();
+						CategoryLookup category = new CategoryLookup();
+						String measureId = null;
+						String reportingOptions = "";
+						
+						while (iterator.hasNext()) 
+						{
+							Cell hssfCell = iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							
+							
+							if(measureWiseExclusionRateFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Actual_Measure_ID")
+									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("Measure_Name")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("Year")
+								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("Rep_option1")
+									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("Rep_option2")
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("Rep_option3")
+									|| cellIndex == 7 && !hssfCell.getStringCellValue().equals("Rep_option4")
+									|| cellIndex == 8 && !hssfCell.getStringCellValue().equals("Rep_option5")
+									|| cellIndex == 9 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate")
+									|| cellIndex == 10 && !hssfCell.getStringCellValue().equals("Frequency")
+									|| cellIndex == 11 && !hssfCell.getStringCellValue().equals("allowable_exclusion")
+									|| cellIndex == 12 && !hssfCell.getStringCellValue().equals("category_name")
+									|| cellIndex == 13 && !hssfCell.getStringCellValue().equals("data_analysis_name")
+									|| cellIndex == 14 && !hssfCell.getStringCellValue().equals("sub_data_analysis_name")
+										){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
+							
+							stringResult = "";
+							
+							switch (cellIndex) 
+							{
+							
+							case 1:							
+								switch (hssfCell.getCellType())
+								{								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    break;
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	stringResult=Integer.toString((int)hssfCell.getNumericCellValue());				                	
+				                	break;
+								}
+							
+								    if(measureLookupService.findByMeasureId(stringResult) == null){
+				                    	measureId = stringResult;
+				                    }else{
+				                    	measureWiseExclusionRate.setMeasureLookup(measureLookupService.findByMeasureId(stringResult));
+				                    }
+			                    	System.out.println("measureId: " + stringResult);	
+								break;								
+							case 2:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    System.out.println("Measure Name: " + stringResult);
+				                    if(measureId != null){
+				                    	measureLookup.setMeasureId(measureId);
+				                    	measureLookup.setMeasureName(stringResult);
+				                    	measureLookupService.Save(measureLookup);
+				                    	measureWiseExclusionRate.setMeasureLookup(measureLookupService.Save(measureLookup));
+				                    	//measureId = null;
+				                    	System.out.println("New Measure: " + stringResult);
+				                    }				                    
+				                    System.out.println("Measure Name: " + stringResult);
+				                    break;
+								}
+								break;
+	
+							case 3:
+								switch (hssfCell.getCellType()) 
+								{
+								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult = hssfCell.getStringCellValue();
+				                    measureWiseExclusionRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    break;								
+								}
+								break;
+							case 4:
+							case 5:
+							case 6:
+							case 7:
+							case 8:
+								
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	reportingOptions += Integer.toString(reportingOptionLookUpService.findByReportingOptionName(stringResult).getId()) + ",";
+				                	System.out.println("stringResult: " + stringResult);				                    
+				                    break;								
+								}
+								if(cellIndex == 8){
+			                    	//reportingOptions += Integer.toString(reportingOptionLookUpService.findByReportingOptionName(stringResult).getId());
+			                    	measureWiseExclusionRate.setReportingOptions(reportingOptions.substring(0,reportingOptions.length()-1));
+			                    	System.out.println("Reporting Options: " + reportingOptions);
+			                    }//else{
+			                    	//reportingOptions += Integer.toString(reportingOptionLookUpService.findByReportingOptionName(stringResult).getId()) + ",";
+			                    //}
+								break;
+							case 9:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWiseExclusionRate.setMeanExclusionRate(hssfCell.getNumericCellValue());				                    
+				                    break;								
+								}
+								break;
+							case 10:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWiseExclusionRate.setFrequencies((int)hssfCell.getNumericCellValue());				                					                   
+				                    break;								
+								}
+								break;
+							case 11:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWiseExclusionRate.setExclusionDecisions(stringResult);				                	
+				                    break;								
+								}
+								break;
+							case 12:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWiseExclusionRate.setCategoryLookup(categoryLookupService.findByName(stringResult));
+				                    break;								
+								}
+								break;
+							case 13:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWiseExclusionRate.setDataAnalysis(dataAnalysisService.findByDataAnalysisName(stringResult));
+				                    break;									
+								}
+								break;
+							case 14:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWiseExclusionRate.setSubDataAnalysis(subDataAnalysisService.findBySubDataAnalysisName(stringResult));
+				                	measureWiseExclusionRate.setRecordStatus(1);
+				                	measureWiseExclusionRateService.create(measureWiseExclusionRate);
+				                	break;									
+								}
+								break;							
+							}
+
+
+						}
+						
+						
+					}
+ 
+				}
+		 }			
 	}
 
 }

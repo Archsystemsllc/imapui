@@ -29,4 +29,9 @@ public class MeasureWiseExclusionRateImpl implements MeasureWiseExclusionRateSer
 		return measureWiseExclusionRateRepository.findById(id);
 	}
 
+	@Override
+	public MeasureWiseExclusionRate create(MeasureWiseExclusionRate measureWiseExclusionRate) {		
+		return measureWiseExclusionRateRepository.saveAndFlush(measureWiseExclusionRate);
+	}
+
 }

@@ -37,8 +37,7 @@ public class SubDataAnalysisServiceImpl implements SubDataAnalysisService {
 	}
 
 	@Override
-	public SubDataAnalysis findById(int id) {
-		// TODO Auto-generated method stub
+	public SubDataAnalysis findById(int id) {		
 		return subDataAnalysisRepository.findById(id);
 	}
 
@@ -46,6 +45,11 @@ public class SubDataAnalysisServiceImpl implements SubDataAnalysisService {
 	public SubDataAnalysis findByDataAnalysisAndSubDataAnalysisName(DataAnalysis dataAnalysis,
 			String subDataAnalysisName) {
 		return subDataAnalysisRepository.findByDataAnalysisAndSubDataAnalysisName(dataAnalysis, subDataAnalysisName);
+	}
+
+	@Override
+	public SubDataAnalysis findBySubDataAnalysisName(String subDataAnalysisName) {		
+		return subDataAnalysisRepository.findBySubDataAnalysisName(subDataAnalysisName);
 	}
 	
 }

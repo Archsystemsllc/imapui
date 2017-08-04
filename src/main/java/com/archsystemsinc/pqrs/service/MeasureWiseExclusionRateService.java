@@ -12,4 +12,5 @@ public interface MeasureWiseExclusionRateService {
 	
 	List<MeasureWiseExclusionRate> findAll();
 	MeasureWiseExclusionRate findById(final int id);
+	MeasureWiseExclusionRate create(final MeasureWiseExclusionRate measureWiseExclusionRate);
 }

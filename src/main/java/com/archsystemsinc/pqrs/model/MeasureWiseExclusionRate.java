@@ -63,17 +63,17 @@ public class MeasureWiseExclusionRate implements Serializable {
 	private SubDataAnalysis subDataAnalysis;	
 
 	//bi-directional many-to-one association to YearLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="year_id")
 	private YearLookup yearLookup;
 
 	//bi-directional many-to-one association to CategoryLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="category_id")
 	private CategoryLookup categoryLookup;
 
 	//bi-directional many-to-one association to MeasureLookup
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="measure_lookup_id")
 	private MeasureLookup measureLookup;
 	

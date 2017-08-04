@@ -12,4 +12,6 @@ public interface MeasureLookupService {
 	
 	List<MeasureLookup> findAll();
 	MeasureLookup findById(final int id);
+	MeasureLookup findByMeasureId(final String id);
+	MeasureLookup Save(final MeasureLookup measureLookup);
 }

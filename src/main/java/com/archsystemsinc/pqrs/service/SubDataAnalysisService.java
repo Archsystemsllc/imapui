@@ -20,5 +20,7 @@ public interface SubDataAnalysisService {
 	
 	SubDataAnalysis findById(final int id);
 	
+	SubDataAnalysis findBySubDataAnalysisName(String subDataAnalysisName);
+	
 	SubDataAnalysis findByDataAnalysisAndSubDataAnalysisName(DataAnalysis dataAnalysis, String subDataAnalysisName);
 }

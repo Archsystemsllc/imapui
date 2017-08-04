@@ -9,10 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Grmahun Redda
  * @since 6/20/2017
  */
-public class DocumentUpload {
-
-    private MultipartFile provider;
+public class DocumentUpload {    
     
+	private Long documentTypeId;	
+	
     private int providerHypId;
     
     private int providerSubHypId;	
@@ -21,8 +21,18 @@ public class DocumentUpload {
 	
 	private MultipartFile statewise;	
 	
-	private Long documentTypeId;	
+	private MultipartFile provider;
 	
+	private MultipartFile measureWiseExclusionRate;
+	
+
+	public MultipartFile getMeasureWiseExclusionRate() {
+		return measureWiseExclusionRate;
+	}
+
+	public void setMeasureWiseExclusionRate(MultipartFile measureWiseExclusionRate) {
+		this.measureWiseExclusionRate = measureWiseExclusionRate;
+	}
 
 	public MultipartFile getProvider() {
 		return provider;
