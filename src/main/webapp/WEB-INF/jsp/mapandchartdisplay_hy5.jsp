@@ -175,7 +175,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;">Hypothesis 5</h2>
+				<h2 style="text-align: center; font-size: 30px;">${subDataAnalysis.subDataAnalysisName}</h2>
 				<div class="HypothesisScreen" style="padding: 20px 25%;">
 					<table
 						style="border-collapse: separate; border-spacing: 2px; width: 100%">

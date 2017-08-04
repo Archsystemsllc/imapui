@@ -160,7 +160,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;">Hypothesis 3</h2>
+				<h2 style="text-align: center; font-size: 30px;">${dataAnalysis.dataAnalysisName}</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
                         

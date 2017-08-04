@@ -163,7 +163,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;">Hypothesis 1&2</h2>
+				<h2 style="text-align: center; font-size: 30px;">${subDataAnalysis.subDataAnalysisName}</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
@@ -209,10 +209,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
 								title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
-									<option value="">Select</option>
-									<c:forEach items="${reportTypes}" var="reportType">
+										<option value="">Select</option>
+    									<option value="Bar Chart" ${subDataAnalysis.id == '1' ? '' : 'disabled'}>Bar Chart</option>
+    									<option value="Line Chart" ${subDataAnalysis.id == '2' ? '' : 'disabled'}>Line Chart</option>
+    									<option value="Map" ${subDataAnalysis.id == '3' ? '' : 'disabled'}>Map</option>   
+    							<%-- 		<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
-									</c:forEach>
+										</c:forEach>   --%>
 							</select></td>
 						</tr>
 
