@@ -47,7 +47,7 @@
 					</div>
 					<div class="col-sm-6 col-xs-8">
 						  <div class="social">
-						  Welcome ${pageContext.request.userPrincipal.name} | <a href="${pageContext.request.contextPath}">Logout</a>
+						  Welcome ${pageContext.request.userPrincipal.name} | <a href="${pageContext.request.contextPath}/logout">Logout</a>
 <!--                             <ul class="social-share">
                                 <li><a title="facebook" target="_blank" href="https://www.facebook.com/archsystemsllc"><i class="fa fa-facebook"></i></a></li>
                                 <li><a title="twitter" target="_blank" href="https://twitter.com/ArchsystemsMD"><i class="fa fa-twitter"></i></a></li>
@@ -99,8 +99,8 @@
 				</div>
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="${pageContext.request.contextPath}/login">Home</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/dashboard">Hypothesis</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/user/dashboard">Home</a></li>
+						<%-- <li><a href="${pageContext.request.contextPath}/user/dashboard">Hypothesis</a></li> --%>
 						<li><a href="#">Contact Us</a></li>
 					</ul>
 				</div>

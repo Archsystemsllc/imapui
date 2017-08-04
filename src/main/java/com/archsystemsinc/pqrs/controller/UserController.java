@@ -4,7 +4,13 @@ import com.archsystemsinc.pqrs.model.User;
 import com.archsystemsinc.pqrs.service.SecurityService;
 import com.archsystemsinc.pqrs.service.UserService;
 import com.archsystemsinc.pqrs.validator.UserValidator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,14 +86,21 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
-
+/*
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "You have been logged out successfully.");*/
 
         return "login";
     }
-    
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logout (HttpServletRequest request, HttpServletResponse response) {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){    
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login";
+} 
 }

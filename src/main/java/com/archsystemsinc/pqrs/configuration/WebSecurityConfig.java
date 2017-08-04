@@ -32,11 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.authorizeRequests()
-        .antMatchers("/reportingHome").access("hasAuthority('Report Viewer')")
+        .antMatchers("/user/**").access("hasAuthority('Report Viewer')")
         .antMatchers("/admin/**").access("hasAuthority('Administrator')")        
         .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)        
         .and().csrf()
-        .and().exceptionHandling().accessDeniedPage("/Access_Denied");
+        .and().exceptionHandling().accessDeniedPage("/Access_Denied")
+        .and().logout().logoutSuccessUrl("/login?logout");
     }
 
     @Autowired

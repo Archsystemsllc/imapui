@@ -115,7 +115,7 @@
 				</td>
 				<td style="border: 0px;"><div class="social">
 						Welcome ${pageContext.request.userPrincipal.name} | <a
-							href="${pageContext.request.contextPath}">Logout</a>
+							href="${pageContext.request.contextPath}/logout">Logout</a>
 					</div></td>
 			</tr>
 			<tr>
