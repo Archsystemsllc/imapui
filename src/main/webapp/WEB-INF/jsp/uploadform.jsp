@@ -170,6 +170,22 @@
 											</div>
 										</td>
 									</tr>
+									<tr>
+										<td style="text-align: right;">
+											<p>Measure Exclusion Data:</p>
+										</td>
+										<td>
+											<p>
+												<form:input type="file" path="measureWiseExclusionRate" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" />
+												<input class="btn btn-info" type="reset" value="Reset" />
+											</div>
+										</td>
+									</tr>
 								</table>
 
 							</form:form>
@@ -202,27 +218,28 @@
 			$('#ddl2').addClass('hidden');
 			$('#provider-upload').attr("disabled", "disabled");
 		} else {	
-			
-			for(i = 0; i < data.length; i++){
-				if(data[i].id == seleHypoId && data[i].subDataAnalysis.length > 0 ){
-					
-					for(j = 0; j < data[i].subDataAnalysis.length; j++){							
-						subData = new Object();
-						subData.id = data[i].subDataAnalysis[j].id;
-						subData.name = data[i].subDataAnalysis[j].subDataAnalysisName;							
-						subDataArray.push(subData);							
-					}						
+			if (seleHypoId != "3") {
+				for(i = 0; i < data.length; i++){
+					if(data[i].id == seleHypoId && data[i].subDataAnalysis.length > 0 ){
+						
+						for(j = 0; j < data[i].subDataAnalysis.length; j++){							
+							subData = new Object();
+							subData.id = data[i].subDataAnalysis[j].id;
+							subData.name = data[i].subDataAnalysis[j].subDataAnalysisName;							
+							subDataArray.push(subData);							
+						}						
+					}
 				}
-			}
-			if (subDataArray.length == 0) {
-				$('#ddl2').addClass('hidden');
-			} else {
-				$('#ddl2').removeClass('hidden');
-				for (i = 0; i < subDataArray.length; i++) {						
-					createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
+				if (subDataArray.length == 0) {
+					$('#ddl2').addClass('hidden');
+				} else {
+					$('#ddl2').removeClass('hidden');
+					for (i = 0; i < subDataArray.length; i++) {						
+						createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
+					}
 				}
-			}
-			$('#provider-upload').removeAttr('disabled');
+				$('#provider-upload').removeAttr('disabled');
+			}			
 		}
 
 	}
@@ -236,7 +253,8 @@
 	
 	function subDataAnalysis() {
 		$.ajax({
-			url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
+			//url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
+			url : "http://localhost/imapservices/api/dataanalysis/",
 			type : 'GET',
 			dataType : 'json',
 			success : function(hypData) {					
