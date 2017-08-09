@@ -194,7 +194,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 
 									</select>
 								</c:if>
-								<c:if test="${subDataAnalysisId == '7' || subDataAnalysisId == '6'}">
+								<c:if test="${subDataAnalysisId == '7' || subDataAnalysisId == '6' || dataAnalysisId == '4' || dataAnalysisId == '5'}">
 									<select id="excluFreqRowId" name="excluFreqRowId"
 										title="Click here to choose Exc/Fre">
 
@@ -251,6 +251,22 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								</select>
 							</label></td>
 						</tr>
+						<c:if test="${dataAnalysisId == '4' || dataAnalysisId == '5'}">
+						<tr>
+							<td><label for="reportingOptionLookupId">Reporting
+									Option : </label></td>
+							<td><select id="reportingOptionLookupId"
+								name="reportingOptionLookupId"
+								title="Select one of the reporting options">
+									<option value="">Select</option>
+									<c:forEach items="${reportingOptionLookups}"
+										var="reportingOptionLookup">
+										<option value="${reportingOptionLookup.id}"
+											${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
+						</c:if> 
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
@@ -325,7 +341,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			measureParameters = '';
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
-	
+			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
 			var yearId = document.getElementById("yearLookUpId").value;
 			var yearSelectedText = $("#yearLookUpId option:selected").text();
 			
@@ -351,10 +367,19 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				multiSelectedMeasure();				
 				var url;
 				
-				if($('#excluFreqRowId').val() === '1'){
-					url = serverContextPath + '/api/measureExclusionRate/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
-				}else if($('#excluFreqRowId').val() === '2'){
-					url = serverContextPath + '/api/measureFrequency/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
+				if('${dataAnalysisId}' == '3'){
+					alert("yes");
+					if($('#excluFreqRowId').val() === '1'){
+						url = serverContextPath + '/api/measureExclusionRate/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
+					}else if($('#excluFreqRowId').val() === '2'){
+						url = serverContextPath + '/api/measureFrequency/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
+					}
+				}else if('${dataAnalysisId}' == '4' || '${dataAnalysisId}' == '5'){
+					if($('#excluFreqRowId').val() === '1'){
+						url = serverContextPath + '/api/measureExclusionRate/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingOptionId/' + reportingOptionId + '/measure/' + measureParameters.substring(1, measureParameters.length);
+					}else if($('#excluFreqRowId').val() === '2'){
+						url = serverContextPath + '/api/measureFrequency/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingOptionId/' + reportingOptionId + '/measure/' + measureParameters.substring(1, measureParameters.length);
+					}
 				}
 			}
 			if (reportTypeSelectedText == "Map") {
@@ -634,6 +659,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						 + lineChartData.reportingOptionsList[index] + "</td></tr></table>" 
 					);
 					}); */
+					if('${dataAnalysisId}' == '3'){
 						 if($('#excluFreqRowId').val() === '1'){
 							 $("#summary").empty();
 								$('#summary').append("<div class='header'>Summary</div>");
@@ -656,7 +682,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								);})
 							};
 			    
-					
+					}
 					<!-- LINE CHART :: JAVA SCRIPT ###### END  -->
 	
 				} <!-- Line Chart If Logic Ends-->

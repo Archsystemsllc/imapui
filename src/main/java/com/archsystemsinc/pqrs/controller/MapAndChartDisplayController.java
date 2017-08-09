@@ -158,6 +158,11 @@ public class MapAndChartDisplayController {
 		final List<MeasureLookup> measureLookups = measureLookupService.findAll();			
 		model.addAttribute("measureLookups", measureLookups);
 		
+		if(dataAnalysisId == 4 || dataAnalysisId == 5){
+			final List<ReportingOptionLookup> reportingOptionLookups = reportingOptionLookUpService.findAll();			
+			model.addAttribute("reportingOptionLookups", reportingOptionLookups);
+		}
+		
 		// Gets the different type of Chart Name from the constant class: ChartNameEnum.
 		List<String> reportTypes = new ArrayList<String>();
 		for (ChartNameEnum chartName : ChartNameEnum.values()) {
@@ -168,6 +173,7 @@ public class MapAndChartDisplayController {
 		// View Page: mapandchartdisplay.jsp
 		return "mapandchartdisplay_hy5";		
 	}
+	
 	@RequestMapping("/exclusion/mapandchartdisplay/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}")
 	public String mapAndChartScreenHy3(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, HttpServletRequest request, Principal currentUser, Model model, final RedirectAttributes redirectAttributes) {
 		

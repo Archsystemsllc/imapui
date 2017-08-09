@@ -112,6 +112,25 @@
 
 											</tr>
 										</c:when>
+										<c:when test="${dataAnalysis.id =='4' || dataAnalysis.id =='5'}">
+											<tr>
+												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em;"><a
+													title="${dataAnalysis.dataAnalysisDescription}"
+													href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${dataAnalysis.subDataAnalysis[0].id}">${dataAnalysis.dataAnalysisName}</a>
+												</td>
+
+												<td
+													style="text-align: center; border-top: 1px solid #327A81;"><a
+													href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${dataAnalysis.subDataAnalysis[0].id}"><button
+															title="Select View to see the results of the Analysis"
+															class="button search" id="view" value="View">View</button></a>
+													<button
+														title="Select to Download the report for the Hypothesis selected"
+														class="button arrow" id="download" value="Download">Download</button>
+												</td>
+
+											</tr>
+										</c:when>
 										<c:otherwise>
 											<tr>
 												<td style="border-top: 1px solid #327A81;font-weight:bold;font-size:1.05em">${dataAnalysis.dataAnalysisName}<%-- <a

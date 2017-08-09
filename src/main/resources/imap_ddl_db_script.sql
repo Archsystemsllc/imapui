@@ -363,3 +363,51 @@ ALTER TABLE interactive_maps_uat.measure_wise_exclusion_rate
 ADD CONSTRAINT FK_CategoryLookupMeasureWiseExclusionRate
 FOREIGN KEY (category_id) REFERENCES category_lookup(id);
 
+--
+--
+--
+CREATE TABLE `interactive_maps_uat`.`measure_wise_performance_and_reporting_rate` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `year_id` INT NULL,
+  `data_analysis_id` INT NULL,
+  `sub_data_analysis_id` INT NULL,
+  `measure_lookup_id` INT NULL,
+  `reporting_option_id` INT NULL,
+  `mean_exclusion_rate` DOUBLE NULL,  
+  `frequencies` INT NULL,
+  `record_status` INT DEFAULT 1,
+  `updated_date` date NULL,
+  `updated_by` VARCHAR(45) NULL,
+  `created_by` varchar(45) NULL,
+  `created_date` date NULL,    
+  PRIMARY KEY (`id`));
+  
+--
+--
+--
+ALTER TABLE interactive_maps_uat.measure_wise_performance_and_reporting_rate
+ADD CONSTRAINT FK_DataAnalysisMeasureWisePerformanceAndReportingRate
+FOREIGN KEY (data_analysis_id) REFERENCES data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_performance_and_reporting_rate
+ADD CONSTRAINT FK_SubDataAnalysisMeasureWisePerformanceAndReportingRate
+FOREIGN KEY (sub_data_analysis_id) REFERENCES sub_data_analysis(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_performance_and_reporting_rate
+ADD CONSTRAINT FK_YearLookupMeasureWisePerformanceAndReportingRate
+FOREIGN KEY (year_id) REFERENCES year_lookup(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_performance_and_reporting_rate
+ADD CONSTRAINT FK_MeasureLookupMeasureWisePerformanceAndReportingRate
+FOREIGN KEY (measure_lookup_id) REFERENCES measure_lookup(id);
+
+ALTER TABLE interactive_maps_uat.measure_wise_performance_and_reporting_rate
+ADD CONSTRAINT FK_ReportingOptionLookupMeasureWisePerformanceAndReportingRate
+FOREIGN KEY (reporting_option_id) REFERENCES reporting_option_lookup(id);
+--
+--
+INSERT INTO interactive_maps_dev2.measure_wise_performance_and_reporting_rate 
+(year_id,data_analysis_id,sub_data_analysis_id,measure_lookup_id,reporting_option_id,mean_exclusion_rate,frequencies)
+VALUES (1,4,9,1,8,20.92,48067)
+--
+--
