@@ -340,15 +340,18 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			$('#summary').hide();
 			measureParameters = '';
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
-			var reportTypeSelectedText = $("#reportTypeId option:selected").text();
-			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
+			var reportTypeSelectedText = $("#reportTypeId option:selected").text();			
 			var yearId = document.getElementById("yearLookUpId").value;
 			var yearSelectedText = $("#yearLookUpId option:selected").text();
-			
+			var reportingOptionId;
 			
 			var measureId = document.getElementById("measureLookupId").value;
 			var measureSelectedText = $("#measureLookupId option:selected").text();			
 			
+			
+			if('${dataAnalysisId}' == '4' || '${dataAnalysisId}' == '5'){
+				reportingOptionId = document.getElementById("reportingOptionLookupId").value;
+			}
 			
 	        var multiSelectedMeasure = function(){	        	
 	        	var selectedMeasures = document.getElementById('measureLookupId');
@@ -367,8 +370,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				multiSelectedMeasure();				
 				var url;
 				
-				if('${dataAnalysisId}' == '3'){
-					alert("yes");
+				if('${dataAnalysisId}' == '3'){					
 					if($('#excluFreqRowId').val() === '1'){
 						url = serverContextPath + '/api/measureExclusionRate/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/measure/' + measureParameters.substring(1, measureParameters.length);
 					}else if($('#excluFreqRowId').val() === '2'){
@@ -381,6 +383,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						url = serverContextPath + '/api/measureFrequency/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingOptionId/' + reportingOptionId + '/measure/' + measureParameters.substring(1, measureParameters.length);
 					}
 				}
+				
 			}
 			if (reportTypeSelectedText == "Map") {
 				//document.getElementById("mapIframe").hidden = false;		
