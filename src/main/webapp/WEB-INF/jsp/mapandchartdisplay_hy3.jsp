@@ -46,6 +46,7 @@
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
 	integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
 	crossorigin=""></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 <!-- <style>
 #map {
@@ -160,7 +161,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;">${dataAnalysis.dataAnalysisName}</h2>
+				<h2 style="text-align: center; font-size: 30px;">Hypothesis 3</h2>
 				<div class="HypothesisScreen" style="padding: 20px 250px;">
 					<table style="border-collapse: separate; border-spacing: 2px;">
                         
@@ -208,6 +209,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
+							<tr>
+							<td colspan="2" style="padding-top: 10px"><button
+								title="Click the button to Export the chart as pdf"
+								class="btn btn-primary btn-sm"
+								style="display: block; margin: auto; width: 30%;"
+								id="download" >Export as PDF</button></td>
+						</tr>
 					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
@@ -244,8 +252,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		//var serverContextPath = '${pageContext.request.contextPath}';
 		//var serverContextPath = 'http://localhost:8080/imapservices';
 		//var serverContextPath = 'http://localhost/imapservices';
-		var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-		
+		//var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
+		var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
 	
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
@@ -454,6 +462,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			}
 			
 		};
+		download.addEventListener("click", function() {
+			  // only jpeg is supported by jsPDF
+			  var chart = document.getElementById("chart-canvas");
+			  var imgData = chart.toDataURL();		  
+			  var pdf = new jsPDF();
+			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
+			  var download = document.getElementById('download');
+			  pdf.save("Hypothesis3.pdf");
+			}, false);
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
