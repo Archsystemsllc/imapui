@@ -5,7 +5,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Hypothesis 5</title>
+<title>	
+<c:choose>
+				<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
+				<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
+				<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise>
+</c:choose>
+</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"
@@ -46,6 +52,7 @@
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
 	integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
 	crossorigin=""></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 
 <!-- <style>
 #map {
@@ -175,7 +182,10 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;">${subDataAnalysis.subDataAnalysisName}</h2>
+				<h2 style="text-align: center; font-size: 30px;"><c:choose>
+				<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
+				<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
+				<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise></c:choose></h2>
 				<div class="HypothesisScreen" style="padding: 20px 25%;">
 					<table
 						style="border-collapse: separate; border-spacing: 2px; width: 100%">
@@ -293,6 +303,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
+						</tr>
+							<tr>
+							<td colspan="2" style="padding-top: 10px"><button
+								title="Click the button to Export the chart as pdf"
+								class="btn btn-primary btn-sm"
+								style="display: block; margin: auto; width: 30%;"
+								id="download" >Export as PDF</button></td>
 						</tr>
 					</table>
 				</div>
@@ -652,16 +669,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						
 					}
 					addData();
-				 	/* $("#summary").empty();
-					$('#summary').append("<div class='header'>Summary</div>");
-					$('#summary').append("<table style='border:1px solid #327A81;'><tr><th>Measure</th><th>Allowable Exclusion</th><th>Reporting Options</th></tr></table>")
-					$.each(lineChartData.measureIdList, function(index, value) {						  
-						 $('#summary').append("<table><tr style='border-bottom:1px solid #327a81;border-left:1px solid #327a81;border-right:1px solid #327a81;border-top:0px;'><td style='text-align:center'>" 
-						 + "Measure-" + value + ${measureLookup.measureName} + "</td><td>" 
-						 + lineChartData.allowableExclusionsList[index] + "</td><td>" 
-						 + lineChartData.reportingOptionsList[index] + "</td></tr></table>" 
-					);
-					}); */
+			
 					if('${dataAnalysisId}' == '3'){
 						 if($('#excluFreqRowId').val() === '1'){
 							 $("#summary").empty();
@@ -803,6 +811,20 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		$('#searchMeasureLookupId').dblclick(function() {
 		    $('#measureLookupId').append( new Option($("#searchMeasureLookupId option:selected").text(),$("#searchMeasureLookupId option:selected").val()) );
 		});
+		
+		download.addEventListener("click", function() {
+			  // only jpeg is supported by jsPDF
+			  var chart = document.getElementById("chart-canvas");
+			  var imgData = chart.toDataURL();		  
+			  var pdf = new jsPDF();
+			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
+			  var download = document.getElementById('download');
+			  if('${subDataAnalysisId}' == '9'){pdf.save("Hypothesis4.pdf");}
+			  else if('${subDataAnalysisId}' == '10'){pdf.save("Hypothesis6.pdf");}
+			  else if('${subDataAnalysisId}' == '6' || '${subDataAnalysisId}' == '7' || '${subDataAnalysisId}' == '8')
+			  {pdf.save("Hypothesis5.pdf");}
+			}, false);  
+		
 		
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
