@@ -848,7 +848,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
                 { "label": "Australia", "value": "AUS" }
              ]
             $.ajax({
-            	   url: 'http://localhost:8080/imapservices/api/measure/all',
+            	   /* url: 'http://localhost:8080/imapservices/api/measure/all', */
+            	   url: 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/measure/all',
             	   type: 'GET',
             	   dataType: 'json',
             	   success: function(data) {
