@@ -209,14 +209,14 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-							<tr>
+					<!-- 		<tr>
 							<td colspan="2" style="padding-top: 10px"><button
 								title="Click the button to Export the chart as pdf"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;"
 								id="download" >Export as PDF</button></td>
 						</tr>
-					</table>
+ -->					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
@@ -250,11 +250,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var barChartData = null;
 		var lineChartData = null;
 		//var serverContextPath = '${pageContext.request.contextPath}';
-		//var serverContextPath = 'http://localhost:8080/imapservices';
+		var serverContextPath = 'http://localhost:8080/imapservices';
 		//var serverContextPath = 'http://localhost/imapservices';
 		//var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-		var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
-	
+		//var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
+	//var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
@@ -462,7 +462,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			}
 			
 		};
-		download.addEventListener("click", function() {
+		/* download.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
@@ -470,7 +470,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
 			  var download = document.getElementById('download');
 			  pdf.save("Hypothesis3.pdf");
-			}, false);
+			}, false); */
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

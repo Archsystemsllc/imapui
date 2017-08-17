@@ -46,13 +46,22 @@
 	href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
 	crossorigin="" />
+	
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
 	integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
 	crossorigin=""></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+
 
 <!-- <style>
 #map {
@@ -149,6 +158,8 @@ table th:first-child {
 	font-weight: bold;
 }
 
+
+...
 /* #mapIframe{
 background: url("${pageContext.request.contextPath}/resources/images/loading3.gif")
 } */
@@ -228,15 +239,26 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
-							<td><label for="yearLookUpId">Search Measure ID/Name : </label></td>
+						    
+							<td><label for="automplete-1">Search Measure ID/Name : </label></td>
 							<td>
+							<div class = "ui-widget">
 								<label for="id_label_multiple" style="width: 100%">
-									<input type="text" size="30" id="measuretxt" title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
-									<input type="button" id="searchMeasure" value="Search">
+									<input type="text" size="50" id="automplete-1" title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
+									<!--  <input type="button" id="searchMeasure" value="Search">-->
 								</label>
+							</div>
 							</td>
+							
 						</tr>
-						<tr>
+						<!-- <tr>
+							<div class = "ui-widget">
+					         <p>Type "a" or "s"</p>
+					         <label for = "automplete-1">Tags: </label>
+					         <input id = "automplete-1">
+					         </div>
+				         </tr> -->
+						<!--<tr>
 							<td><label for="measureLookupId">Search Results :</label>
 								<p style="font-size: 13px; font-weight: normal;">(Double Click to add)</p></td>
 							<td><label for="id_label_multiple" style="width: 100%">
@@ -244,16 +266,16 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 									multiple="multiple" title="Search Results for measures">
 								</select>
 							</label></td>
-						</tr>
+						</tr>  -->
 						<tr>
-							<td><label for="measureLookupId">Measure Name :</label>
-								<p style="font-size: 13px; font-weight: normal;">(hold
-									"Ctrl" to select more)</p></td>
-							<td><label for="id_label_multiple" style="width: 100%">
+							<td><label for="measureLookupId">Measure(s) Name :</label>
+								<p style="font-size: 13px; font-weight: normal;">(To remove double click on
+									measure)</p></td>
+							<td><label for="id_label_multiple" style="width: 100%">							       
 									<select id="measureLookupId" name="measureLookupId"
-									multiple="multiple" title="Select up to 4 of the measures">
-										<option disabled>Select up to 4 more measures </option>
-										<%-- <c:forEach items="${measureLookups}" var="measureLookup">
+									multiple="multiple" title="Add up to 4 of the measures">
+									<%--<option disabled>Add up to 4 more measures </option>
+										 <c:forEach items="${measureLookups}" var="measureLookup">
 
 											<option value="${measureLookup.id}"
 												${measureLookup.id == measureLookupId ? 'selected="selected"' : ''}>${measureLookup.measureId} - ${measureLookup.measureName}</option>
@@ -261,6 +283,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								</select>
 							</label></td>
 						</tr>
+						
 						<c:if test="${dataAnalysisId == '4' || dataAnalysisId == '5'}">
 						<tr>
 							<td><label for="reportingOptionLookupId">Reporting
@@ -304,13 +327,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-							<tr>
+					<!-- 		<tr>
 							<td colspan="2" style="padding-top: 10px"><button
 								title="Click the button to Export the chart as pdf"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;"
 								id="download" >Export as PDF</button></td>
-						</tr>
+						</tr> -->
 					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
@@ -347,12 +370,14 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
-		var measureParameters = '';
-		//var serverContextPath = '${pageContext.request.contextPath}';
-		//var serverContextPath = 'http://localhost/imapservices';
-	  //  var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-	var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
-	  btn.addEventListener("click", function() {
+		var measureParameters = '';		
+	var serverContextPath = 'http://localhost:8080/imapservices';
+//var serverContextPath = '${pageContext.request.contextPath}';
+		var measuresData; 
+	    //  var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
+	   //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
+	   //var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
+	   btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
 			$('#summary').hide();
@@ -374,9 +399,9 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	        var multiSelectedMeasure = function(){	        	
 	        	var selectedMeasures = document.getElementById('measureLookupId');
 	        	for(var i =0; i < selectedMeasures.options.length; i++){
-	        		if(selectedMeasures.options[i].selected){	        			
+	        		//if(selectedMeasures.options[i].selected){	        			
 	        			measureParameters = measureParameters + ',' + selectedMeasures.options[i].value;	        			
-	        		}
+	        		//}
 	        	}	        	
 	        }
 	        
@@ -786,48 +811,85 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			}
 		};
 		
-		
-		$("#measureLookupId").on('change', function(e) {
-		    if (Object.keys($(this).val()).length > 4) {
-		        $('option[value="' + $(this).val().toString().split(',')[4] + '"]').prop('selected', false);
-		    }
+		$('#measureLookupId').dblclick(function() {	
+		    $('#measureLookupId option[value=' + $('#measureLookupId option:selected').val() + ']').remove();
 		});
+		//Download chart in the form of pdf
 		
-		$('#measuretxt').keydown(function (e){
-		    if(e.keyCode == 13){
-		        $("#searchMeasure").click();
-		    }
-		})
-		
-		$("#searchMeasure").bind("click", function() {
-            $.get("/imapservices/api/measure/search/" + $('#measuretxt').val(), function(data) {
-				$("#searchMeasureLookupId").empty();
-                $.each(data, function(i, measure) {
-				    $('#searchMeasureLookupId').append( new Option(measure.measureId + " - " +  measure.measureName,measure.id) );
-                });
-
-            });
-        });
-		
-		$('#searchMeasureLookupId').dblclick(function() {
-		    $('#measureLookupId').append( new Option($("#searchMeasureLookupId option:selected").text(),$("#searchMeasureLookupId option:selected").val()) );
-		});
-		
-		download.addEventListener("click", function() {
+		/* download.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
 			  var pdf = new jsPDF();
-			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
+			  pdf.addImage(imgData, 'JPG', 15, 40);
 			  var download = document.getElementById('download');
 			  if('${subDataAnalysisId}' == '9'){pdf.save("Hypothesis4.pdf");}
 			  else if('${subDataAnalysisId}' == '10'){pdf.save("Hypothesis6.pdf");}
 			  else if('${subDataAnalysisId}' == '6' || '${subDataAnalysisId}' == '7' || '${subDataAnalysisId}' == '8')
 			  {pdf.save("Hypothesis5.pdf");}
 			}, false);  
-		
+		 */
 		
 	</script>
+	<!-- Javascript -->
+      <script>
+      $(function() {    
+    	    var sourceData;
+            var availableTutorials  =  [
+               "ActionScript",
+               "Bootstrap",
+               "C",
+               "C++",
+            ]; 
+            var jsonArr = [];
+            
+            var testData = [
+                { "label": "India", "value": "IND" },
+                { "label": "Australia", "value": "AUS" }
+             ]
+            $.ajax({
+            	   url: 'http://localhost:8080/imapservices/api/measure/all',
+            	   type: 'GET',
+            	   dataType: 'json',
+            	   success: function(data) {
+            		   //alert('Success!');
+            		   $.each(data, function(idx, obj) {
+            				//alert(obj.measureId + '-' + obj.measureName);
+            				jsonArr.push({            			        
+            			        value: obj.measureId + '-' + obj.measureName,
+            			        id: obj.id
+            			        //selected: 'false'
+            			    });
+            			});
+             	   },
+            	   error: function() {
+            	      alert('Ajax error!');
+            	   },
+            });            
+            
+            $("#automplete-1").autocomplete({
+               source: jsonArr,               
+               minLength:1,
+               focus: function( event, ui ) {
+                   $( "#automplete-1" ).val( ui.item.value);
+                      return false;
+                },  
+                change: function (event, ui) {
+                    if (ui.item == null){ 
+                     //here is null if entered value is not match in suggestion list
+                        $(this).val((ui.item ? ui.item.value : ""));
+                    }
+                },
+                select: function( event, ui ) {                    
+                    if($('#measureLookupId').children('option').length < 4 && $('#measureLookupId').find('option[value='+ ui.item.id + ']').length == 0){
+                    	$('#measureLookupId').append( new Option(ui.item.value,ui.item.id) );
+                    }                    
+                    $( "#automplete-1" ).val() = '';
+                    return false;
+                 }
+            });
+         });
+      </script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
