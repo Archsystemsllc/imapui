@@ -371,11 +371,11 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var barChartData = null;
 		var lineChartData = null;
 		var measureParameters = '';		
-	var serverContextPath = 'http://localhost:8080/imapservices';
+	//var serverContextPath = 'http://localhost:8080/imapservices';
 //var serverContextPath = '${pageContext.request.contextPath}';
 		var measuresData; 
-	    //  var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-	   //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
+	     // var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
+	   var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
 	   //var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
 	   btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
@@ -439,7 +439,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					epGpro = '1';
 				} else if (reportingOptionSelectedText == "GPROWI" || reportingOptionSelectedText == "GPRO Registry"
 					|| reportingOptionSelectedText == "GPRO EHR"
-					|| reportingOptionSelectedText == "GPRO WI GROP") {
+						|| reportingOptionSelectedText == "GPRO WI GROP") {
 					epGpro = '2';
 				}
 				var ruralUrbanId = document.getElementById("parameterLookupId").value;
