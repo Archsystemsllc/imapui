@@ -145,6 +145,8 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
 							<li><a href="#">Contact Us</a></li>
+							<li style="text-align: right,color: white"><a
+								href="${pageContext.request.contextPath}/admin/download-helpdoc">Help</a></li>
 						</ul>
 					</div>
 				</td>

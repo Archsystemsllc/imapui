@@ -2,12 +2,16 @@ package com.archsystemsinc.pqrs.controller;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.service.TemplateFileService;
-
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * controller class for provider hypothesis, 
@@ -94,6 +95,25 @@ public class TemplateFileController {
   
         return "redirect:../templates";
     }
+	
+	//Help file download from admin header
+		@RequestMapping(value = { "/admin/download-helpdoc" }, method = RequestMethod.GET)
+	    public void downloadHelpDoc(HttpServletResponse response) throws IOException {
+	        String fileSize;
+			ClassLoader classLoader = getClass().getClassLoader();
+			File file=new File(classLoader.getResource("PQRS_ADDA_UserGuide_03022017_SK.pdf").getFile());
+			FileInputStream in = null;
+	        try {
+	            in = new FileInputStream(file);
+	        } catch (FileNotFoundException e) { 
+	            e.printStackTrace();
+	        }
+	        fileSize=Long.toOctalString(file.length());
+	        response.setBufferSize(Integer.parseInt(fileSize));
+	        response.setContentType("application/pdf"); 
+	        response.setHeader("Content-Disposition", "attachment; filename=\""+ file.getName() + "\"");
+	        FileCopyUtils.copy(in, response.getOutputStream()); 
+	    }
 	
 	@RequestMapping(value = { "/admin/download-templates"}, method = RequestMethod.GET)
     public String downloadAllDocument(HttpServletResponse response) throws IOException {
