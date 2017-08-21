@@ -205,7 +205,7 @@
 	document.getElementById('mid').style.minHeight=h+'px';
 	</script>
 	<script type="text/javascript">
-    var data;
+    var data = [];
     
 	function configureDropDownLists(ddl, ddl2) {
 		var ele = document.getElementById("ddl1");
@@ -213,10 +213,17 @@
 		var subData;
 		var subDataArray = [];
 		$('#ddl2').empty();
+		$('#provider-upload').removeAttr('disabled');
+		$('#specialty-upload').removeAttr('disabled');
+		$('#statewise-upload').removeAttr('disabled');
+		$('#measureWiseExclusionRate-upload').removeAttr('disabled');
 		
 		if (seleHypoId === "0") {
 			$('#ddl2').addClass('hidden');
 			$('#provider-upload').attr("disabled", "disabled");
+			$('#specialty-upload').attr("disabled", "disabled");
+			$('#statewise-upload').attr("disabled", "disabled");
+			$('#measureWiseExclusionRate-upload').attr("disabled", "disabled");
 		} else {	
 			if (seleHypoId != "3") {
 				for(i = 0; i < data.length; i++){
@@ -238,7 +245,12 @@
 						createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
 					}
 				}
-				$('#provider-upload').removeAttr('disabled');
+				
+				if (seleHypoId === "1") {
+					$('#specialty-upload').attr("disabled", "disabled");
+					$('#statewise-upload').attr("disabled", "disabled");
+					$('#measureWiseExclusionRate-upload').attr("disabled", "disabled");
+				}
 			}			
 		}
 

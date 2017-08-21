@@ -105,7 +105,8 @@ public class DocumentUploadController {
 		
 		try {
 			//
-			//documentUploadProvider(documentFileUpload);			
+			//documentUploadProvider(documentFileUpload);
+			boolean fileEmpty = false;
 			
 			if(documentFileUpload.getProvider().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(1L);
@@ -119,10 +120,20 @@ public class DocumentUploadController {
 			}else if(documentFileUpload.getMeasureWiseExclusionRate().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(4L);
 				documentUploadMeasureWiseExclusionRate(documentFileUpload);
-			}			
+			}else {
+				fileEmpty = true;
+			}
+			
+			if(fileEmpty) {
+				redirectAttributes.addFlashAttribute("documentuploaderror", "error.file.empty");
+			} else {
+				redirectAttributes.addFlashAttribute("documentuploadsuccess", "success.import.document");
+			}
             
-			redirectAttributes.addFlashAttribute("documentuploadsuccess","success.import.document");
-		}catch (Exception e) {
+		} catch(InvalidFormatException ife) {
+			ife.printStackTrace();
+			redirectAttributes.addFlashAttribute("documentuploaderror", ife.getMessage());
+		} catch (Exception e) {
 			System.out.println("Exception in Documents Upload page: " + e.getMessage());	
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("documentuploaderror","error.import.document");			
@@ -144,7 +155,15 @@ public class DocumentUploadController {
 			
 			if (documentFileUpload.getProvider() != null) {
 				
-				Workbook providersFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				Workbook providersFileWorkbook = null;
+				try {
+					providersFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				}catch(InvalidFormatException ife) {
+					System.out.println("Invalid format Exception in Documents Upload page: " + ife.getMessage());	
+					ife.printStackTrace();
+					throw new InvalidFormatException("error.file.format");
+				}
+						
 				Sheet providersFileSheet = providersFileWorkbook.getSheetAt(0);
 				Iterator<Row> providersFileRowIterator = providersFileSheet.rowIterator();
                 int providersFileRowCount = providersFileSheet.getPhysicalNumberOfRows();
@@ -183,7 +202,7 @@ public class DocumentUploadController {
 									|| cellIndex == 10 && !hssfCell.getStringCellValue().equals("total_sum")
 									|| cellIndex == 11 && !hssfCell.getStringCellValue().equals("rpPercent")
 										){
-									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+									throw new InvalidFormatException("error.columns.format.mismatch");
 								}else{
 									continue;
 								}
