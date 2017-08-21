@@ -235,13 +235,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-					<!-- 		<tr>
+							<tr>
 							<td colspan="2" style="padding-top: 10px"><button
 								title="Click the button to Export the chart as pdf"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;"
 								id="download" >Export as PDF</button></td>
-						</tr> -->
+						</tr> 
 					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
@@ -650,7 +650,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				x.hidden = true;
 			}
 		};
-/* 		download.addEventListener("click", function() {
+	download.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
@@ -658,7 +658,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
 			  var download = document.getElementById('download');
 			  pdf.save("${subDataAnalysis.subDataAnalysisName}.pdf");
-			}, false); */
+			}, false); 
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
