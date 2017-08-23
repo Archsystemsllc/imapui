@@ -61,4 +61,12 @@ public class CommonController {
 		return contents;
 
 	}
+	
+	
+	@RequestMapping(value="/admin/contactus")
+	public String contactUs()
+	{
+		return "contactUs";
+		
+	}
 }
