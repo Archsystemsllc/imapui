@@ -158,7 +158,7 @@
 	<script>
 		function increaseFontSizeBy1px() {
 			var font = parseInt($('#b').css('font-size'));
-	        if(font<25)
+	        if(font<22)
 			font++;
 			document.getElementById('b').style.fontSize = font + "px";
 		}
