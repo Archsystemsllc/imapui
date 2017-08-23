@@ -164,6 +164,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 </head>
 
 <body>
+
 	<jsp:include page="admin_header.jsp"></jsp:include>
 
 	<table id="mid">
