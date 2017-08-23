@@ -9,11 +9,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>ADDA - Download</title>
+<title>ADDA - Upload</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/css/common.css"
+	rel="stylesheet" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/resources/images/adda_ico.png" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/table.css" />
+<link
+	href="${pageContext.request.contextPath}/resources/css/responsive.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
+	rel="stylesheet" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/common.css" />
 <script
@@ -26,11 +44,17 @@
 <script src="https://code.angularjs.org/tools/typescript.js"></script>
 <script src="https://code.angularjs.org/2.0.0-beta.6/Rx.js"></script>
 <script src="https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js"></script>
-
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<style>
+.hidden {
+	display: none;
+}
+</style>
 
 </head>
 <body>
-	<jsp:include page="admin_header.jsp"></jsp:include>
+	<jsp:include page="admin_header.jsp" />
     <div id="mid" class="contact">
     
     	<img src="${pageContext.request.contextPath}/resources/images/contact.PNG" alt="logo"/>
@@ -42,14 +66,18 @@
 	var h;
 	h=screen.height-357;
 	document.getElementById('mid').style.minHeight=h+'px';
+	
 	$(document).ready(function () {
-				 $('.nav > li').eq(2).addClass('active');			 
+				 $('.nav > li').eq(3).addClass('active');	
+				 subDataAnalysis();
 	});	
-	</script>
-	<script>
-	function addFile(){
-		$('#addTemplate').toggle();
-	}
+	$("input[type='reset']").on("click", function(event){
+		event.preventDefault();
+	     // stops the form from resetting after this function
+	     
+	     $(this).parent().parent().parent().find("input[type='file']").val("");
+	     
+	});
 	</script>
 </body>
 </html>
