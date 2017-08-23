@@ -390,6 +390,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				 }else{
 			    document.getElementById("errmeasureName").innerHTML ="";  
 			    valdmeasureLookup=true;
+
 				 }
 		
 			return valdmeasureLookup;
