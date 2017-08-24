@@ -105,9 +105,9 @@
 													href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/5"><button
 															title="Select View to see the results of the Analysis"
 															class="button search" id="view" value="View">View</button></a>
-													<button
+													<!-- <button
 														title="Select to Download the report for the Hypothesis selected"
-														class="button arrow" id="download" value="Download">Download</button>
+														class="button arrow" id="download" value="Download">Download</button> -->
 												</td>
 
 											</tr>
@@ -124,9 +124,9 @@
 													href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${dataAnalysis.subDataAnalysis[0].id}"><button
 															title="Select View to see the results of the Analysis"
 															class="button search" id="view" value="View">View</button></a>
-													<button
+													<!-- <button
 														title="Select to Download the report for the Hypothesis selected"
-														class="button arrow" id="download" value="Download">Download</button>
+														class="button arrow" id="download" value="Download">Download</button> -->
 												</td>
 
 											</tr>
@@ -216,9 +216,9 @@
 															href="${pageContext.request.contextPath}/exclusion/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>
-															<button
+															<!-- <button
 																title="Select to download the report for the Hypothesis selected"
-																class="button arrow" id="download" value="Download">Download</button>
+																class="button arrow" id="download" value="Download">Download</button> -->
 														</td>
 													</tr>
 												</c:when>
@@ -237,9 +237,9 @@
 															href="${pageContext.request.contextPath}/measures/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>
-															<button
+															<!-- <button
 																title="Select to download the report for the Hypothesis selected"
-																class="button arrow" id="download" value="Download">Download</button>
+																class="button arrow" id="download" value="Download">Download</button> -->
 														</td>
 													</tr>
 												</c:when>
@@ -258,9 +258,9 @@
 															href="${pageContext.request.contextPath}/mapandchartdisplay/dataAnalysisId/${dataAnalysis.id}/subDataAnalysisId/${subDataAnalysis.id}"><button
 																	title="Select view to see the results of the Analysis"
 																	class="button search" id="view" value="View">View</button></a>
-															<button
+															<!-- <button
 																title="Select to download the report for the Hypothesis selected"
-																class="button arrow" id="download" value="Download">Download</button>
+																class="button arrow" id="download" value="Download">Download</button> -->
 														</td>
 													</tr>
 												</c:otherwise>

@@ -5,13 +5,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>	
-<c:choose>
-				<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
-				<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
-				<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise>
-</c:choose>
-</title>
+<title><c:choose>
+		<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
+		<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
+		<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise>
+	</c:choose></title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <script type="text/javascript"
@@ -46,14 +44,15 @@
 	href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
 	crossorigin="" />
-	
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
-	
+
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
@@ -157,8 +156,6 @@ table th:first-child {
 	text-align: center;
 	font-weight: bold;
 }
-
-
 ...
 /* #mapIframe{
 background: url("${pageContext.request.contextPath}/resources/images/loading3.gif")
@@ -167,6 +164,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 </head>
 
 <body>
+
 	<jsp:include page="admin_header.jsp"></jsp:include>
 
 	<table id="mid">
@@ -193,10 +191,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				</div>
 			</td>
 			<td style="vertical-align: top;">
-				<h2 style="text-align: center; font-size: 30px;"><c:choose>
-				<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
-				<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
-				<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise></c:choose></h2>
+				<h2 style="text-align: center; font-size: 30px;">
+					<c:choose>
+						<c:when test="${subDataAnalysis.id=='9'}">Hypothesis 4</c:when>
+						<c:when test="${subDataAnalysis.id=='10'}">Hypothesis 6</c:when>
+						<c:otherwise>${subDataAnalysis.subDataAnalysisName}</c:otherwise>
+					</c:choose>
+				</h2>
 				<div class="HypothesisScreen" style="padding: 20px 25%;">
 					<table
 						style="border-collapse: separate; border-spacing: 2px; width: 100%">
@@ -214,8 +215,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 										<option value="2" selected>Frequency</option>
 
 									</select>
-								</c:if>
-								<c:if test="${subDataAnalysisId == '7' || subDataAnalysisId == '6' || dataAnalysisId == '4' || dataAnalysisId == '5'}">
+								</c:if> <c:if
+									test="${subDataAnalysisId == '7' || subDataAnalysisId == '6' || dataAnalysisId == '4' || dataAnalysisId == '5'}">
 									<select id="excluFreqRowId" name="excluFreqRowId"
 										title="Click here to choose Exc/Fre">
 
@@ -223,8 +224,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 										<option value="2" disabled>Frequency</option>
 
 									</select>
-								</c:if>
-								</td>
+								</c:if></td>
 						</tr>
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
@@ -239,17 +239,20 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
-						    
-							<td><label for="automplete-1">Search Measure ID/Name : </label></td>
+
+							<td><label for="automplete-1">Search Measure ID/Name
+									: </label>
+								<p style="color: red" id="errormeasuretxt"></p></td>
 							<td>
-							<div class = "ui-widget">
-								<label for="id_label_multiple" style="width: 100%">
-									<input type="text" size="50" id="automplete-1" title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
-									<!--  <input type="button" id="searchMeasure" value="Search">-->
-								</label>
-							</div>
+								<div class="ui-widget">
+									<label for="id_label_multiple" style="width: 100%"> <input
+										type="text" size="50" id="automplete-1"
+										title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
+										<!--  <input type="button" id="searchMeasure" value="Search">-->
+									</label>
+								</div>
 							</td>
-							
+
 						</tr>
 						<!-- <tr>
 							<div class = "ui-widget">
@@ -269,12 +272,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</tr>  -->
 						<tr>
 							<td><label for="measureLookupId">Measure(s) Name :</label>
-								<p style="font-size: 13px; font-weight: normal;">(To remove double click on
-									measure)</p></td>
-							<td><label for="id_label_multiple" style="width: 100%">							       
+								<p style="font-size: 13px; font-weight: normal;">(To remove
+									double click on measure)</p>
+								<p style="color: red" id="errmeasureName"></p></td>
+							<td><label for="id_label_multiple" style="width: 100%">
 									<select id="measureLookupId" name="measureLookupId"
 									multiple="multiple" title="Add up to 4 of the measures">
-									<%--<option disabled>Add up to 4 more measures </option>
+										<%--<option disabled>Add up to 4 more measures </option>
 										 <c:forEach items="${measureLookups}" var="measureLookup">
 
 											<option value="${measureLookup.id}"
@@ -283,23 +287,23 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								</select>
 							</label></td>
 						</tr>
-						
+
 						<c:if test="${dataAnalysisId == '4' || dataAnalysisId == '5'}">
-						<tr>
-							<td><label for="reportingOptionLookupId">Reporting
-									Option : </label></td>
-							<td><select id="reportingOptionLookupId"
-								name="reportingOptionLookupId"
-								title="Select one of the reporting options">
-									<option value="">Select</option>
-									<c:forEach items="${reportingOptionLookups}"
-										var="reportingOptionLookup">
-										<option value="${reportingOptionLookup.id}"
-											${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
-									</c:forEach>
-							</select></td>
-						</tr>
-						</c:if> 
+							<tr>
+								<td><label for="reportingOptionLookupId">Reporting
+										Option : </label></td>
+								<td><select id="reportingOptionLookupId"
+									name="reportingOptionLookupId"
+									title="Select one of the reporting options">
+										<option value="">Select</option>
+										<c:forEach items="${reportingOptionLookups}"
+											var="reportingOptionLookup">
+											<option value="${reportingOptionLookup.id}"
+												${reportingOptionLookup.id == reportingOptionLookupId ? 'selected="selected"' : ''}>${reportingOptionLookup.reportingOptionName}</option>
+										</c:forEach>
+								</select></td>
+							</tr>
+						</c:if>
 						<tr>
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
@@ -327,7 +331,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-					<!-- 		<tr>
+						<!-- 		<tr>
 							<td colspan="2" style="padding-top: 10px"><button
 								title="Click the button to Export the chart as pdf"
 								class="btn btn-primary btn-sm"
@@ -370,14 +374,32 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
-		var measureParameters = '';		
-	//var serverContextPath = 'http://localhost:8080/imapservices';
+		var measureParameters = '';	
+	//validations	
+		var measures = document.getElementById('measureLookupId');
+	    var valdmeasureLookup=false;
+	var serverContextPath = '/imapservices';
 //var serverContextPath = '${pageContext.request.contextPath}';
 		var measuresData; 
 	     // var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-	   var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
+	   //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
 	   //var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
+	   	function validations()
+	{
+			if( measures.options.length === 0 ) {
+				    document.getElementById("errmeasureName").innerHTML = "Required *";   
+				 }else{
+			    document.getElementById("errmeasureName").innerHTML ="";  
+			    valdmeasureLookup=true;
+
+				 }
+		
+			return valdmeasureLookup;
+	}
 	   btn.addEventListener("click", function() {
+		   if( validations()=== false){
+				 
+			 }else{
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
 			$('#summary').hide();
@@ -452,7 +474,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				/* $('#loading-gif').hide(); */
 				$('#mapIframe').show();
 			}
-	
+			 }
 			var ourRequest = new XMLHttpRequest();
 			ourRequest.open('GET', url);
 			ourRequest.onload = function() {
@@ -832,7 +854,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		
 	</script>
 	<!-- Javascript -->
-      <script>
+	<script>
       $(function() {    
     	    var sourceData;
             var availableTutorials  =  [
@@ -849,7 +871,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
              ]
             $.ajax({
             	   /*  url: 'http://localhost:8080/imapservices/api/measure/all', */ 
-            	    url: 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/measure/all', 
+            	    /* url: 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/measure/all', */
+            	    url: '/imapservices/api/measure/all',
             	   type: 'GET',
             	   dataType: 'json',
             	   success: function(data) {

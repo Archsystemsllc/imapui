@@ -103,9 +103,9 @@
 
 						<div class="navbar-brand" style="display: inline">
 							<!--<a class="navbar-brand" href="page0.html">-->
-							<img
+								<a href="https://www.cms.gov/Medicare/Medicare.html" target="_blank"><img
 								src="${pageContext.request.contextPath}/resources/images/logo.png"
-								alt="logo" height="100px" style="float: left; width: 40%">
+								alt="logo" height="100px" style="float: left; width: 40%"></a>
 							<img
 								src="${pageContext.request.contextPath}/resources/images/ADDA.png"
 								alt="logo" height="100px" style="float: right; width: 45%;">
@@ -144,7 +144,9 @@
 								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
-							<li><a href="#">Contact Us</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/contactus">Contact Us</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/download-helpdoc">Help</a></li>
 						</ul>
 					</div>
 				</td>
@@ -156,13 +158,13 @@
 	<script>
 		function increaseFontSizeBy1px() {
 			var font = parseInt($('#b').css('font-size'));
-	
+	        if(font<22)
 			font++;
 			document.getElementById('b').style.fontSize = font + "px";
 		}
 		function decreaseFontSizeBy1px() {
 			var font = parseInt($('#b').css('font-size'));
-	
+	        if(font>10)
 			font = font - 1;
 			document.getElementById('b').style.fontSize = font + "px";
 		}

@@ -32,7 +32,7 @@
 	right: 0;
 	padding-top: inherit;
 	padding-bottom: inherit;
-	width: 2.8em;
+	width: 3.5em;
 	content: "\00a0";
 	font-family: 'FontAwesome', sans-serif;
 	font-size: 1.2em;
@@ -55,7 +55,7 @@
 }
 
 .button {
-	min-width: 15em;
+	min-width: 23em;
 	margin: 2px;
 }
 
