@@ -30,9 +30,12 @@ import com.archsystemsinc.pqrs.model.CategoryLookup;
 import com.archsystemsinc.pqrs.model.DocumentUpload;
 import com.archsystemsinc.pqrs.model.MeasureLookup;
 import com.archsystemsinc.pqrs.model.MeasureWiseExclusionRate;
+import com.archsystemsinc.pqrs.model.ParameterLookup;
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
+import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
 import com.archsystemsinc.pqrs.model.Speciality;
 import com.archsystemsinc.pqrs.model.StatewiseStatistic;
+import com.archsystemsinc.pqrs.model.YearLookup;
 import com.archsystemsinc.pqrs.service.CategoryLookupService;
 import com.archsystemsinc.pqrs.service.DataAnalysisService;
 import com.archsystemsinc.pqrs.service.MeasureLookupService;
@@ -158,15 +161,20 @@ public class DocumentUploadController {
 				Workbook providersFileWorkbook = null;
 				try {
 					providersFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
-				}catch(InvalidFormatException ife) {
-					System.out.println("Invalid format Exception in Documents Upload page: " + ife.getMessage());	
-					ife.printStackTrace();
+				}catch(Exception ex) {
+					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
+					ex.printStackTrace();
 					throw new InvalidFormatException("error.file.format");
 				}
 						
 				Sheet providersFileSheet = providersFileWorkbook.getSheetAt(0);
 				Iterator<Row> providersFileRowIterator = providersFileSheet.rowIterator();
                 int providersFileRowCount = providersFileSheet.getPhysicalNumberOfRows();
+                //Atleast sheet should have one header and one data row
+                if(providersFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
 				totalNumberOfRows = providersFileRowCount - 1;
 				String stringResult = "";
 
@@ -215,13 +223,16 @@ public class DocumentUploadController {
 								switch (hssfCell.getCellType())
 								{
 								
-				                case Cell.CELL_TYPE_STRING:					                	
+				                case Cell.CELL_TYPE_STRING:	
 				                    stringResult=hssfCell.getStringCellValue();
-				                    provider.setYearLookup(yearLookUpService.findByYearName(stringResult));
+				                    YearLookup yearName = yearLookUpService.findByYearName(stringResult);
+				                    if(yearName == null) {
+				                    	throw new InvalidFormatException("error.data.invalid");
+				                    }
+									provider.setYearLookup(yearName);
 				                    System.out.println("Year name: " + stringResult);
 				                  
 				                    break;
-								
 								}
 								break;								
 							case 2:
@@ -232,7 +243,11 @@ public class DocumentUploadController {
 				                	
 				                    stringResult=hssfCell.getStringCellValue();
 				                    System.out.println("Reporting option: " + stringResult);
-				                    provider.setReportingOptionLookup(reportingOptionLookUpService.findByReportingOptionName(stringResult));
+				                    ReportingOptionLookup reportingOption = reportingOptionLookUpService.findByReportingOptionName(stringResult);
+				                    if(reportingOption == null) {
+				                    	throw new InvalidFormatException("error.data.invalid");
+				                    }
+									provider.setReportingOptionLookup(reportingOption);
 				                    //System.out.println("Reporting option: " + reportingOptionLookUpService.findByReportingOptionName(stringResult).getReportingOptionName());
 				                    break;	
 								
@@ -246,19 +261,30 @@ public class DocumentUploadController {
 				                case Cell.CELL_TYPE_STRING:	
 				                	
 				                    stringResult=hssfCell.getStringCellValue();
-				                    provider.setParameterLookup(parameterLookUpService.findByParameterName(stringResult));				                   
+				                    if(stringResult == null || stringResult.isEmpty()) {
+				                    	throw new InvalidFormatException("error.columns.format.mismatch");
+				                    }
+				                    
+				                    ParameterLookup parameter = parameterLookUpService.findByParameterName(stringResult);
+				                    if(parameter == null) {
+				                    	throw new InvalidFormatException("error.data.invalid");
+				                    }
+									provider.setParameterLookup(parameter);				                   
 				                    break;
-								
+				                default: throw new InvalidFormatException("error.columns.format.mismatch");
 								}
-								break;
 							case 4:
 								switch (hssfCell.getCellType())
 								{
 								
-				                case Cell.CELL_TYPE_NUMERIC:	
-				                    provider.setYesValue((int)hssfCell.getNumericCellValue());
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	int value = (int)hssfCell.getNumericCellValue();
+				                	if(value == 0 || value == 1) {
+				                		provider.setYesValue(value);
+				                    }else {
+				                    	throw new InvalidFormatException("error.data.invalid");
+				                    }
 				                    break;
-								
 								}
 								break;
 							case 5:
@@ -266,9 +292,12 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_NUMERIC:	
-				                    provider.setNoValue((int)hssfCell.getNumericCellValue());
-				                    break;
-								
+				                	int value = (int)hssfCell.getNumericCellValue();
+				                	if(value == 0 || value == 1) {
+				                		provider.setNoValue(value);
+				                    }else {
+				                    	throw new InvalidFormatException("error.data.invalid");
+				                    }
 								}
 								break;
 							case 6:
@@ -277,8 +306,10 @@ public class DocumentUploadController {
 								
 				                case Cell.CELL_TYPE_NUMERIC:	
 				                	provider.setYesCount(BigInteger.valueOf((int)hssfCell.getNumericCellValue()));				                   
-				                    break;								
+				                    break;
+				                default: //throw exception
 								}
+								
 								break;
 							case 7:
 								switch (hssfCell.getCellType())
@@ -326,21 +357,16 @@ public class DocumentUploadController {
 				                	provider.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
 				                	//System.out.println("hyp ID: " + documentFileUpload.getProviderHypId());
 				                	//System.out.println("Sub ID: " + documentFileUpload.getProviderSubHypId());
-				                	providerHypothesisService.create(provider);				                    
-				                    break;								
+				                	providerHypothesisService.create(provider);
+				                    break;	
+				                default: throw new InvalidFormatException("error.columns.data.format.mismatch");
 								}
 								break;		
 							}
-
-
 						}
-						
-						
 					}
- 
 				}
 			}			
-
 	}
 	
 	
