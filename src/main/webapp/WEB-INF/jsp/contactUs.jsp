@@ -57,7 +57,7 @@
 	<jsp:include page="admin_header.jsp" />
     <div id="mid" class="contact">
     
-    	<img src="${pageContext.request.contextPath}/resources/images/contact.PNG" alt="logo"/>
+    	<img src="${pageContext.request.contextPath}/resources/images/contact.jpg" alt="logo"/>
     
     </div>
 
