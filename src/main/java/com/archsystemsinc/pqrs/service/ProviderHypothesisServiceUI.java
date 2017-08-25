@@ -11,7 +11,7 @@ import com.archsystemsinc.pqrs.model.ProviderHypothesis;
  * @since 6/21/2017
  * 
  */
-public interface ProviderHypothesisService {
+public interface ProviderHypothesisServiceUI {
 	
 	List<ProviderHypothesis> findByYearLookupAndReportingOptionLookup(String year, String reportingOption);
 	
@@ -33,7 +33,9 @@ public interface ProviderHypothesisService {
 	
 	boolean setRPPercentValue(List<ProviderHypothesis> providerHypothesisList, List<Double> claimsPercents, List<Double> ehrPercents, List<Double> registryPercents, List<Double> gprowiPercents, List<Double> qcdrPercents);
 
-	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId);
+//	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId);
+	
+	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookupAndParameterLookup(int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId, int parameterId);
 	
 	List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndParameterLookup(int dataAnalysisId, int subDataAnalysisId, int parameterId);
 	

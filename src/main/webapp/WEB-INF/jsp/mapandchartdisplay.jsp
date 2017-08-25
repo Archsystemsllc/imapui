@@ -278,9 +278,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			var reportingOptionSelectedText = $("#reportingOptionLookupId option:selected").text();
 			var parameterId = document.getElementById("parameterLookupId").value;
 			var parameterSelectedText = $("#parameterLookupId option:selected").text();
-	
 			if (reportTypeSelectedText == "Bar Chart") {
-				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId;
+				var url = serverContextPath + '/api/barChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/yearId/' + yearId + '/reportingOptionId/' + reportingOptionId + '/parameterId/' + parameterId;
 			}
 			if (reportTypeSelectedText == "Line Chart") {
 				var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
@@ -601,7 +600,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			$('#chart-container').append('<canvas id="chart-canvas"><canvas>');
 		};
 	
-		document.getElementById("reportTypeId").onchange = function() {
+		/* document.getElementById("reportTypeId").onchange = function() {
 			console.log('Inside on change..');
 			var x = document.getElementById("reportTypeId").value;
 			console.log('value of x:' + x);
@@ -637,7 +636,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				var x = document.getElementById("yesOrNoOptionRow")
 				x.hidden = true;
 			}
-		};
+		}; */
 	download.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
-import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
+import com.archsystemsinc.pqrs.service.ProviderHypothesisServiceUI;
 
 /**
  * This is the Rest Controller Class for Bar and Line Chart Implementation for Hypothesis 1 and 2.
@@ -35,7 +35,7 @@ import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
 public class ProviderHypothesisController {
 	
 	@Autowired
-	private ProviderHypothesisService providerHypothesisService;
+	private ProviderHypothesisServiceUI providerHypothesisService;
 
 	/**
 	 * 
@@ -53,16 +53,18 @@ public class ProviderHypothesisController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/barChart/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}/yearId/{yearId}/reportingOptionId/{reportingOptionId}")
-    public Map barChartDisplay(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, @PathVariable("yearId") int yearId, @PathVariable("reportingOptionId") int reportingOptionId, HttpServletRequest request, Principal currentUser, Model model) {
+	@RequestMapping("/barChart/dataAnalysisId/{dataAnalysisId}/subDataAnalysisId/{subDataAnalysisId}/yearId/{yearId}/reportingOptionId/{reportingOptionId}/parameterId/{parameterId}")
+    public Map barChartDisplay(@PathVariable("dataAnalysisId") int dataAnalysisId, @PathVariable("subDataAnalysisId") int subDataAnalysisId, @PathVariable("yearId") int yearId, @PathVariable("reportingOptionId") int reportingOptionId, @PathVariable("parameterId") int parameterId,HttpServletRequest request, Principal currentUser, Model model) {
 
 		model.addAttribute("yearId", yearId);
 		model.addAttribute("reportingOptionId", reportingOptionId);
+		model.addAttribute("parameterId", parameterId);
+
 		String dataAvailable = "NO";
 		
 		Map barChartDataMap = new HashMap();
-	
-		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(dataAnalysisId, subDataAnalysisId, yearId, reportingOptionId);
+	System.out.println("hellooo");
+		final List<ProviderHypothesis> providerHypothesisList = providerHypothesisService.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookupAndParameterLookup(dataAnalysisId, subDataAnalysisId, yearId, reportingOptionId, parameterId);
 		
 		// Preparing Parameter String Array
 		List<String> parameters = new ArrayList<String>();

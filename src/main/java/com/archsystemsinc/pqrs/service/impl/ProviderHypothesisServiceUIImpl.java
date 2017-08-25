@@ -18,11 +18,11 @@ import com.archsystemsinc.pqrs.model.SubDataAnalysis;
 import com.archsystemsinc.pqrs.model.YearLookup;
 import com.archsystemsinc.pqrs.repository.DataAnalaysisRepository;
 import com.archsystemsinc.pqrs.repository.ParameterLookUpRepository;
-import com.archsystemsinc.pqrs.repository.ProviderHypothesisRepository;
+import com.archsystemsinc.pqrs.repository.ProviderHypothesisUIRepository;
 import com.archsystemsinc.pqrs.repository.ReportingOptionLookupRepository;
 import com.archsystemsinc.pqrs.repository.SubDataAnalysisRepository;
 import com.archsystemsinc.pqrs.repository.YearLookUpRepository;
-import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
+import com.archsystemsinc.pqrs.service.ProviderHypothesisServiceUI;
 
 /**
  * This is the implementation class of Service interface for provider_hypothesis database table.
@@ -32,10 +32,10 @@ import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
  * 
  */
 @Service
-public class ProviderHypothesisServiceImpl implements ProviderHypothesisService {
+public class ProviderHypothesisServiceUIImpl implements ProviderHypothesisServiceUI {
 
 	@Autowired
-	private ProviderHypothesisRepository providerHypothesisRepository;
+	private ProviderHypothesisUIRepository providerHypothesisRepository;
 	
 	@Autowired
 	private YearLookUpRepository yearLookUpRepository;
@@ -199,7 +199,7 @@ public class ProviderHypothesisServiceImpl implements ProviderHypothesisService 
 	/**
 	 * 
 	 */
-	@Override
+/*	@Override
 	public List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(
 			int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId) {
 		
@@ -208,8 +208,24 @@ public class ProviderHypothesisServiceImpl implements ProviderHypothesisService 
 		YearLookup yearLookup = yearLookUpRepository.findById(yearId);
 		ReportingOptionLookup reportingOptionLookup = reportingOptionLookupRepository.findById(reportingOptionId);
 		
+		
 		return providerHypothesisRepository.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookup(dataAnalysis, subDataAnalysis, yearLookup, reportingOptionLookup);
+	}*/
+	
+	
+	@Override
+	public List<ProviderHypothesis> findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookupAndParameterLookup(
+			int dataAnalysisId, int subDataAnalysisId, int yearId, int reportingOptionId, int parameterId) {
+		
+		DataAnalysis dataAnalysis = dataAnalaysisRepository.findById(dataAnalysisId);
+		SubDataAnalysis subDataAnalysis = subDataAnalysisRepository.findById(subDataAnalysisId);
+		YearLookup yearLookup = yearLookUpRepository.findById(yearId);
+		ReportingOptionLookup reportingOptionLookup = reportingOptionLookupRepository.findById(reportingOptionId);
+		ParameterLookup parameterLookup = parameterLookUpRepository.findById(parameterId);
+System.out.println(parameterLookup.getParameterName());
+		return providerHypothesisRepository.findByDataAnalysisAndSubDataAnalysisAndYearLookupAndReportingOptionLookupAndParameterLookup(dataAnalysis, subDataAnalysis, yearLookup, reportingOptionLookup, parameterLookup);
 	}
+	
 
 	/**
 	 * 
