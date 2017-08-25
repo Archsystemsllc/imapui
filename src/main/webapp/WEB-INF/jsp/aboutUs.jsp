@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>ADDA - Contact Us</title>
+<title>ADDA - Upload</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
@@ -55,10 +55,11 @@
 </head>
 <body>
 	<jsp:include page="admin_header.jsp" />
-    <div id="mid" class="contact">
-    
-    	<img src="${pageContext.request.contextPath}/resources/images/contact.PNG" alt="logo"/>
-    
+    <div id="mid" class="container about">
+   <div> Arch Systems is an established, small wornan-owned business, high growth IT Solutions and Services Company serving many of the major US government agencies. At Arch, our professonals passionately conceive, analyze, develop, and implement optimal solutions for your most challenging business and technology needs.
+ </div><br/>
+<div>Arch has served the Federal government in over 18 projects providing support in all phases of the Systems Development Lifecycle. Arch has a commitment towards quality and cost-effective solutions and services with special interests in innovative technologies. This commitment and innovative approach is a culture that is bred in the organization and our hard working staff pride in delivering such quality, innovations and methodologies to our customers
+    </div>
     </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
@@ -66,11 +67,7 @@
 	var h;
 	h=screen.height-357;
 	document.getElementById('mid').style.minHeight=h+'px';
-	
-	$(document).ready(function () {
-				 $('.nav > li').eq(3).addClass('active');	
-				 subDataAnalysis();
-	});	
+		
 	$("input[type='reset']").on("click", function(event){
 		event.preventDefault();
 	     // stops the form from resetting after this function
