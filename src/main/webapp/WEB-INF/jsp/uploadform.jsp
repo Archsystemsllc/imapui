@@ -112,16 +112,16 @@
 												</c:forEach>
 											</form:select> <form:select path="providerSubHypId" id="ddl2"
 												class="hidden">
-												<!--<option value="0">NA</option>-->
-												<!--<c:forEach var="subCategory"
+												<option value="0">NA</option>
+												<c:forEach var="subCategory"
 							items="${subDataAnalysisCategories}">
 							<option value="${subCategory.id}">${subCategory.subDataAnalysisName}</option>
-						</c:forEach>-->
+						</c:forEach>
 											</form:select></td>
 									</tr>
 
 
-									<tr>
+									<tr id="provider-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Provider Data:</p>
 										</td>
@@ -138,7 +138,7 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
+									<tr id="specialty-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Specialty Data:</p>
 										</td>
@@ -154,7 +154,7 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
+									<tr id="statewise-row" class="hidden">
 										<td style="text-align: right;">
 											<p>State Statistics Data:</p>
 										</td>
@@ -170,7 +170,7 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
+									<tr id="measureWiseExclusionRate-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Measure Exclusion Data:</p>
 										</td>
@@ -205,7 +205,7 @@
 	document.getElementById('mid').style.minHeight=h+'px';
 	</script>
 	<script type="text/javascript">
-    var data;
+    var data = [];
     
 	function configureDropDownLists(ddl, ddl2) {
 		var ele = document.getElementById("ddl1");
@@ -216,7 +216,10 @@
 		
 		if (seleHypoId === "0") {
 			$('#ddl2').addClass('hidden');
-			$('#provider-upload').attr("disabled", "disabled");
+			$('#provider-row').addClass('hidden');
+			$('#specialty-row').addClass('hidden');
+			$('#statewise-row').addClass('hidden');
+			$('#measureWiseExclusionRate-row').addClass('hidden');
 		} else {	
 			if (seleHypoId != "3") {
 				for(i = 0; i < data.length; i++){
@@ -238,7 +241,33 @@
 						createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
 					}
 				}
-				$('#provider-upload').removeAttr('disabled');
+				
+				if (seleHypoId === "1") {
+					$('#provider-row').removeClass('hidden');
+					$('#specialty-row').removeClass('hidden');
+					$('#statewise-row').removeClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
+				} else if(seleHypoId === "2" ) {
+					$('#provider-row').addClass('hidden');
+					$('#specialty-row').removeClass('hidden');
+					$('#statewise-row').addClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
+				} else if(seleHypoId === "4" ) {
+					$('#provider-row').addClass('hidden');
+					$('#specialty-row').addClass('hidden');
+					$('#statewise-row').addClass('hidden');
+					$('#measureWiseExclusionRate-row').removeClass('hidden');
+			    } else if(seleHypoId === "5" ) {
+			    	$('#provider-row').addClass('hidden');
+					$('#specialty-row').addClass('hidden');
+					$('#statewise-row').addClass('hidden');
+					$('#measureWiseExclusionRate-row').removeClass('hidden');
+		        } 
+			} else {
+				$('#provider-row').addClass('hidden');
+				$('#specialty-row').addClass('hidden');
+				$('#statewise-row').addClass('hidden');
+				$('#measureWiseExclusionRate-row').addClass('hidden');
 			}			
 		}
 
