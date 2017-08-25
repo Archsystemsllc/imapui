@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.service.TemplateFileService;
+import com.google.common.io.Files;
 
 /**
  * controller class for provider hypothesis, 
@@ -116,7 +119,7 @@ public class TemplateFileController {
 	    }
 	
 	@RequestMapping(value = { "/admin/download-templates"}, method = RequestMethod.GET)
-    public String downloadAllDocument(HttpServletResponse response) throws IOException {
+    public void downloadAllDocument(HttpServletResponse response) throws IOException {
 		List<TemplateFile> templateFiles = templateFileService.findAll();
 		
 		if(!templateFiles.isEmpty()){
@@ -124,13 +127,15 @@ public class TemplateFileController {
 	        byte[] zip = zipFiles(templateFiles);
 			
 			response.setContentType("application/zip");
-		    response.setContentLength(zip.length);
-		    response.setHeader("Content-Disposition","attachment; filename=\"" + "DATA.ZIP"+"\"");
+		    response.setBufferSize(zip.length);
+		    response.setHeader("Content-Disposition","attachment; filename=\"" + "filename.zip"+"\"");
 		  
 		    FileCopyUtils.copy(zip, response.getOutputStream());
+		    
+		    
+
 		}
 		
-		return "redirect:/admin/templates";
 	}
 	
 	@RequestMapping(value = { "/admin/delete-template/{tempId}" }, method = RequestMethod.GET)
@@ -156,11 +161,12 @@ public class TemplateFileController {
     private byte[] zipFiles(List<TemplateFile> templateFiles) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
-        
+
         for(TemplateFile document: templateFiles) {            
             zos.putNextEntry(new ZipEntry(document.getUploadedFileName()));  
             zos.write(document.getUploadedFileContent(), 0, document.getUploadedFileContent().length);
-            zos.closeEntry();            
+            zos.closeEntry();  
+
         }
         zos.flush();
         baos.flush();

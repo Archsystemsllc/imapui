@@ -38,7 +38,7 @@ import com.archsystemsinc.pqrs.service.DataAnalysisService;
 import com.archsystemsinc.pqrs.service.MeasureLookupService;
 import com.archsystemsinc.pqrs.service.MeasureWiseExclusionRateService;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
-import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
+import com.archsystemsinc.pqrs.service.ProviderHypothesisServiceUI;
 import com.archsystemsinc.pqrs.service.ReportingOptionLookUpService;
 import com.archsystemsinc.pqrs.service.SpecialityService;
 import com.archsystemsinc.pqrs.service.StatewiseStatisticService;
