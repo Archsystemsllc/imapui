@@ -350,6 +350,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							text : titleYearTextVal + ' ' + reportingOptionSelectedText + ' Reporting Option Eligible Professionals Summary',
 							padding : 40
 						},
+
 						animation : {
 							duration : 1,
 							onComplete : function() {
@@ -359,7 +360,6 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
 								ctx.textAlign = 'center';
 								ctx.textBaseline = 'bottom';
-	
 								this.data.datasets.forEach(function(dataset, i) {
 									var meta = chartInstance.controller.getDatasetMeta(i);
 									meta.data.forEach(function(bar, index) {
@@ -367,6 +367,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 										var data = yesCountValues[index];
 										if (bar._view.datasetLabel == "NO") {
 											data = noCountValues[index];
+											
 										}
 	
 										ctx.fillText(data, bar._model.x, bar._model.y - 5);
@@ -406,7 +407,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								},
 								ticks : {
 									callback : function(label, index, labels) {
-										return label + ' %';
+										return Number(label).toPrecision(3) + ' %';
 									},
 									display : true,
 									beginAtZero : true
