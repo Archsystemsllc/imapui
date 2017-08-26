@@ -83,7 +83,7 @@
 						<div class="navbar-brand">
 							<!--<a class="navbar-brand" href="page0.html">-->
 							<div class="col-sm-5">
-									<a href="https://www.cms.gov/Medicare/Medicare.html"  target="_blank"><img
+									<a href="https://www.cms.gov/"  target="_blank"><img
 									src="${pageContext.request.contextPath}/resources/images/logo.png"
 									alt="logo" height="100px"
 									style="display: block; margin: 0 auto; width: 80%"></a>

@@ -156,6 +156,12 @@ table th:first-child {
 	text-align: center;
 	font-weight: bold;
 }
+ul.ui-autocomplete { 
+	max-height: 180px !important; 
+	max-width: 380px !important;
+	overflow: auto !important; 
+	
+}
 ...
 /* #mapIframe{
 background: url("${pageContext.request.contextPath}/resources/images/loading3.gif")
@@ -207,16 +213,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</colgroup>
 						<tr id="excluFreqRow">
 							<td><label for="excluFreqRowId">Exc/Fre Option :</label></td>
-							<td><c:if test="${subDataAnalysisId == '8'}">
-									<select id="excluFreqRowId" name="excluFreqRowId"
-										title="Click here to choose Exc/Fre">
-
-										<option value="1" disabled>Exclusion Rate</option>
-										<option value="2" selected>Frequency</option>
-
-									</select>
-								</c:if> <c:if
-									test="${subDataAnalysisId == '7' || subDataAnalysisId == '6' || dataAnalysisId == '4' || dataAnalysisId == '5'}">
+							<td><c:if
+									test="${subDataAnalysisId == '7' || subDataAnalysisId == '6'}">
 									<select id="excluFreqRowId" name="excluFreqRowId"
 										title="Click here to choose Exc/Fre">
 
@@ -224,7 +222,25 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 										<option value="2" disabled>Frequency</option>
 
 									</select>
-								</c:if></td>
+								</c:if>
+								<c:if test="${subDataAnalysisId == '8'}">
+									<select id="excluFreqRowId" name="excluFreqRowId"
+										title="Click here to choose Exc/Fre">
+
+										<option value="1" disabled>Exclusion Rate</option>
+										<option value="2" selected>Frequency</option>
+
+									</select>
+								</c:if> 
+								<c:if test="${subDataAnalysisId == '9' || subDataAnalysisId == '10'}">
+									<select id="excluFreqRowId" name="excluFreqRowId"
+										title="Click here to choose Exc/Fre">
+										<option value="">Select</option>
+										<option value="1" >Exclusion Rate</option>
+										<option value="2" >Frequency</option>
+
+									</select>
+								</c:if> </td>
 						</tr>
 						<tr>
 							<td><label for="yearLookUpId">Option Year : </label></td>
@@ -240,15 +256,16 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</tr>
 						<tr>
 
-							<td><label for="automplete-1">Search Measure ID/Name
-									: </label>
+							<td><label for="automplete-1">Search Measure ID/Name: </label>
+							<p style="font-size: 13px; font-weight: normal; width: 208px">(Click Measures from drop-down list to add up to 4 Measures)</p>
+									
 								<p style="color: red" id="errormeasuretxt"></p></td>
 							<td>
 								<div class="ui-widget">
 									<label for="id_label_multiple" style="width: 100%"> <input
-										type="text" size="50" id="automplete-1"
-										title="You can partially enter either Measure ID or Measure Name and hit Enter button from your keyboard or Click Search">
+										type="text" size="50" id="automplete-1">
 										<!--  <input type="button" id="searchMeasure" value="Search">-->
+										<p style="font-size: 13px; font-weight: normal; font-type: italic;">(You can enter either Measure ID  Number or Keyword to search Measures)</p>
 									</label>
 								</div>
 							</td>
@@ -277,7 +294,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								<p style="color: red" id="errmeasureName"></p></td>
 							<td><label for="id_label_multiple" style="width: 100%">
 									<select id="measureLookupId" name="measureLookupId"
-									multiple="multiple" title="Add up to 4 of the measures">
+									multiple="multiple">
 										<%--<option disabled>Add up to 4 more measures </option>
 										 <c:forEach items="${measureLookups}" var="measureLookup">
 
@@ -356,7 +373,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 
 				</div>
 
-				<div id="summary" style="display: initial;"></div>
+				<div id="summary" style="display: initial;"></div><p id="noteMeasure" style="font-size: 13px; font-weight: normal; display: none">Note: Click on Measure to remove it from the Line Chart </p>
 
 			</td>
 		</tr>
@@ -403,6 +420,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
 			$('#summary').hide();
+			$('#noteMeasure').hide();
 			measureParameters = '';
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();			
@@ -481,6 +499,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
 				$('#summary').show();
+				$('#noteMeasure').show();
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
@@ -602,12 +621,12 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					var percentLabel = "";
 					var lineconfig;
 					if($('#excluFreqRowId').val() === '1'){
-						titletext = 'Mean Exclusion Rate'
+						titletext = 'Mean Exclusion Rate Trend'
 					    yaxeslabelstring = 'Mean Exclusion Rate';
 						precisionDigits = 3;
 						percentLabel = ' %';
 					}else if($('#excluFreqRowId').val() === '2'){
-						titletext = 'Mean Exclusion Rate'
+						titletext = 'Frequency Trend'
 						yaxeslabelstring = 'Frequency';
 						precisionDigits = 6;
 						percentLabel = ' Hz';
@@ -721,6 +740,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					if('${dataAnalysisId}' == '3'){
 						 if($('#excluFreqRowId').val() === '1'){
 							 $("#summary").empty();
+							 
 								$('#summary').append("<div class='header'>Summary</div>");
 								$('#summary').append("<table style='border:1px solid #327A81;'><tr><th>Measure</th><th>Allowable Exclusion</th><th>Reporting Options</th></tr></table>")
 								$.each(lineChartData.measureIdList, function(index, value) {						  
@@ -754,6 +774,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				resetCanvas();
 	
 				var chartctx = document.getElementById("chart-canvas").getContext("2d");
+				$('#noteMeasure').hide();
 	
 				<!-- Different Chart Display :: START -->
 				if (reportTypeSelectedText == "Bar Chart") {
