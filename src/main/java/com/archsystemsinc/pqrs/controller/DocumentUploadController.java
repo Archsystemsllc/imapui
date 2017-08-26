@@ -3,7 +3,11 @@ package com.archsystemsinc.pqrs.controller;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,7 @@ import com.archsystemsinc.pqrs.model.CategoryLookup;
 import com.archsystemsinc.pqrs.model.DocumentUpload;
 import com.archsystemsinc.pqrs.model.MeasureLookup;
 import com.archsystemsinc.pqrs.model.MeasureWiseExclusionRate;
+import com.archsystemsinc.pqrs.model.MeasureWisePerformanceAndReportingRate;
 import com.archsystemsinc.pqrs.model.ParameterLookup;
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
 import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
@@ -40,6 +45,7 @@ import com.archsystemsinc.pqrs.service.CategoryLookupService;
 import com.archsystemsinc.pqrs.service.DataAnalysisService;
 import com.archsystemsinc.pqrs.service.MeasureLookupService;
 import com.archsystemsinc.pqrs.service.MeasureWiseExclusionRateService;
+import com.archsystemsinc.pqrs.service.MeasureWisePerformanceAndReportingRateService;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
 import com.archsystemsinc.pqrs.service.ReportingOptionLookUpService;
@@ -91,6 +97,9 @@ public class DocumentUploadController {
 	@Autowired
 	private MeasureWiseExclusionRateService measureWiseExclusionRateService;
 	
+	@Autowired
+	private MeasureWisePerformanceAndReportingRateService measureWisePerformanceAndReportingRateService;
+	
 	@RequestMapping(value = "/admin/documentupload", method = RequestMethod.GET)
 	public String documentUploadGet(final Model model, HttpSession session) {		
 		
@@ -123,6 +132,9 @@ public class DocumentUploadController {
 			}else if(documentFileUpload.getMeasureWiseExclusionRate().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(4L);
 				documentUploadMeasureWiseExclusionRate(documentFileUpload);
+			}else if(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getSize() > 0){
+				documentFileUpload.setDocumentTypeId(5L);
+				documentUploadMeasureWisePerformanceAndReportingRate(documentFileUpload);
 			}else {
 				fileEmpty = true;
 			}
@@ -633,6 +645,7 @@ public class DocumentUploadController {
 
 			}			
 	}
+
 	
 	public void documentUploadMeasureWiseExclusionRate(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -831,6 +844,233 @@ public class DocumentUploadController {
 				                	break;									
 								}
 								break;							
+							}
+
+
+						}
+						
+						
+					}
+ 
+				}
+		 }			
+	}
+
+	public void documentUploadMeasureWisePerformanceAndReportingRate(
+			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException, ParseException {
+		int totalNumberOfRows = 0;
+		int totalProRowsCreatedOrUpdated = 0;
+		ArrayList<Object> returnObjects = null;		
+		// TODO : documentFileUpload.getMeasureWisePerformenceAndREportingRate() ???
+		if (documentFileUpload.getMeasureWisePerformanceAndReportingRate() != null) {
+				
+			// TODO : Rename these variables to reflect measureWisePerformanceAndReportingRate
+				Workbook measureWiseExclusionRateFileWorkbook = WorkbookFactory.create(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getInputStream());
+				Sheet measureWiseExclusionRateFileSheet = measureWiseExclusionRateFileWorkbook.getSheetAt(0);
+				Iterator<Row> measureWiseExclusionRateFileRowIterator = measureWiseExclusionRateFileSheet.rowIterator();
+                int measureWiseExclusionRateFileRowCount = measureWiseExclusionRateFileSheet.getPhysicalNumberOfRows();
+				totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
+				String stringResult = "";
+
+				while (measureWiseExclusionRateFileRowIterator.hasNext()) 
+				{
+					Row measureWiseExclusionRateFileRow = (Row) measureWiseExclusionRateFileRowIterator.next();
+					
+					returnObjects = new ArrayList<Object>();
+					
+					if (measureWiseExclusionRateFileRow.getRowNum() >= 0 && measureWiseExclusionRateFileRow.getRowNum() <= measureWiseExclusionRateFileRowCount)
+					{
+						System.out.println("ROW - " + measureWiseExclusionRateFileRow.getRowNum());
+						Iterator<Cell> iterator = measureWiseExclusionRateFileRow.cellIterator();
+						MeasureWisePerformanceAndReportingRate measureWisePerformanceAndReportingRate = new MeasureWisePerformanceAndReportingRate();
+						MeasureLookup measureLookup = new MeasureLookup();
+						CategoryLookup category = new CategoryLookup();
+						String measureId = null;
+						String reportingOptions = "";
+						
+						while (iterator.hasNext()) 
+						{
+							Cell hssfCell = iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							
+							
+							if(measureWiseExclusionRateFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Year")
+									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("Actual_Measure_ID")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("Measure_Name")
+								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("Rep_option1")
+									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate")
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("Frequency")){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
+							
+							stringResult = "";
+							
+							switch (cellIndex) 
+							{
+							
+							case 1:							
+								switch (hssfCell.getCellType()) 
+								{
+								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult = hssfCell.getStringCellValue();
+				                    measureWisePerformanceAndReportingRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    break;								
+								}
+								break;								
+							case 2:
+								break;
+							case 3:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    System.out.println("Measure Name: " + stringResult);
+				                    if(measureId != null){
+				                    	measureLookup.setMeasureId(measureId);
+				                    	measureLookup.setMeasureName(stringResult);
+				                    	measureLookupService.Save(measureLookup);
+				                    	measureWisePerformanceAndReportingRate.setMeasureLookup(measureLookupService.Save(measureLookup));
+				                    	//measureId = null;
+				                    	System.out.println("New Measure: " + stringResult);
+				                    }				                    
+				                    System.out.println("Measure Name: " + stringResult);
+				                    break;
+								}
+								break;
+							case 4:	
+								switch (hssfCell.getCellType())
+								{
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setReportingOptionLookup(reportingOptionLookUpService.findByReportingOptionName(stringResult));
+									System.out.println("stringResult: " + stringResult);				                    
+				                    break;								
+								}
+								break;
+							case 5:
+								switch (hssfCell.getCellType())
+								{
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWisePerformanceAndReportingRate.setMeanExclusionRate(hssfCell.getNumericCellValue());				                    
+				                    break;								
+								}
+								break;
+							case 6:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWisePerformanceAndReportingRate.setFrequencies((int)hssfCell.getNumericCellValue());	
+				                	measureWisePerformanceAndReportingRate.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
+				                	measureWisePerformanceAndReportingRate.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                    break;								
+								}
+								break;
+							/*case 6:
+								// TODO : DO we check for record status or set it to 1 by default?
+								switch (hssfCell.getCellType())
+								{			
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	measureWisePerformanceAndReportingRate.setRecordStatus((int)hssfCell.getNumericCellValue());			                	
+				                	break;
+								}
+								break;
+							case 7:
+								// TODO : Verify this is correct.
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+				                	measureWisePerformanceAndReportingRate.setUpdatedDate(df.parse(stringResult));				                	
+				                    break;								
+								}
+								break;
+							case 8:
+								switch (hssfCell.getCellType())
+								{
+									case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setUpdatedBy(stringResult);			                	
+				                    break;								
+								}
+								break;
+							case 9:
+								switch (hssfCell.getCellType())
+								{
+									case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setCreatedBy(stringResult);			                	
+				                    break;								
+								}
+								break;
+							case 10:
+								// TODO : Verify this is correct.
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+				                	measureWisePerformanceAndReportingRate.setCreatedDate(df.parse(stringResult));
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                    break;								
+								}
+								break;
+								
+								// TODO : Should the following dataAnalysis & subdataanalysis fields be ignored in the XLSHeet?
+							/*case 11:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setExclusionDecisions(stringResult);				                	
+				                    break;								
+								}
+								break;
+							case 12:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setCategoryLookup(categoryLookupService.findByName(stringResult));
+				                    break;								
+								}
+								break;
+							case 13:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setDataAnalysis(dataAnalysisService.findByDataAnalysisName(stringResult));
+				                    break;									
+								}
+								break;
+							case 14:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setSubDataAnalysis(subDataAnalysisService.findBySubDataAnalysisName(stringResult));
+				                	measureWisePerformanceAndReportingRate.setRecordStatus(1);
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                	break;									
+								}
+								break;	*/						
 							}
 
 

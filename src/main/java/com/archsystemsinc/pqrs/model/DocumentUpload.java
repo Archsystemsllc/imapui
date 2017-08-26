@@ -25,13 +25,23 @@ public class DocumentUpload {
 	
 	private MultipartFile measureWiseExclusionRate;
 	
+	private MultipartFile measureWisePerformanceAndReportingRate;
+	
 
 	public MultipartFile getMeasureWiseExclusionRate() {
 		return measureWiseExclusionRate;
 	}
-
+	
 	public void setMeasureWiseExclusionRate(MultipartFile measureWiseExclusionRate) {
 		this.measureWiseExclusionRate = measureWiseExclusionRate;
+	}
+	
+	public void setMeasureWisePerformanceAndReportingRate(MultipartFile measureWisePerformanceAndReportingRate) {
+		this.measureWisePerformanceAndReportingRate = measureWisePerformanceAndReportingRate;
+	}
+	
+	public MultipartFile getMeasureWisePerformanceAndReportingRate() {
+		return measureWisePerformanceAndReportingRate;
 	}
 
 	public MultipartFile getProvider() {

@@ -170,6 +170,22 @@
 											</div>
 										</td>
 									</tr>
+									<tr id="measureWisePerformanceAndReporting-row" class="hidden">
+										<td style="text-align: right;">
+											<p>Measure Wise Performance and Reporting Rate Data :</p>
+										</td>
+										<td>
+											<p>
+												<form:input id="measureWisePerformanceAndReporting-input" type="file" path="measureWisePerformanceAndReportingRate" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" id="measureWisePerformanceAndReporting-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="measureWisePerformanceAndReporting-reset" />
+											</div>
+										</td>
+									</tr>
 									<tr id="measureWiseExclusionRate-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Measure Exclusion Data:</p>
@@ -244,29 +260,34 @@
 				
 				if (seleHypoId === "1") {
 					$('#provider-row').removeClass('hidden');
-					$('#specialty-row').removeClass('hidden');
+					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').removeClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
 				} else if(seleHypoId === "2" ) {
 					$('#provider-row').addClass('hidden');
 					$('#specialty-row').removeClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
 				} else if(seleHypoId === "4" ) {
 					$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
 					$('#measureWiseExclusionRate-row').removeClass('hidden');
 			    } else if(seleHypoId === "5" ) {
 			    	$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
 					$('#measureWiseExclusionRate-row').removeClass('hidden');
 		        } 
 			} else {
 				$('#provider-row').addClass('hidden');
 				$('#specialty-row').addClass('hidden');
 				$('#statewise-row').addClass('hidden');
+				$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 				$('#measureWiseExclusionRate-row').addClass('hidden');
 			}			
 		}
@@ -282,8 +303,8 @@
 	
 	function subDataAnalysis() {
 		$.ajax({
-			url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
-			//url : "http://localhost/imapservices/api/dataanalysis/",
+			//url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
+			url : "http://localhost:8080/imapservices/api/dataanalysis/",
 			type : 'GET',
 			dataType : 'json',
 			success : function(hypData) {					
