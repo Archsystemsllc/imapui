@@ -158,7 +158,7 @@ table th:first-child {
 }
 ul.ui-autocomplete { 
 	max-height: 180px !important; 
-	max-width: 380px !important;
+	max-width: 338px !important;
 	overflow: auto !important; 
 	
 }
@@ -774,7 +774,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				resetCanvas();
 	
 				var chartctx = document.getElementById("chart-canvas").getContext("2d");
-				$('#noteMeasure').hide();
+				/* $('#noteMeasure').hide(); */
 	
 				<!-- Different Chart Display :: START -->
 				if (reportTypeSelectedText == "Bar Chart") {
@@ -787,6 +787,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					}
 					if (barChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
+						$('#noteMeasure').hide();
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
@@ -799,6 +800,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					}
 					if (lineChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
+						$('#noteMeasure').hide();
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
