@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.archsystemsinc.pqrs.model.CategoryLookup;
 import com.archsystemsinc.pqrs.model.DocumentUpload;
+import com.archsystemsinc.pqrs.model.ExclusionTrendsRate;
 import com.archsystemsinc.pqrs.model.MeasureLookup;
 import com.archsystemsinc.pqrs.model.MeasureWiseExclusionRate;
 import com.archsystemsinc.pqrs.model.MeasureWisePerformanceAndReportingRate;
@@ -45,6 +46,7 @@ import com.archsystemsinc.pqrs.service.CategoryLookupService;
 import com.archsystemsinc.pqrs.service.DataAnalysisService;
 import com.archsystemsinc.pqrs.service.MeasureLookupService;
 import com.archsystemsinc.pqrs.service.MeasureWiseExclusionRateService;
+import com.archsystemsinc.pqrs.service.ExclusionTrendsRateService;
 import com.archsystemsinc.pqrs.service.MeasureWisePerformanceAndReportingRateService;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisService;
@@ -98,6 +100,9 @@ public class DocumentUploadController {
 	private MeasureWiseExclusionRateService measureWiseExclusionRateService;
 	
 	@Autowired
+	private ExclusionTrendsRateService exclusionTrendsRateService;
+	
+	@Autowired
 	private MeasureWisePerformanceAndReportingRateService measureWisePerformanceAndReportingRateService;
 	
 	@RequestMapping(value = "/admin/documentupload", method = RequestMethod.GET)
@@ -135,6 +140,9 @@ public class DocumentUploadController {
 			}else if(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(5L);
 				documentUploadMeasureWisePerformanceAndReportingRate(documentFileUpload);
+			}else if(documentFileUpload.getExclusionTrends().getSize() > 0){
+				documentFileUpload.setDocumentTypeId(6L);
+				documentUploadExclusionTrends(documentFileUpload);
 			}else {
 				fileEmpty = true;
 			}
@@ -1083,4 +1091,108 @@ public class DocumentUploadController {
 		 }			
 	}
 
+	
+	public void documentUploadExclusionTrends(
+			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
+		int totalNumberOfRows = 0;
+		int totalProRowsCreatedOrUpdated = 0;
+		ArrayList<Object> returnObjects = null;		
+				
+		if (documentFileUpload.getExclusionTrends() != null) {
+				
+				Workbook exclusionTrendsFileWorkbook = WorkbookFactory.create(documentFileUpload.getExclusionTrends().getInputStream());
+				Sheet exclusionTrendsFileSheet = exclusionTrendsFileWorkbook.getSheetAt(0);
+				Iterator<Row> exclusionTrendsFileRowIterator = exclusionTrendsFileSheet.rowIterator();
+                int exclusionTrendsFileRowCount = exclusionTrendsFileSheet.getPhysicalNumberOfRows();
+				totalNumberOfRows = exclusionTrendsFileRowCount - 1;
+				String stringResult = "";
+
+				while (exclusionTrendsFileRowIterator.hasNext()) 
+				{
+					Row exclusionTrendsFileRow = (Row) exclusionTrendsFileRowIterator.next();
+					
+					returnObjects = new ArrayList<Object>();
+					
+					if (exclusionTrendsFileRow.getRowNum() >= 0 && exclusionTrendsFileRow.getRowNum() <= exclusionTrendsFileRowCount)
+					{
+						System.out.println("ROW - " + exclusionTrendsFileRow.getRowNum());
+						Iterator<Cell> iterator = exclusionTrendsFileRow.cellIterator();
+					//TODO: 
+						ExclusionTrendsRate exclusionTrendsRate = new ExclusionTrendsRate();
+						/*MeasureLookup measureLookup = new MeasureLookup();
+						CategoryLookup category = new CategoryLookup();
+						String measureId = null;*/
+						String reportingOptions = "";
+						
+						while (iterator.hasNext()) 
+						{
+							Cell hssfCell = iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							
+							
+							if(exclusionTrendsFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Year")
+								    || cellIndex == 2 && !hssfCell.getStringCellValue().equals("reporting_option")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate_percent")
+										){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
+							
+							stringResult = "";
+							
+							switch (cellIndex) 
+							{
+							
+							case 1:							
+								switch (hssfCell.getCellType()) 
+								{
+								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult = hssfCell.getStringCellValue();
+				                    exclusionTrendsRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    break;								
+								}
+								break;								
+							case 2:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	exclusionTrendsRate.setReportingOptionLookup(reportingOptionLookUpService.findByReportingOptionName(stringResult));
+				                	System.out.println("stringResult: " + stringResult);				                    
+				                    break;								
+								}
+								break;	
+							case 3:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	exclusionTrendsRate.setMeanExclusionRatePercent(hssfCell.getNumericCellValue()*100);
+				                	exclusionTrendsRate.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
+				                	exclusionTrendsRate.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
+				                	//System.out.println("hyp ID: " + documentFileUpload.getProviderHypId());
+				                	//System.out.println("Sub ID: " + documentFileUpload.getProviderSubHypId());
+				                	exclusionTrendsRateService.create(exclusionTrendsRate);
+				                    break;	
+				                default: throw new InvalidFormatException("error.columns.data.format.mismatch");
+								}
+								break;
+								
+							}
+
+
+						}
+						
+						
+					}
+ 
+				}
+		 }			
+	}
 }

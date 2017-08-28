@@ -170,6 +170,26 @@
 											</div>
 										</td>
 									</tr>
+									
+									<%-- TODO: ADDED a Exclusion_ Trends --%>
+									
+									<tr id="exclusionTrends-row" class="hidden">
+										<td style="text-align: right;">
+											<p>Exclusion Trends Data:</p>
+										</td>
+										<td>
+											<p>
+												<form:input id="exclusionTrends-input" type="file" path="exclusionTrends" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" id="exclusionTrends-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="exclusionTrends-reset"/>
+											</div>
+										</td>
+									</tr>
+																		
 									<tr id="measureWisePerformanceAndReporting-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Measure Wise Performance and Reporting Rate Data :</p>
@@ -235,6 +255,11 @@
 			$('#provider-row').addClass('hidden');
 			$('#specialty-row').addClass('hidden');
 			$('#statewise-row').addClass('hidden');
+			
+			<%-- TODO:Need to Add exclusionTrends-row and measureWisePerformanceAndReporting-row or NOT?   --%>
+			
+			$('#exclusionTrends-row').addClass('hidden');
+			$('#measureWisePerformanceAndReporting-row').addClass('hidden');     
 			$('#measureWiseExclusionRate-row').addClass('hidden');
 		} else {	
 			if (seleHypoId != "3") {
@@ -262,31 +287,36 @@
 					$('#provider-row').removeClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').removeClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
 				} else if(seleHypoId === "2" ) {
 					$('#provider-row').addClass('hidden');
-					$('#specialty-row').removeClass('hidden');
+					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').removeClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
 				} else if(seleHypoId === "4" ) {
 					$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
-					$('#measureWiseExclusionRate-row').removeClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
 			    } else if(seleHypoId === "5" ) {
 			    	$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
-					$('#measureWiseExclusionRate-row').removeClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
 		        } 
 			} else {
 				$('#provider-row').addClass('hidden');
 				$('#specialty-row').addClass('hidden');
 				$('#statewise-row').addClass('hidden');
+				$('#exclusionTrends-row').removeClass('hidden');
 				$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 				$('#measureWiseExclusionRate-row').addClass('hidden');
 			}			

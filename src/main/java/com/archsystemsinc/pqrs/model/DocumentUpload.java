@@ -20,6 +20,8 @@ public class DocumentUpload {
 	private MultipartFile specialty;
 	
 	private MultipartFile statewise;	
+
+	private MultipartFile exclusionTrends;	
 	
 	private MultipartFile provider;
 	
@@ -75,6 +77,17 @@ public class DocumentUpload {
 		this.specialty = specialty;
 	}
 
+	// TODO: Added a ExclusionTrends
+
+	public MultipartFile getExclusionTrends() {
+		return exclusionTrends;
+	}
+
+	public void setExclusionTrends(MultipartFile exclusionTrends) {
+		this.exclusionTrends = exclusionTrends;
+	}
+
+	
 	public MultipartFile getStatewise() {
 		return statewise;
 	}
