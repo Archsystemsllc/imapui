@@ -223,13 +223,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-							<tr>
+							<!-- <tr>
 							<td colspan="2" style="padding-top: 10px"><button
 								title="Click the button to Export the chart as pdf"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;"
 								id="download" >Export as PDF</button></td>
-						</tr> 
+						</tr>  -->
 					</table>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
@@ -601,12 +601,12 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			$('#chart-container').append('<canvas id="chart-canvas"><canvas>');
 		};
 	
-		/* document.getElementById("reportTypeId").onchange = function() {
+		document.getElementById("reportTypeId").onchange = function() {
 			console.log('Inside on change..');
 			var x = document.getElementById("reportTypeId").value;
 			console.log('value of x:' + x);
 	
-			if (x == 'Bar Chart') {
+		/*	if (x == 'Bar Chart') {
 				// Set the Parameter as "ALL" for Bar Chart
 				$("#parameterLookupId > option").each(function() {
 					if (this.text == 'ALL') {
@@ -628,7 +628,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						$('#reportingOptionLookupId').val(this.value);
 					}
 				});
-			}
+			}*/
 			if (x == 'Map') {
 				console.log('Map..');
 				var x = document.getElementById("yesOrNoOptionRow")
@@ -637,8 +637,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				var x = document.getElementById("yesOrNoOptionRow")
 				x.hidden = true;
 			}
-		}; */
-	download.addEventListener("click", function() {
+		}; 
+/* 	download.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
@@ -646,7 +646,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
 			  var download = document.getElementById('download');
 			  pdf.save("${subDataAnalysis.subDataAnalysisName}.pdf");
-			}, false); 
+			}, false);  */
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
