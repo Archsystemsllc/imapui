@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -54,7 +55,15 @@
 
 </head>
 <body>
-	<jsp:include page="admin_header.jsp" />
+<%-- 	<jsp:include page="admin_header.jsp" /> --%>
+<sec:authorize
+		access="hasAuthority('Administrator')">
+		<jsp:include page="admin_header.jsp"></jsp:include>
+	</sec:authorize>
+		<sec:authorize
+		access="hasAuthority('Report Viewer')">
+	<jsp:include page="header.jsp"></jsp:include>
+	</sec:authorize>
     <div id="mid" class="contact">
     
     	<img src="${pageContext.request.contextPath}/resources/images/contact.jpg" alt="logo"/>
