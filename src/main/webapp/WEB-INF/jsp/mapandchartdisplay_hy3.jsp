@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Hypothesis 3</title>
@@ -135,7 +136,16 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 </head>
 
 <body>
-	<jsp:include page="admin_header.jsp"></jsp:include>
+<%-- 	<jsp:include page="admin_header.jsp"></jsp:include> --%>
+<!-- Farheen : 08/29/2017 Based on the Role header is assigned to the user -->
+<sec:authorize
+		access="hasAuthority('Administrator')">
+		<jsp:include page="admin_header.jsp"></jsp:include>
+	</sec:authorize>
+		<sec:authorize
+		access="hasAuthority('Report Viewer')">
+	<jsp:include page="header.jsp"></jsp:include>
+	</sec:authorize>
 
 	<table id="mid">
 		<tr>
