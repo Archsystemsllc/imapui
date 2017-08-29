@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title heree</title>
+<title>Admin Header</title>
 <link href="https://fonts.googleapis.com/css?family=Rubik"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/main.css"
@@ -141,12 +141,12 @@
 							<li style="margin-left: 0px"><a
 								href="${pageContext.request.contextPath}/admin/dashboard">Home</a></li>
 							<li><a
-								href="#<%-- ${pageContext.request.contextPath}/admin/documentupload --%>">Upload</a></li>
+								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/contactus">Contact Us</a></li>
 							<li><a
-								href="#<%-- ${pageContext.request.contextPath}/admin/download-helpdoc --%>">Help</a></li>
+								href="${pageContext.request.contextPath}/admin/download-helpdoc">Help</a></li>
 						</ul>
 					</div>
 				</td>
