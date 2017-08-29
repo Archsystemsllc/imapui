@@ -35,9 +35,10 @@
 
 
 	<sec:authorize
-		access="hasAuthority('Administrator') and hasAuthority('Report Viewer')">
+		access="hasAuthority('Administrator')">
 		<jsp:include page="admin_header.jsp"></jsp:include>
 	</sec:authorize>
+
 
 	<table id="mid">
 
