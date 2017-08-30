@@ -3,7 +3,11 @@ package com.archsystemsinc.pqrs.controller;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +32,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.archsystemsinc.pqrs.model.CategoryLookup;
 import com.archsystemsinc.pqrs.model.DocumentUpload;
+import com.archsystemsinc.pqrs.model.ExclusionTrendsRate;
 import com.archsystemsinc.pqrs.model.MeasureLookup;
 import com.archsystemsinc.pqrs.model.MeasureWiseExclusionRate;
+import com.archsystemsinc.pqrs.model.MeasureWisePerformanceAndReportingRate;
 import com.archsystemsinc.pqrs.model.ParameterLookup;
 import com.archsystemsinc.pqrs.model.ProviderHypothesis;
 import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
@@ -40,6 +46,8 @@ import com.archsystemsinc.pqrs.service.CategoryLookupService;
 import com.archsystemsinc.pqrs.service.DataAnalysisService;
 import com.archsystemsinc.pqrs.service.MeasureLookupService;
 import com.archsystemsinc.pqrs.service.MeasureWiseExclusionRateService;
+import com.archsystemsinc.pqrs.service.ExclusionTrendsRateService;
+import com.archsystemsinc.pqrs.service.MeasureWisePerformanceAndReportingRateService;
 import com.archsystemsinc.pqrs.service.ParameterLookUpService;
 import com.archsystemsinc.pqrs.service.ProviderHypothesisServiceUI;
 import com.archsystemsinc.pqrs.service.ReportingOptionLookUpService;
@@ -91,6 +99,12 @@ public class DocumentUploadController {
 	@Autowired
 	private MeasureWiseExclusionRateService measureWiseExclusionRateService;
 	
+	@Autowired
+	private ExclusionTrendsRateService exclusionTrendsRateService;
+	
+	@Autowired
+	private MeasureWisePerformanceAndReportingRateService measureWisePerformanceAndReportingRateService;
+	
 	@RequestMapping(value = "/admin/documentupload", method = RequestMethod.GET)
 	public String documentUploadGet(final Model model, HttpSession session) {		
 		
@@ -123,6 +137,12 @@ public class DocumentUploadController {
 			}else if(documentFileUpload.getMeasureWiseExclusionRate().getSize() > 0){
 				documentFileUpload.setDocumentTypeId(4L);
 				documentUploadMeasureWiseExclusionRate(documentFileUpload);
+			}else if(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getSize() > 0){
+				documentFileUpload.setDocumentTypeId(5L);
+				documentUploadMeasureWisePerformanceAndReportingRate(documentFileUpload);
+			}else if(documentFileUpload.getExclusionTrends().getSize() > 0){
+				documentFileUpload.setDocumentTypeId(6L);
+				documentUploadExclusionTrends(documentFileUpload);
 			}else {
 				fileEmpty = true;
 			}
@@ -380,10 +400,22 @@ public class DocumentUploadController {
 			
 			if (documentFileUpload.getStatewise() != null) {
 				
-				Workbook stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getStatewise().getInputStream());
+				Workbook stateStatFileWorkbook = null;
+				try {
+					stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				}catch(Exception ex) {
+					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
+					ex.printStackTrace();
+					throw new InvalidFormatException("error.file.format");
+				}
 				Sheet stateStatFileSheet = stateStatFileWorkbook.getSheetAt(0);
 				Iterator<Row> stateStatFileRowIterator = stateStatFileSheet.rowIterator();
                 int stateStatFileRowCount = stateStatFileSheet.getPhysicalNumberOfRows();
+                //Atleast sheet should have one header and one data row
+                if(stateStatFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
 				totalNumberOfRows = stateStatFileRowCount - 1;
 				String stringResult = "";				 
 				
@@ -533,11 +565,23 @@ public class DocumentUploadController {
 			
 			if (documentFileUpload.getSpecialty() != null) {
 				
-				Workbook specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getSpecialty().getInputStream());
+				Workbook specialtyFileWorkbook = null;
+				try {
+					specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				}catch(Exception ex) {
+					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
+					ex.printStackTrace();
+					throw new InvalidFormatException("error.file.format");
+				}
 				Sheet specialtyFileSheet = specialtyFileWorkbook.getSheetAt(0);
 				Iterator<Row> specialtyFileRowIterator = specialtyFileSheet.rowIterator();
                 int specialtyFileRowCount = specialtyFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = specialtyFileRowCount - 1;
+              //Atleast sheet should have one header and one data row
+                if(specialtyFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = specialtyFileRowCount - 1;
 				String stringResult = "";				 
 				
 				//long yearId =  2;
@@ -633,6 +677,7 @@ public class DocumentUploadController {
 
 			}			
 	}
+
 	
 	public void documentUploadMeasureWiseExclusionRate(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -646,7 +691,12 @@ public class DocumentUploadController {
 				Sheet measureWiseExclusionRateFileSheet = measureWiseExclusionRateFileWorkbook.getSheetAt(0);
 				Iterator<Row> measureWiseExclusionRateFileRowIterator = measureWiseExclusionRateFileSheet.rowIterator();
                 int measureWiseExclusionRateFileRowCount = measureWiseExclusionRateFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
+              //Atleast sheet should have one header and one data row
+                if(measureWiseExclusionRateFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
 				String stringResult = "";
 
 				while (measureWiseExclusionRateFileRowIterator.hasNext()) 
@@ -843,4 +893,364 @@ public class DocumentUploadController {
 		 }			
 	}
 
+	public void documentUploadMeasureWisePerformanceAndReportingRate(
+			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException, ParseException {
+		int totalNumberOfRows = 0;
+		int totalProRowsCreatedOrUpdated = 0;
+		ArrayList<Object> returnObjects = null;		
+	
+		if (documentFileUpload.getMeasureWisePerformanceAndReportingRate() != null) {
+				
+			
+				Workbook MeasureWisePerformanceAndReportingRateFileWorkbook = WorkbookFactory.create(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getInputStream());
+				Sheet fileSheet = MeasureWisePerformanceAndReportingRateFileWorkbook.getSheetAt(0);
+				Iterator<Row> sheetIternator = fileSheet.rowIterator();
+                int rowCount = fileSheet.getPhysicalNumberOfRows();
+              //Atleast sheet should have one header and one data row
+                if(rowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = rowCount - 1;
+				String stringResult = "";
+
+				while (sheetIternator.hasNext()) 
+				{
+					Row row = (Row) sheetIternator.next();
+					
+					returnObjects = new ArrayList<Object>();
+					
+					if (row.getRowNum() >= 0 && row.getRowNum() <= rowCount)
+					{
+						System.out.println("ROW - " + row.getRowNum());
+						Iterator<Cell> iterator = row.cellIterator();
+						MeasureWisePerformanceAndReportingRate measureWisePerformanceAndReportingRate = new MeasureWisePerformanceAndReportingRate();
+						MeasureLookup measureLookup = new MeasureLookup();
+						CategoryLookup category = new CategoryLookup();
+						String measureId = null;
+						String reportingOptions = "";
+						
+						while (iterator.hasNext()) 
+						{
+							Cell hssfCell = iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							
+							
+							if(row.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Year")
+									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("Actual_Measure_ID")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("Measure_Name")
+								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("Rep_option1")
+									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate")
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("Frequency")
+										){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
+							
+							stringResult = "";
+							
+							switch (cellIndex) 
+							{
+							
+							case 1:							
+								switch (hssfCell.getCellType()) 
+								{
+								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult = hssfCell.getStringCellValue();
+				                    measureWisePerformanceAndReportingRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    break;								
+								}
+								break;								
+							case 2:
+								switch (hssfCell.getCellType())
+								{								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    break;
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	stringResult=Integer.toString((int)hssfCell.getNumericCellValue());				                	
+				                	break;
+								}
+							
+								    if(measureLookupService.findByMeasureId(stringResult) == null){
+				                    	measureId = stringResult;
+				                    }else{
+				                    	measureWisePerformanceAndReportingRate.setMeasureLookup(measureLookupService.findByMeasureId(stringResult));
+				                    }
+			                    	System.out.println("measureId: " + stringResult);	
+								break;
+								
+								//break;
+							case 3:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    System.out.println("Measure Name: " + stringResult);
+				                    if(measureId != null){
+				                    	measureLookup.setMeasureId(measureId);
+				                    	measureLookup.setMeasureName(stringResult);
+				                    	measureLookupService.Save(measureLookup);
+				                    	measureWisePerformanceAndReportingRate.setMeasureLookup(measureLookupService.Save(measureLookup));
+				                    	//measureId = null;
+				                    	System.out.println("New Measure: " + stringResult);
+				                    }				                    
+				                    System.out.println("Measure Name: " + stringResult);
+				                    break;
+								}
+								break;
+							case 4:	
+								switch (hssfCell.getCellType())
+								{
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setReportingOptionLookup(reportingOptionLookUpService.findByReportingOptionName(stringResult));
+									System.out.println("stringResult: " + stringResult);				                    
+				                    break;								
+								}
+								break;
+							case 5:
+								switch (hssfCell.getCellType())
+								{
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWisePerformanceAndReportingRate.setMeanExclusionRate(hssfCell.getNumericCellValue());				                    
+				                    break;								
+								}
+								break;
+							case 6:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	measureWisePerformanceAndReportingRate.setFrequencies((int)hssfCell.getNumericCellValue());	
+				                	measureWisePerformanceAndReportingRate.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
+				                	measureWisePerformanceAndReportingRate.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                    break;								
+								}
+								break;
+							/*case 6:
+								
+								switch (hssfCell.getCellType())
+								{			
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	measureWisePerformanceAndReportingRate.setRecordStatus((int)hssfCell.getNumericCellValue());			                	
+				                	break;
+								}
+								break;
+							case 7:
+								
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+				                	measureWisePerformanceAndReportingRate.setUpdatedDate(df.parse(stringResult));				                	
+				                    break;								
+								}
+								break;
+							case 8:
+								switch (hssfCell.getCellType())
+								{
+									case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setUpdatedBy(stringResult);			                	
+				                    break;								
+								}
+								break;
+							case 9:
+								switch (hssfCell.getCellType())
+								{
+									case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setCreatedBy(stringResult);			                	
+				                    break;								
+								}
+								break;
+							case 10:
+								
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+				                	measureWisePerformanceAndReportingRate.setCreatedDate(df.parse(stringResult));
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                    break;								
+								}
+								break;
+								
+								
+							/*case 11:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	measureWisePerformanceAndReportingRate.setExclusionDecisions(stringResult);				                	
+				                    break;								
+								}
+								break;
+							case 12:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setCategoryLookup(categoryLookupService.findByName(stringResult));
+				                    break;								
+								}
+								break;
+							case 13:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setDataAnalysis(dataAnalysisService.findByDataAnalysisName(stringResult));
+				                    break;									
+								}
+								break;
+							case 14:
+								switch (hssfCell.getCellType())
+								{
+								
+								case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();				                	
+				                	measureWisePerformanceAndReportingRate.setSubDataAnalysis(subDataAnalysisService.findBySubDataAnalysisName(stringResult));
+				                	measureWisePerformanceAndReportingRate.setRecordStatus(1);
+				                	measureWisePerformanceAndReportingRateService.create(measureWisePerformanceAndReportingRate);
+				                	break;									
+								}
+								break;	*/						
+							}
+
+
+						}
+						
+						
+					}
+ 
+				}
+		 }			
+	}
+
+	
+	public void documentUploadExclusionTrends(
+			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
+		int totalNumberOfRows = 0;
+		int totalProRowsCreatedOrUpdated = 0;
+		ArrayList<Object> returnObjects = null;		
+				
+		if (documentFileUpload.getExclusionTrends() != null) {
+				
+				Workbook exclusionTrendsFileWorkbook = WorkbookFactory.create(documentFileUpload.getExclusionTrends().getInputStream());
+				Sheet exclusionTrendsFileSheet = exclusionTrendsFileWorkbook.getSheetAt(0);
+				Iterator<Row> exclusionTrendsFileRowIterator = exclusionTrendsFileSheet.rowIterator();
+                int exclusionTrendsFileRowCount = exclusionTrendsFileSheet.getPhysicalNumberOfRows();
+              //Atleast sheet should have one header and one data row
+                if(exclusionTrendsFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = exclusionTrendsFileRowCount - 1;
+				String stringResult = "";
+
+				while (exclusionTrendsFileRowIterator.hasNext()) 
+				{
+					Row exclusionTrendsFileRow = (Row) exclusionTrendsFileRowIterator.next();
+					
+					returnObjects = new ArrayList<Object>();
+					
+					if (exclusionTrendsFileRow.getRowNum() >= 0 && exclusionTrendsFileRow.getRowNum() <= exclusionTrendsFileRowCount)
+					{
+						System.out.println("ROW - " + exclusionTrendsFileRow.getRowNum());
+						Iterator<Cell> iterator = exclusionTrendsFileRow.cellIterator();
+					
+						ExclusionTrendsRate exclusionTrendsRate = new ExclusionTrendsRate();
+						/*MeasureLookup measureLookup = new MeasureLookup();
+						CategoryLookup category = new CategoryLookup();
+						String measureId = null;*/
+						String reportingOptions = "";
+						
+						while (iterator.hasNext()) 
+						{
+							Cell hssfCell = iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							
+							
+							if(exclusionTrendsFileRow.getRowNum()==0){
+								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
+									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Year")
+								    || cellIndex == 2 && !hssfCell.getStringCellValue().equals("reporting_option")
+									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate_percent")
+										){
+									throw new InvalidFormatException("Row column informaion isn't in the correct format");
+								}else{
+									continue;
+								}
+							}
+							
+							stringResult = "";
+							
+							switch (cellIndex) 
+							{
+							
+							case 1:							
+								switch (hssfCell.getCellType()) 
+								{
+								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult = hssfCell.getStringCellValue();
+				                    exclusionTrendsRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    break;								
+								}
+								break;								
+							case 2:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_STRING:	
+				                	stringResult = hssfCell.getStringCellValue();
+				                	exclusionTrendsRate.setReportingOptionLookup(reportingOptionLookUpService.findByReportingOptionName(stringResult));
+				                	System.out.println("stringResult: " + stringResult);				                    
+				                    break;								
+								}
+								break;	
+							case 3:
+								switch (hssfCell.getCellType())
+								{
+								
+				                case Cell.CELL_TYPE_NUMERIC:	
+				                	exclusionTrendsRate.setMeanExclusionRatePercent(hssfCell.getNumericCellValue()*100);
+				                	exclusionTrendsRate.setDataAnalysis(dataAnalysisService.findById(documentFileUpload.getProviderHypId()));
+				                	exclusionTrendsRate.setSubDataAnalysis(subDataAnalysisService.findById(documentFileUpload.getProviderSubHypId()));
+				                	//System.out.println("hyp ID: " + documentFileUpload.getProviderHypId());
+				                	//System.out.println("Sub ID: " + documentFileUpload.getProviderSubHypId());
+				                	exclusionTrendsRateService.create(exclusionTrendsRate);
+				                    break;	
+				                default: throw new InvalidFormatException("error.columns.data.format.mismatch");
+								}
+								break;
+								
+							}
+
+
+						}
+						
+						
+					}
+ 
+				}
+		 }			
+	}
 }

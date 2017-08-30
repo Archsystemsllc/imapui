@@ -113,10 +113,10 @@
 											</form:select> <form:select path="providerSubHypId" id="ddl2"
 												class="hidden">
 												<option value="0">NA</option>
-												<c:forEach var="subCategory"
+												<!--<c:forEach var="subCategory"
 							items="${subDataAnalysisCategories}">
 							<option value="${subCategory.id}">${subCategory.subDataAnalysisName}</option>
-						</c:forEach>
+						</c:forEach>-->
 											</form:select></td>
 									</tr>
 
@@ -170,6 +170,42 @@
 											</div>
 										</td>
 									</tr>
+									
+									<%-- TODO: ADDED a Exclusion_ Trends --%>
+									
+									<tr id="exclusionTrends-row" class="hidden">
+										<td style="text-align: right;">
+											<p>Exclusion Trends Data:</p>
+										</td>
+										<td>
+											<p>
+												<form:input id="exclusionTrends-input" type="file" path="exclusionTrends" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" id="exclusionTrends-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="exclusionTrends-reset"/>
+											</div>
+										</td>
+									</tr>
+																		
+									<tr id="measureWisePerformanceAndReporting-row" class="hidden">
+										<td style="text-align: right;">
+											<p>Measure Wise Performance and Reporting Rate Data :</p>
+										</td>
+										<td>
+											<p>
+												<form:input id="measureWisePerformanceAndReporting-input" type="file" path="measureWisePerformanceAndReportingRate" size="40" />
+											</p>
+										</td>
+										<td>
+											<div class="btn-group btn-xs">
+												<input class="btn btn-primary" type="submit" value="Upload" id="measureWisePerformanceAndReporting-upload" />
+												<input class="btn btn-info" type="reset" value="Reset" id="measureWisePerformanceAndReporting-reset" />
+											</div>
+										</td>
+									</tr>
 									<tr id="measureWiseExclusionRate-row" class="hidden">
 										<td style="text-align: right;">
 											<p>Measure Exclusion Data:</p>
@@ -219,10 +255,15 @@
 			$('#provider-row').addClass('hidden');
 			$('#specialty-row').addClass('hidden');
 			$('#statewise-row').addClass('hidden');
+			
+			<%-- TODO:Need to Add exclusionTrends-row and measureWisePerformanceAndReporting-row or NOT?   --%>
+			
+			$('#exclusionTrends-row').addClass('hidden');
+			$('#measureWisePerformanceAndReporting-row').addClass('hidden');     
 			$('#measureWiseExclusionRate-row').addClass('hidden');
 		} else {	
-			if (seleHypoId != "3") {
-				for(i = 0; i < data.length; i++){
+			
+				/*for(i = 0; i < data.length; i++){
 					if(data[i].id == seleHypoId && data[i].subDataAnalysis.length > 0 ){
 						
 						for(j = 0; j < data[i].subDataAnalysis.length; j++){							
@@ -235,40 +276,74 @@
 				}
 				if (subDataArray.length == 0) {
 					$('#ddl2').addClass('hidden');
-				} else {
+				} else {*/
 					$('#ddl2').removeClass('hidden');
-					for (i = 0; i < subDataArray.length; i++) {						
+					/*for (i = 0; i < subDataArray.length; i++) {						
 						createOption(ddl2, subDataArray[i].name, subDataArray[i].id);
 					}
-				}
+				}*/
+				
+				switch (seleHypoId) {
+				case '1':
+					createOption(ddl2, 'Summary by Reporting Option - Bar Chart', 1);
+					createOption(ddl2, 'Summary by Reporting Option - Line Chart', 2);
+					createOption(ddl2, 'Map', 3);
+					createOption(ddl2, 'Not Applicable', 4);
+					break;
+				case '2':
+					createOption(ddl2, 'Not Applicable', 5);
+					break;
+				case '3':
+					createOption(ddl2, 'High Exclusion - Expected', 6);
+					createOption(ddl2, 'High Exclusion - Not Expected', 7);
+					createOption(ddl2, 'Frequencies', 8);
+					break;
+				case '4':
+					createOption(ddl2, 'Not Applicable', 9);
+					break;
+				case '5':
+					createOption(ddl2, 'Not Applicable', 10);
+					break;
+			
+			}
 				
 				if (seleHypoId === "1") {
 					$('#provider-row').removeClass('hidden');
-					$('#specialty-row').removeClass('hidden');
+					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').removeClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
 				} else if(seleHypoId === "2" ) {
 					$('#provider-row').addClass('hidden');
-					$('#specialty-row').removeClass('hidden');
+					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').removeClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
-				} else if(seleHypoId === "4" ) {
+				} else if(seleHypoId === "3" ) {
 					$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').addClass('hidden');
 					$('#measureWiseExclusionRate-row').removeClass('hidden');
+			    }else if(seleHypoId === "4" ) {
+					$('#provider-row').addClass('hidden');
+					$('#specialty-row').addClass('hidden');
+					$('#statewise-row').addClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
 			    } else if(seleHypoId === "5" ) {
 			    	$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
 					$('#statewise-row').addClass('hidden');
-					$('#measureWiseExclusionRate-row').removeClass('hidden');
+					$('#exclusionTrends-row').addClass('hidden');
+					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
+					$('#measureWiseExclusionRate-row').addClass('hidden');
 		        } 
-			} else {
-				$('#provider-row').addClass('hidden');
-				$('#specialty-row').addClass('hidden');
-				$('#statewise-row').addClass('hidden');
-				$('#measureWiseExclusionRate-row').addClass('hidden');
-			}			
+					
 		}
 
 	}
@@ -280,10 +355,10 @@
 		ddl.options.add(opt);
 	}
 	
-	function subDataAnalysis() {
+	/*function subDataAnalysis() {
 		$.ajax({
-			url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
-			//url : "http://localhost/imapservices/api/dataanalysis/",
+			//url : "http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/dataanalysis/",			
+			url : "http://localhost:8080/imapservices/api/dataanalysis/",
 			type : 'GET',
 			dataType : 'json',
 			success : function(hypData) {					
@@ -294,13 +369,13 @@
 				alert("Request: " + failed);
 			}
 		});
-	}
+	}*/
 
 	</script>
 	<script type="text/javascript">
 	$(document).ready(function () {
 				 $('.nav > li').eq(1).addClass('active');	
-				 subDataAnalysis();
+				 //subDataAnalysis();
 	});	
 	$("input[type='reset']").on("click", function(event){
 		event.preventDefault();

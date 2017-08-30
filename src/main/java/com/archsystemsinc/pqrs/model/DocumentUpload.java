@@ -20,18 +20,30 @@ public class DocumentUpload {
 	private MultipartFile specialty;
 	
 	private MultipartFile statewise;	
+
+	private MultipartFile exclusionTrends;	
 	
 	private MultipartFile provider;
 	
 	private MultipartFile measureWiseExclusionRate;
 	
+	private MultipartFile measureWisePerformanceAndReportingRate;
+	
 
 	public MultipartFile getMeasureWiseExclusionRate() {
 		return measureWiseExclusionRate;
 	}
-
+	
 	public void setMeasureWiseExclusionRate(MultipartFile measureWiseExclusionRate) {
 		this.measureWiseExclusionRate = measureWiseExclusionRate;
+	}
+	
+	public void setMeasureWisePerformanceAndReportingRate(MultipartFile measureWisePerformanceAndReportingRate) {
+		this.measureWisePerformanceAndReportingRate = measureWisePerformanceAndReportingRate;
+	}
+	
+	public MultipartFile getMeasureWisePerformanceAndReportingRate() {
+		return measureWisePerformanceAndReportingRate;
 	}
 
 	public MultipartFile getProvider() {
@@ -65,6 +77,17 @@ public class DocumentUpload {
 		this.specialty = specialty;
 	}
 
+	// TODO: Added a ExclusionTrends
+
+	public MultipartFile getExclusionTrends() {
+		return exclusionTrends;
+	}
+
+	public void setExclusionTrends(MultipartFile exclusionTrends) {
+		this.exclusionTrends = exclusionTrends;
+	}
+
+	
 	public MultipartFile getStatewise() {
 		return statewise;
 	}
