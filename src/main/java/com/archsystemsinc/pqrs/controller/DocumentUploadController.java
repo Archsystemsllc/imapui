@@ -400,10 +400,22 @@ public class DocumentUploadController {
 			
 			if (documentFileUpload.getStatewise() != null) {
 				
-				Workbook stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getStatewise().getInputStream());
+				Workbook stateStatFileWorkbook = null;
+				try {
+					stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				}catch(Exception ex) {
+					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
+					ex.printStackTrace();
+					throw new InvalidFormatException("error.file.format");
+				}
 				Sheet stateStatFileSheet = stateStatFileWorkbook.getSheetAt(0);
 				Iterator<Row> stateStatFileRowIterator = stateStatFileSheet.rowIterator();
                 int stateStatFileRowCount = stateStatFileSheet.getPhysicalNumberOfRows();
+                //Atleast sheet should have one header and one data row
+                if(stateStatFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
 				totalNumberOfRows = stateStatFileRowCount - 1;
 				String stringResult = "";				 
 				
@@ -553,11 +565,23 @@ public class DocumentUploadController {
 			
 			if (documentFileUpload.getSpecialty() != null) {
 				
-				Workbook specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getSpecialty().getInputStream());
+				Workbook specialtyFileWorkbook = null;
+				try {
+					specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+				}catch(Exception ex) {
+					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
+					ex.printStackTrace();
+					throw new InvalidFormatException("error.file.format");
+				}
 				Sheet specialtyFileSheet = specialtyFileWorkbook.getSheetAt(0);
 				Iterator<Row> specialtyFileRowIterator = specialtyFileSheet.rowIterator();
                 int specialtyFileRowCount = specialtyFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = specialtyFileRowCount - 1;
+              //Atleast sheet should have one header and one data row
+                if(specialtyFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = specialtyFileRowCount - 1;
 				String stringResult = "";				 
 				
 				//long yearId =  2;
@@ -667,7 +691,12 @@ public class DocumentUploadController {
 				Sheet measureWiseExclusionRateFileSheet = measureWiseExclusionRateFileWorkbook.getSheetAt(0);
 				Iterator<Row> measureWiseExclusionRateFileRowIterator = measureWiseExclusionRateFileSheet.rowIterator();
                 int measureWiseExclusionRateFileRowCount = measureWiseExclusionRateFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
+              //Atleast sheet should have one header and one data row
+                if(measureWiseExclusionRateFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
 				String stringResult = "";
 
 				while (measureWiseExclusionRateFileRowIterator.hasNext()) 
@@ -869,27 +898,32 @@ public class DocumentUploadController {
 		int totalNumberOfRows = 0;
 		int totalProRowsCreatedOrUpdated = 0;
 		ArrayList<Object> returnObjects = null;		
-		// TODO : documentFileUpload.getMeasureWisePerformenceAndREportingRate() ???
+	
 		if (documentFileUpload.getMeasureWisePerformanceAndReportingRate() != null) {
 				
-			// TODO : Rename these variables to reflect measureWisePerformanceAndReportingRate
-				Workbook measureWiseExclusionRateFileWorkbook = WorkbookFactory.create(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getInputStream());
-				Sheet measureWiseExclusionRateFileSheet = measureWiseExclusionRateFileWorkbook.getSheetAt(0);
-				Iterator<Row> measureWiseExclusionRateFileRowIterator = measureWiseExclusionRateFileSheet.rowIterator();
-                int measureWiseExclusionRateFileRowCount = measureWiseExclusionRateFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = measureWiseExclusionRateFileRowCount - 1;
+			
+				Workbook MeasureWisePerformanceAndReportingRateFileWorkbook = WorkbookFactory.create(documentFileUpload.getMeasureWisePerformanceAndReportingRate().getInputStream());
+				Sheet fileSheet = MeasureWisePerformanceAndReportingRateFileWorkbook.getSheetAt(0);
+				Iterator<Row> sheetIternator = fileSheet.rowIterator();
+                int rowCount = fileSheet.getPhysicalNumberOfRows();
+              //Atleast sheet should have one header and one data row
+                if(rowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = rowCount - 1;
 				String stringResult = "";
 
-				while (measureWiseExclusionRateFileRowIterator.hasNext()) 
+				while (sheetIternator.hasNext()) 
 				{
-					Row measureWiseExclusionRateFileRow = (Row) measureWiseExclusionRateFileRowIterator.next();
+					Row row = (Row) sheetIternator.next();
 					
 					returnObjects = new ArrayList<Object>();
 					
-					if (measureWiseExclusionRateFileRow.getRowNum() >= 0 && measureWiseExclusionRateFileRow.getRowNum() <= measureWiseExclusionRateFileRowCount)
+					if (row.getRowNum() >= 0 && row.getRowNum() <= rowCount)
 					{
-						System.out.println("ROW - " + measureWiseExclusionRateFileRow.getRowNum());
-						Iterator<Cell> iterator = measureWiseExclusionRateFileRow.cellIterator();
+						System.out.println("ROW - " + row.getRowNum());
+						Iterator<Cell> iterator = row.cellIterator();
 						MeasureWisePerformanceAndReportingRate measureWisePerformanceAndReportingRate = new MeasureWisePerformanceAndReportingRate();
 						MeasureLookup measureLookup = new MeasureLookup();
 						CategoryLookup category = new CategoryLookup();
@@ -902,14 +936,15 @@ public class DocumentUploadController {
 							int cellIndex = hssfCell.getColumnIndex();
 							
 							
-							if(measureWiseExclusionRateFileRow.getRowNum()==0){
+							if(row.getRowNum()==0){
 								if(cellIndex == 0 && !hssfCell.getStringCellValue().equals("ID")
 									|| cellIndex == 1 && !hssfCell.getStringCellValue().equals("Year")
 									|| cellIndex == 2 && !hssfCell.getStringCellValue().equals("Actual_Measure_ID")
 									|| cellIndex == 3 && !hssfCell.getStringCellValue().equals("Measure_Name")
 								    || cellIndex == 4 && !hssfCell.getStringCellValue().equals("Rep_option1")
 									|| cellIndex == 5 && !hssfCell.getStringCellValue().equals("mean_exclusion_rate")
-									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("Frequency")){
+									|| cellIndex == 6 && !hssfCell.getStringCellValue().equals("Frequency")
+										){
 									throw new InvalidFormatException("Row column informaion isn't in the correct format");
 								}else{
 									continue;
@@ -932,7 +967,25 @@ public class DocumentUploadController {
 								}
 								break;								
 							case 2:
+								switch (hssfCell.getCellType())
+								{								
+				                case Cell.CELL_TYPE_STRING:					                	
+				                    stringResult=hssfCell.getStringCellValue();
+				                    break;
+				                case Cell.CELL_TYPE_NUMERIC:
+				                	stringResult=Integer.toString((int)hssfCell.getNumericCellValue());				                	
+				                	break;
+								}
+							
+								    if(measureLookupService.findByMeasureId(stringResult) == null){
+				                    	measureId = stringResult;
+				                    }else{
+				                    	measureWisePerformanceAndReportingRate.setMeasureLookup(measureLookupService.findByMeasureId(stringResult));
+				                    }
+			                    	System.out.println("measureId: " + stringResult);	
 								break;
+								
+								//break;
 							case 3:
 								switch (hssfCell.getCellType())
 								{
@@ -984,7 +1037,7 @@ public class DocumentUploadController {
 								}
 								break;
 							/*case 6:
-								// TODO : DO we check for record status or set it to 1 by default?
+								
 								switch (hssfCell.getCellType())
 								{			
 				                case Cell.CELL_TYPE_NUMERIC:
@@ -993,7 +1046,7 @@ public class DocumentUploadController {
 								}
 								break;
 							case 7:
-								// TODO : Verify this is correct.
+								
 								switch (hssfCell.getCellType())
 								{
 								
@@ -1023,7 +1076,7 @@ public class DocumentUploadController {
 								}
 								break;
 							case 10:
-								// TODO : Verify this is correct.
+								
 								switch (hssfCell.getCellType())
 								{
 								
@@ -1036,7 +1089,7 @@ public class DocumentUploadController {
 								}
 								break;
 								
-								// TODO : Should the following dataAnalysis & subdataanalysis fields be ignored in the XLSHeet?
+								
 							/*case 11:
 								switch (hssfCell.getCellType())
 								{
@@ -1104,7 +1157,12 @@ public class DocumentUploadController {
 				Sheet exclusionTrendsFileSheet = exclusionTrendsFileWorkbook.getSheetAt(0);
 				Iterator<Row> exclusionTrendsFileRowIterator = exclusionTrendsFileSheet.rowIterator();
                 int exclusionTrendsFileRowCount = exclusionTrendsFileSheet.getPhysicalNumberOfRows();
-				totalNumberOfRows = exclusionTrendsFileRowCount - 1;
+              //Atleast sheet should have one header and one data row
+                if(exclusionTrendsFileRowCount < 2) {
+                	//throw exception
+                	throw new InvalidFormatException("error.missing.data");
+                }
+                totalNumberOfRows = exclusionTrendsFileRowCount - 1;
 				String stringResult = "";
 
 				while (exclusionTrendsFileRowIterator.hasNext()) 
@@ -1117,7 +1175,7 @@ public class DocumentUploadController {
 					{
 						System.out.println("ROW - " + exclusionTrendsFileRow.getRowNum());
 						Iterator<Cell> iterator = exclusionTrendsFileRow.cellIterator();
-					//TODO: 
+					
 						ExclusionTrendsRate exclusionTrendsRate = new ExclusionTrendsRate();
 						/*MeasureLookup measureLookup = new MeasureLookup();
 						CategoryLookup category = new CategoryLookup();
