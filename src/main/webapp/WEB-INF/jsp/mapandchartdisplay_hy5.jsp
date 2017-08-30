@@ -358,19 +358,18 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-						<!-- 		<tr>
-							<td colspan="2" style="padding-top: 10px"><button
-								title="Click the button to Export the chart as pdf"
-								class="btn btn-primary btn-sm"
-								style="display: block; margin: auto; width: 30%;"
-								id="download" >Export as PDF</button></td>
-						</tr> -->
+			
 					</table>
+	<div>
+				<button title="Click the button to Export the chart as PDF"
+								class="btn btn-primary btn-sm"
+								style="display: none; margin: auto; float: right; width: 30%;"
+								id="downloadPDF" >Export as PDF</button>
+							</div>
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
-						style="overflow: hidden; width: 100%; height: 550px"
-						style="margin:auto"></iframe>
+						style="overflow: hidden; width: 100%; height: 550px; margin:auto"></iframe>
 					<div id="messageDisplay"></div>
 
 					<div id="chart-container" style="width: 75%; margin: auto">
@@ -379,11 +378,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								src="${pageContext.request.contextPath}/resources/images/loading3.gif" />
 						</div>
 						<canvas id="chart-canvas"></canvas>
+							
 					</div>
+	
 
 				</div>
-
-				<div id="summary" style="display: initial;"></div><p id="noteMeasure" style="font-size: 13px; font-weight: normal; display: none">Note: Click on Measure to remove it from the Line Chart </p>
+							<p id="noteMeasure" style="font-size: 13px; font-weight: normal; display: none">Note: Click on Measure to remove it from the Line Chart </p>
+				
+	
+				<div id="summary" style="display: initial;"></div>
 
 			</td>
 		</tr>
@@ -431,6 +434,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			$('#chart-canvas').hide();
 			$('#summary').hide();
 			$('#noteMeasure').hide();
+			$('#downloadPDF').hide();
 			measureParameters = '';
 			var yesOrNoOptionId = $("#yesOrNoOptionId option:selected").text();
 			var reportTypeSelectedText = $("#reportTypeId option:selected").text();			
@@ -510,6 +514,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				$('#chart-canvas').show();
 				$('#summary').show();
 				$('#noteMeasure').show();
+				$('#downloadPDF').show();
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
@@ -798,6 +803,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					if (barChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
 						$('#noteMeasure').hide();
+						$('#downloadPDF').hide();
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
@@ -811,6 +817,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					if (lineChartDataAvail == "NO") {
 						$("messageDisplay").attr("disabled", false);
 						$('#noteMeasure').hide();
+						$('#downloadPDF').hide();
+						$('#summary').hide();
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
 				}
@@ -871,19 +879,19 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		});
 		//Download chart in the form of pdf
 		
-		/* download.addEventListener("click", function() {
+		downloadPDF.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
 			  var pdf = new jsPDF();
 			  pdf.addImage(imgData, 'JPG', 15, 40);
-			  var download = document.getElementById('download');
+			  var downloadPDF = document.getElementById('downloadPDF');
 			  if('${subDataAnalysisId}' == '9'){pdf.save("Hypothesis4.pdf");}
 			  else if('${subDataAnalysisId}' == '10'){pdf.save("Hypothesis6.pdf");}
 			  else if('${subDataAnalysisId}' == '6' || '${subDataAnalysisId}' == '7' || '${subDataAnalysisId}' == '8')
 			  {pdf.save("Hypothesis5.pdf");}
 			}, false);  
-		 */
+		 
 		
 	</script>
 	<!-- Javascript -->

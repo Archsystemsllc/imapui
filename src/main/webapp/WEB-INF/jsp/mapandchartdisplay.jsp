@@ -234,14 +234,16 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								style="display: block; margin: auto; width: 30%;" type="submit"
 								id="displayreport" value="Submit" /></td>
 						</tr>
-							<!-- <tr>
-							<td colspan="2" style="padding-top: 10px"><button
-								title="Click the button to Export the chart as pdf"
-								class="btn btn-primary btn-sm"
-								style="display: block; margin: auto; width: 30%;"
-								id="download" >Export as PDF</button></td>
-						</tr>  -->
+						 
 					</table>
+					<div>
+			
+				<button title="Click the button to Export the chart as PDF"
+								class="btn btn-primary btn-sm"
+								style="display: none; margin: auto; float: right; width: 30%;"
+								id="downloadPDF" >Export as PDF</button>
+							</div>
+					
 				</div>
 				<div class="HypothesisScreen" style="max-height: 600px">
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
@@ -257,7 +259,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						<canvas id="chart-canvas"></canvas>
 					</div>
 				</div>
-
+				
 			</td>
 		</tr>
 	</table>
@@ -325,6 +327,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
+				$("#downloadPDF").show();
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
@@ -582,6 +585,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						var myBarChart = new Chart(chartctx, barconfig);
 					}
 					if (barChartDataAvail == "NO") {
+						$('#downloadPDF').hide();
 						$("messageDisplay").attr("disabled", false);
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
@@ -594,6 +598,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						var myLineChart = new Chart(chartctx, lineconfig);
 					}
 					if (lineChartDataAvail == "NO") {
+						$('#downloadPDF').hide();
+						
 						$("messageDisplay").attr("disabled", false);
 						document.getElementById("messageDisplay").innerHTML = "<div id='NoData'>No Data Available For The Selected Options!</div>";
 					}
@@ -649,15 +655,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				x.hidden = true;
 			}
 		}; 
-/* 	download.addEventListener("click", function() {
+ 	downloadPDF.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
 			  var pdf = new jsPDF();
-			  pdf.addImage(imgData, 'JPG', 15, 40, 180, 160);
-			  var download = document.getElementById('download');
+			  pdf.addImage(imgData, 'JPG', 15, 40);
+			  var downloadPDF = document.getElementById('downloadPDF');
 			  pdf.save("${subDataAnalysis.subDataAnalysisName}.pdf");
-			}, false);  */
+			}, false);  
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
