@@ -77,7 +77,7 @@ public class PersistenceConfig {
     }
 
     
-    @Bean
+/*    @Bean
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Preconditions.checkNotNull(driverClassName));
@@ -86,17 +86,17 @@ public class PersistenceConfig {
         dataSource.setPassword(Preconditions.checkNotNull(jdbcpassword));
 
         return dataSource;
-    }
+    }*/
 	
     
-/*   @Bean
+   @Bean
     @Resource(name="jdbc/imap")
     public DataSource dataSource() {
         final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
         dsLookup.setResourceRef(true);
         DataSource dataSource = dsLookup.getDataSource("java:comp/env/jdbc/imap");
         return dataSource;
-    }*/
+    }
    
     @Bean
     public PlatformTransactionManager transactionManager() {
