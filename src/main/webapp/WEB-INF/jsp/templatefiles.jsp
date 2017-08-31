@@ -29,7 +29,8 @@
 <script src="https://code.angularjs.org/2.0.0-beta.6/Rx.js"></script>
 <script src="https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js"></script>
 
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
