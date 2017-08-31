@@ -265,8 +265,9 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		//var serverContextPath = 'http://localhost:8080/imapservices';
 		//var serverContextPath = 'http://localhost/imapservices';
 		//var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-		var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
-	//var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
+		/* var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices'; */
+	//var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; ]
+	ver serverContextPath = '/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
