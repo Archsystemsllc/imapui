@@ -335,6 +335,7 @@
 					$('#exclusionTrends-row').addClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
+					$('#ddl2').addClass('hidden');
 			    } else if(seleHypoId === "5" ) {
 			    	$('#provider-row').addClass('hidden');
 					$('#specialty-row').addClass('hidden');
@@ -342,6 +343,7 @@
 					$('#exclusionTrends-row').addClass('hidden');
 					$('#measureWisePerformanceAndReporting-row').removeClass('hidden');
 					$('#measureWiseExclusionRate-row').addClass('hidden');
+					$('#ddl2').addClass('hidden');
 		        } 
 					
 		}
