@@ -76,14 +76,16 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/admin/edit-user", method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("user") User userForm, BindingResult bindingResult, Model model) {
-//        userValidator.validate(userForm, bindingResult);
-
+    public String editUser(@ModelAttribute("user") User userForm/*, BindingResult bindingResult*/) {
+        /*userValidator.validate(userForm, bindingResult);
+    	if (bindingResult.hasErrors()) {
+            return "registration";
+        }*/
         userService.update(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:../users";
+        return "redirect:users";
     }
     
     @RequestMapping(value = "/admin/edit-user/{id}", method = RequestMethod.GET)
@@ -105,13 +107,13 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/admin/delete-user", method = RequestMethod.POST)
-    public String deleteUser(@ModelAttribute("user") User userForm, BindingResult bindingResult, Model model) {
-        userService.deleteById(userForm.getId());
+    @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") final Long id) {
+        userService.deleteById(id);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "users";
+        return "redirect:../users";
     }
     
     /**
@@ -121,11 +123,10 @@ public class UserController {
      * 
      * @param userForm
      * @param bindingResult
-     * @param model
      * @return
      */
     @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -134,9 +135,9 @@ public class UserController {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:../users";
+        return "redirect:users";
     }
 
     /**
