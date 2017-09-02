@@ -244,14 +244,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:	
-				                    stringResult=hssfCell.getStringCellValue();
-				                    YearLookup yearName = yearLookUpService.findByYearName(stringResult);
-				                    if(yearName == null) {
-				                    	throw new InvalidFormatException("error.data.invalid");
-				                    }
-									provider.setYearLookup(yearName);
-				                    System.out.println("Year name: " + stringResult);
-				                  
+				                    provider.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));
 				                    break;
 								}
 								break;								
@@ -475,8 +468,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:
-				                	stringResult=hssfCell.getStringCellValue();
-				                	statewiseStatistic.setYearLookup(yearLookUpService.findByYearName(stringResult));				                   
+				                	statewiseStatistic.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                   
 				                    break;	
 								
 								}
@@ -648,9 +640,8 @@ public class DocumentUploadController {
 								switch (hssfCell.getCellType())
 								{
 								
-								case Cell.CELL_TYPE_STRING:
-									stringResult=hssfCell.getStringCellValue();										
-									specialty.setYearLookup(yearLookUpService.findByYearName(stringResult));									
+								case Cell.CELL_TYPE_STRING:			
+									specialty.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));									
 				                    break;
 								
 								}
@@ -796,8 +787,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    measureWiseExclusionRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    measureWiseExclusionRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;
@@ -964,8 +954,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    measureWisePerformanceAndReportingRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    measureWisePerformanceAndReportingRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;								
@@ -1212,9 +1201,8 @@ public class DocumentUploadController {
 								switch (hssfCell.getCellType()) 
 								{
 								
-				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    exclusionTrendsRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                case Cell.CELL_TYPE_STRING:					     
+				                    exclusionTrendsRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;								
@@ -1255,5 +1243,14 @@ public class DocumentUploadController {
  
 				}
 		 }			
+	}
+	
+	private YearLookup getYearLookUp(String year) throws InvalidFormatException {
+        System.out.println("Year name: " + year);
+		YearLookup yearName = yearLookUpService.findByYearName(year);
+        if(yearName == null) {
+        	throw new InvalidFormatException("error.data.invalid");
+        }
+        return yearName;
 	}
 }

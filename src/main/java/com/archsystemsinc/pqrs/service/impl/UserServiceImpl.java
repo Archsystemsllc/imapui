@@ -1,5 +1,6 @@
 package com.archsystemsinc.pqrs.service.impl;
 
+import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.model.User;
 import com.archsystemsinc.pqrs.repository.RoleRepository;
 import com.archsystemsinc.pqrs.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * This is the implementation class of the Service interface for user database table.
@@ -39,4 +41,24 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    
+    @Override
+	public User findById(Long id) {		
+		return userRepository.findOne(id);
+	}
+    
+    @Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+    
+    @Override
+	public void update(User user) {		
+    	userRepository.save(user);
+	}
+    
+    @Override
+	public void deleteById(Long id) {		
+    	userRepository.delete(id);
+	}
 }

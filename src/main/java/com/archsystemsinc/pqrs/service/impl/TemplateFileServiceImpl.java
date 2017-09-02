@@ -46,7 +46,6 @@ public class TemplateFileServiceImpl implements TemplateFileService{
 
 	@Override
 	public List<TemplateFile> findAll() {
-		// TODO Auto-generated method stub
 		return templateFileRepository.findAll();
 	}
 

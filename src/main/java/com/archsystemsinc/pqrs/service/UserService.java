@@ -1,5 +1,8 @@
 package com.archsystemsinc.pqrs.service;
 
+import java.util.List;
+
+import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.model.User;
 
 /**
@@ -14,5 +17,12 @@ public interface UserService {
 	void save(User user);
 
 	User findByUsername(String username);
-
+	
+	User findById(final Long id);
+	
+	List<User> findAll();
+	
+	void update(User user);
+	
+	void deleteById(final Long id);
 }

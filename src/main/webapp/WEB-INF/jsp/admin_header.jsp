@@ -144,6 +144,8 @@
 								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/users">Users</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/contactus">Contact Us</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/download-helpdoc">Help</a></li>
