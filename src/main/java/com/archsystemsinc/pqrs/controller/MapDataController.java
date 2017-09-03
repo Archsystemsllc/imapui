@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
@@ -85,4 +86,92 @@ public class MapDataController {
 		return "var data = "
 				+ objectMapper.writeValueAsString(featureCollection);
 	}
+	
+	
+	/**
+	 * This method retrieves the data that needs to be shown in the State Wise Map Report and returns as JSON Object to the html.
+	 * 
+	 * @param epOrGpro
+	 * @param ruralOrUrban
+	 * @param yesOrNoOption
+	 * @param yearId
+	 * @param reportingOptionId
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json;", value = "/maps-data-table/epOrGpro/{epOrGpro}/ruralOrUrban/{ruralOrUrban}/yesOrNoOption/{yesOrNoOption}/year/{yearId}/reportingOption/{reportingOptionId}/dataAnalysis/{dataAnalysisId}/subDataAnalysis/{subDataAnalysisId}")
+	public FeatureCollection findAllForMapsByRsqlForTableDisp(
+			 @PathVariable("epOrGpro") Integer epOrGpro, 
+			 @PathVariable("ruralOrUrban") Integer ruralOrUrban, 
+			 @PathVariable("yesOrNoOption") Integer yesOrNoOption, 
+			 @PathVariable("yearId") Integer yearId,
+			 @PathVariable("reportingOptionId") Integer reportingOptionId,
+			 @PathVariable("dataAnalysisId") Integer dataAnalysisId,
+			 @PathVariable("subDataAnalysisId") Integer subDataAnalysisId)
+			throws JsonProcessingException {
+		String attribute = ReferenceDataLoader.referenceData.get("reportingOptions").get(reportingOptionId);
+		FeatureCollection featureCollection = new FeatureCollection();
+		
+		List<StatewiseStatistic> statewiseStatistics = statewiseStatisticRepository.getMapData(dataAnalysisId,subDataAnalysisId, yearId, reportingOptionId, epOrGpro, ruralOrUrban, yesOrNoOption);
+		for (StatewiseStatistic statewiseStatistic : statewiseStatistics) {
+			Feature feature = new Feature();
+			feature.setId(statewiseStatistic.getId()+"");
+			BigInteger attributeValue = statewiseStatistic.getCount();
+			Map<String, Object> properties = new TreeMap<String, Object>();
+			properties.put(attribute, attributeValue);
+			properties.put("id", statewiseStatistic.getId());
+			properties.put("State", statewiseStatistic.getState());
+			properties.put("hoverEPOrGro", (epOrGpro==1?"EP":(epOrGpro==2?"GPro":"All")));
+			properties.put("hoverRuralOrUrban", (ruralOrUrban==3?"Rural": "Urban"));
+			properties.put("hoverYesOrNoOption", (yesOrNoOption==4?"Yes": "No"));
+			properties.put("hoverReportingOption", attribute);
+			feature.setProperties(properties);
+			//feature.setGeometry(ReferenceDataLoader.statesGeoData.get(statewiseStatistic.getState()));
+			//feature.setGeometry(readGeoJSONUtil.findGeometryByState(statewiseStatistic.getState()));
+			featureCollection.add(feature);
+		}
+		
+		return featureCollection;
+	}
+	
+	
+/*	*//**
+	 * This method retrieves the states name that needs to be shown in the search box and returns as JSON Object to the html.
+	 * 
+	 * @param epOrGpro
+	 * @param ruralOrUrban
+	 * @param yesOrNoOption
+	 * @param yearId
+	 * @param reportingOptionId
+	 * @return
+	 * @throws JsonProcessingException
+	 *//*
+	 **/
+	
+	/*@RequestMapping(method = RequestMethod.GET, produces = "application/json;", value = "/maps/autoCompleteStates")
+	public FeatureCollection autoCompleteAllStates()
+			throws JsonProcessingException 
+	{
+		Map<String, String> states = null;
+		FeatureCollection featureCollection = new FeatureCollection();
+		states = ReferenceDataLoader.states;
+			Feature feature = new Feature();
+			Map<String, Object> properties = new TreeMap<String, Object>();
+			Iterator it = states.entrySet().iterator();
+		    while (it.hasNext()) 
+		    {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		     
+		        properties.put((String)pair.getKey(),(Object)pair.getValue() );
+		        it.remove();
+		        // avoids a ConcurrentModificationException
+		        feature.setProperties(properties);
+				featureCollection.add(feature);
+		    }
+			
+		return featureCollection;
+	}*/
+	
+	
 }

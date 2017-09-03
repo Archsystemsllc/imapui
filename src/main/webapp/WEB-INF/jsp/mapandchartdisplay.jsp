@@ -48,6 +48,12 @@
 	integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
 	crossorigin=""></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <!-- <style>
 #map {
 	width: 600px;
@@ -59,10 +65,12 @@
 table td {
 	border: 0px;
 }
+
 #map {
 	width: 900px;
 	height: 400px;
 }
+
 .info {
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
@@ -71,15 +79,18 @@ table td {
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 }
+
 .info h4 {
 	margin: 0 0 5px;
 	color: #777;
 }
+
 .legend {
 	text-align: left;
 	line-height: 18px;
 	color: #555;
 }
+
 .legend i {
 	width: 18px;
 	height: 18px;
@@ -87,9 +98,11 @@ table td {
 	margin-right: 8px;
 	opacity: 0.7;
 }
+
 select {
 	width: 100%;
 }
+
 table {
 	border-collapse: separate;
 	border-spacing: 10px;
@@ -100,14 +113,17 @@ table {
 table td:first-child {
 	text-align: right;
 }
+
 #loading-gif {
 	margin-left: 8cm;
 	margin-top: 2cm;
 }
+
 #loading-gif img {
 	height: 90px;
 	width: 90px;
 }
+
 #NoData {
 	background-color: #FFD42A;
 	width: 40%;
@@ -127,15 +143,13 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 
 <body>
 	<%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
-	
+
 	<!-- Farheen : 08/29/2017 Based on the Role header is assigned to the user -->
-<sec:authorize
-		access="hasAuthority('Administrator')">
+	<sec:authorize access="hasAuthority('Administrator')">
 		<jsp:include page="admin_header.jsp"></jsp:include>
 	</sec:authorize>
-		<sec:authorize
-		access="hasAuthority('Report Viewer')">
-	<jsp:include page="header.jsp"></jsp:include>
+	<sec:authorize access="hasAuthority('Report Viewer')">
+		<jsp:include page="header.jsp"></jsp:include>
 	</sec:authorize>
 
 	<table id="mid">
@@ -208,11 +222,16 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							<td><label for="reportTypeId">Report Type :</label></td>
 							<td><select id="reportTypeId" name="reportTypeId"
 								title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
-										<option value="">Select</option>
-    									<option value="Bar Chart" ${subDataAnalysis.id == '1' ? '' : 'disabled'}>Bar Chart</option>
-    									<option value="Line Chart" ${subDataAnalysis.id == '2' ? '' : 'disabled'}>Line Chart</option>
-    									<option value="Map" ${subDataAnalysis.id == '3' ? '' : 'disabled'}>Map</option>   
-    							<%-- 		<c:forEach items="${reportTypes}" var="reportType">
+									<option value="">Select</option>
+									<option value="Bar Chart"
+										${subDataAnalysis.id == '1' ? '' : 'disabled'}>Bar
+										Chart</option>
+									<option value="Line Chart"
+										${subDataAnalysis.id == '2' ? '' : 'disabled'}>Line
+										Chart</option>
+									<option value="Map"
+										${subDataAnalysis.id == '3' ? '' : 'disabled'}>Map</option>
+									<%-- 		<c:forEach items="${reportTypes}" var="reportType">
 										<option value="${reportType}">${reportType}</option>
 										</c:forEach>   --%>
 							</select></td>
@@ -232,19 +251,40 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 								title="Click the button to submit the selections above and view the results"
 								class="btn btn-primary btn-sm"
 								style="display: block; margin: auto; width: 30%;" type="submit"
-								id="displayreport" value="Submit" /></td>
+								id="displayreport" value="Submit" onclick="displayTblView()" /></td>
+							<td colspan="2" style="padding-top: 10px"><input
+								title="Click the button to view the states results in a table"
+								class="btn btn-primary btn-sm"
+								style="display: none; margin: auto;" type="submit"
+								id="displayreportTblFrmt" value="Table View"
+								onclick="displayReportAsTbl()" /></td>
 						</tr>
-						 
+
+						<!-- <tr>
+					<td><label for="automplete-1">Enter State Name : </label>
+							<p style="font-size: 13px; font-weight: normal;">(Select All to activate mouse hover functionality on the map)</p>
+							</td>
+							<td>
+							<div class = "ui-widget">
+								<label for="id_label_multiple">
+									<input type="text" size="15" id="automplete-1"
+										title="You can partially enter either State name or capitalization of state and hit Enter button from your keyboard or Click Search">
+									 <input type="button" id="searchMeasure" value="Search">
+								</label>
+							</div>
+							</td>	
+						</tr> -->
+
 					</table>
-					<div>
+				</div> <!-- 	<div>
 			
-				<button title="Click the button to Export the chart as PDF"
+				 <button title="Click the button to Export the chart as PDF"
 								class="btn btn-primary btn-sm"
 								style="display: none; margin: auto; float: right; width: 30%;"
 								id="downloadPDF" >Export as PDF</button>
 							</div>
 					
-				</div>
+				</div> -->
 				<div class="HypothesisScreen" style="max-height: 600px">
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
 						style="overflow: hidden; width: 100%; height: 550px"
@@ -259,7 +299,30 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						<canvas id="chart-canvas"></canvas>
 					</div>
 				</div>
-				
+
+				<div>
+					<iframe id="txtArea1" style="display: none"></iframe>
+					<button title="Click the button to Export the table as Excel"
+						class="btn btn-primary btn-sm"
+						style="display: none; margin: auto; float: center"
+						onclick="exportAsExcel()" id="download">Export Table as
+						Excel</button>
+
+					<table class="dataTable" id="dataTblDisplay"
+						style="display: none; border-collapse: separate; border-spacing: 2px; width: 70%; border: 1px solid black;">
+						<tr style="background-color: #a5c7e2;">
+							<th>State</th>
+							<th>Count</th>
+							<th>EP/GPro</th>
+							<th>Rural/Urban</th>
+							<th>Yes/No Option</th>
+							<th>Reporting Option</th>
+						</tr>
+					</table>
+
+				</div>
+
+
 			</td>
 		</tr>
 	</table>
@@ -655,7 +718,266 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 				x.hidden = true;
 			}
 		}; 
- 	downloadPDF.addEventListener("click", function() {
+		
+		
+		function displayReportAsTbl(){
+			var epGpro = '0';
+			var reportingOptionSelectedText = $("#reportingOptionLookupId option:selected").text();
+			if (reportingOptionSelectedText == "CLAIMS" || reportingOptionSelectedText == "EHR"
+				|| reportingOptionSelectedText == "REGISTRY"
+				|| reportingOptionSelectedText == "QCDR") {
+				epGpro = '1';
+			} else if (reportingOptionSelectedText == "GPROWI" || reportingOptionSelectedText == "GPRO Registry"
+				|| reportingOptionSelectedText == "GPRO EHR"
+				|| reportingOptionSelectedText == "GPRO WI GROP") {
+				epGpro = '2';
+			}
+			var ruralUrbanId = document.getElementById("parameterLookupId").value;
+			var yesNoId = document.getElementById("yesOrNoOptionId").value;
+			var yearId = document.getElementById("yearLookUpId").value;
+			var reportingOptionId = document.getElementById("reportingOptionLookupId").value;
+			var url = serverContextPath + '/maps-data-table/epOrGpro/' + epGpro + '/ruralOrUrban/' + ruralUrbanId + '/yesOrNoOption/' + yesNoId + '/year/' + yearId + '/reportingOption/' + reportingOptionId + '/dataAnalysis/${dataAnalysisId}/subDataAnalysis/${subDataAnalysisId}';				
+			$("#dataTblDisplay").show();
+			 $.ajax({url: url,
+				type: 'GET', 
+				dataType: "json", 
+				success: function(result){
+				
+					$.each(result.features,function(index,value){
+						
+						var tbl='<tr><td>'+value.properties.State+'</td>'+
+						'<td>'+value.properties.CLAIMS+'</td>'+
+						'<td>'+value.properties.hoverEPOrGro+'</td>'+
+						'<td>'+value.properties.hoverRuralOrUrban+'</td>'+
+						'<td>'+value.properties.hoverYesOrNoOption+'</td>'+
+						'<td>'+value.properties.hoverReportingOption+'</td></tr>';
+						$("#dataTblDisplay").append(tbl);
+						});
+					sortTable();
+					$("#download").show();
+				
+				    },
+				error:function(){
+					
+					alert('Please click Sumbit button before clicking Table View button');
+					}
+			});
+		}
+		function sortTable() {
+			  var table, rows, switching, i, x, y, shouldSwitch;
+			  table = document.getElementById("dataTblDisplay");
+			  switching = true;
+			  /*Make a loop that will continue until
+			  no switching has been done:*/
+			  while (switching) {
+			    //start by saying: no switching is done:
+			    switching = false;
+			    rows = table.getElementsByTagName("TR");
+			    /*Loop through all table rows (except the
+			    first, which contains table headers):*/
+			    for (i = 1; i < (rows.length - 1); i++) {
+			      //start by saying there should be no switching:
+			      shouldSwitch = false;
+			      /*Get the two elements you want to compare,
+			      one from current row and one from the next:*/
+			      x = rows[i].getElementsByTagName("TD")[0];
+			      y = rows[i + 1].getElementsByTagName("TD")[0];
+			      //check if the two rows should switch place:
+			      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+			        //if so, mark as a switch and break the loop:
+			        shouldSwitch= true;
+			        break;
+			      }
+			    }
+			    if (shouldSwitch) {
+			      /*If a switch has been marked, make the switch
+			      and mark that a switch has been done:*/
+			      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			      switching = true;
+			    }
+			  }
+			}
+		
+		
+		function displayTblView()
+		{
+				$("#displayreportTblFrmt").show();	
+		}
+
+		function exportAsExcel()
+		{
+		    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+		    var textRange; var j=0;
+		    tab = document.getElementById('dataTblDisplay'); // id of table
+
+		    for(j = 0 ; j < tab.rows.length ; j++) 
+		    {     
+		        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+		        //tab_text=tab_text+"</tr>";
+		    }
+
+		    tab_text=tab_text+"</table>";
+		    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+		    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+		    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+		    var ua = window.navigator.userAgent;
+		    var msie = ua.indexOf("MSIE "); 
+
+		    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+		    {
+		        txtArea1.document.open("txt/html","replace");
+		        txtArea1.document.write(tab_text);
+		        txtArea1.document.close();
+		        txtArea1.focus(); 
+		        sa=txtArea1.document.execCommand("SaveAs",true,"StateWiseMapData.xls");
+		    }  
+		    else                 //other browser not tested on IE 11
+		        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+		    return (sa);
+		}
+	 	
+		
+		//Function for auto suugests states name based on user typing and getting JSON data
+		
+		/* $(function() {    
+	    	    var jsonArr = [];
+	            $.ajax({
+	            	    url: serverContextPath + '/maps/autoCompleteStates',
+	            	   type: 'GET',
+	            	   dataType: 'json',
+	            	   success: function(data) {
+	            		   //alert(data);
+	            		   $.each(data, function(idx, obj) {
+	            			  alert(obj);
+	            				//alert(obj.measureId + '-' + obj.measureName);
+	            				//jsonArr.push({            			        
+	            			    //    value: obj.measureId + '-' + obj.measureName,
+	            			    //    id: obj.id
+	            			        //selected: 'false'
+	            			    //});
+	            			});
+	             	   },
+	            	   error: function() {
+	            	      //alert('Ajax error!');
+	            	   },
+	            });            
+	            
+	            $("#automplete-1").autocomplete({
+	               source: jsonArr,               
+	               minLength:1,
+	               focus: function( event, ui ) {
+	                   $( "#automplete-1" ).val( ui.item.value);
+	                      return false;
+	                },  
+	                change: function (event, ui) {
+	                    if (ui.item == null){ 
+	                     //here is null if entered value is not match in suggestion list
+	                        $(this).val((ui.item ? ui.item.value : ""));
+	                    }
+	                }
+	            });
+	         }); */
+		  
+		    
+	         // Function for auto suugests states name based on user typing
+		  
+	/* 	  $( function() {
+			    var availableTags = [
+			      
+			        "All",                 
+					"Alabama",
+					"Alaska",
+					"Alberta",
+					"American Samoa",
+					"Arizona",
+					"Arkansas",
+					"Armed Forces (AE)",
+					"Armed Forces Americas",
+					"Armed Forces Pacific",
+					"British Columbia",
+					"California",
+					"Colorado",
+					"Connecticut",
+					"Delaware",
+					"District Of Columbia",
+					"Florida",
+					"Georgia",
+					"Guam",
+					"Hawaii",
+					"Idaho",
+					"Illinois",
+					"Indiana",
+					"Iowa",
+					"Kansas",
+					"Kentucky",
+					"Louisiana",
+					"Maine",
+					"Manitoba",
+					"Maryland",
+					"Massachusetts",
+					"Michigan",
+					"Minnesota",
+					"Mississippi",
+					"Missouri",
+					"Montana",
+					"Nebraska",
+					"Nevada",
+					"New Brunswick",
+					"New Hampshire",
+					"New Jersey",
+					"New Mexico",
+					"New York",
+					"Newfoundland",
+					"North Carolina",
+					"North Dakota",
+					"Northwest Territories",
+					"Nova Scotia",
+					"Nunavut",
+					"Ohio",
+					"Oklahoma",
+					"Ontario",
+					"Oregon",
+					"Pennsylvania",
+					"Prince Edward Island",
+					"Puerto Rico",
+					"Quebec",
+					"Rhode Island",
+					"Saskatchewan",
+					"South Carolina",
+					"South Dakota",
+					"Tennessee",
+					"Texas",
+					"Utah",
+					"Vermont",
+					"Virgin Islands",
+					"Virginia",
+					"Washington",
+					"West Virginia",
+					"Wisconsin",
+					"Wyoming",
+					"Yukon Territory",
+			 
+			    ];
+			    $( "#automplete-1" ).autocomplete({
+			      source: availableTags,
+			      focus: function( event, ui ) {
+	                   $( "#automplete-1" ).val( ui.item.value);
+	                   
+	                      return false;
+	                }  
+	                   change: function (event, ui) {
+	                    if (ui.item == null){ 
+	                     //here is null if entered value is not match in suggestion list
+	                        $(this).val((ui.item ? ui.item.value : ""));
+	                    }
+	                }
+			    });
+			  } ); 
+		   */
+		
+ /* 	downloadPDF.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
@@ -663,7 +985,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  pdf.addImage(imgData, 'JPG', 15, 40);
 			  var downloadPDF = document.getElementById('downloadPDF');
 			  pdf.save("${subDataAnalysis.subDataAnalysisName}.pdf");
-			}, false);  
+			}, false);  */ 
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
