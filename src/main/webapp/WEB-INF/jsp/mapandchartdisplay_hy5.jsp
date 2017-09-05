@@ -409,11 +409,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var measures = document.getElementById('measureLookupId');
 	    var valdmeasureLookup=false;
 	var serverContextPath = '/imapservices';
-//var serverContextPath = '${pageContext.request.contextPath}';
 		var measuresData; 
-	     // var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-	   //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';
-	   //var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; 
 	   	function validations()
 	{
 			if( measures.options.length === 0 ) {
@@ -509,6 +505,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			 }
 			var ourRequest = new XMLHttpRequest();
 			ourRequest.open('GET', url);
+			ourRequest.setRequestHeader( 'Authorization', 'Basic ' + btoa( 'imapadmin:Vt@786' ) );
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
@@ -915,6 +912,9 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
             	    /* url: 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/measure/all', */
             	    url: '/imapservices/api/measure/all',
             	   type: 'GET',
+            	   beforeSend: function (xhr) {
+            		   xhr.setRequestHeader ('Authorization', 'Basic ' + btoa( 'imapadmin:Vt@786' ) );
+            		   },
             	   dataType: 'json',
             	   success: function(data) {
             		   //alert('Success!');

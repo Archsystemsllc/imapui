@@ -261,13 +261,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var btn = document.getElementById("displayreport");
 		var barChartData = null;
 		var lineChartData = null;
-		//var serverContextPath = '${pageContext.request.contextPath}';
-		//var serverContextPath = 'http://localhost:8080/imapservices';
-		//var serverContextPath = 'http://localhost/imapservices';
-		//var serverContextPath = 'http://ec2-52-33-93-221.us-west-2.compute.amazonaws.com/imapservices';
-		/* var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices'; */
-	//var serverContextPath = 'http://ec2-52-41-209-148.us-west-2.compute.amazonaws.com/imapservices'; ]
-	var serverContextPath = '/imapservices';
+		var serverContextPath = '/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
@@ -283,13 +277,12 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	
 			
 			if (reportTypeSelectedText == "Line Chart") {
-				//var url = serverContextPath + '/api/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/parameterId/' + parameterId;
-				//var url = serverContextPath + '/api/h3/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}';
-				var url = serverContextPath + '/api/h3/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingId/' + reportingOptionId;
+				var url = serverContextPath + '/api/h33/lineChart/dataAnalysisId/${dataAnalysisId}/subDataAnalysisId/${subDataAnalysisId}/reportingId/' + reportingOptionId;
 			}			
 	
 			var ourRequest = new XMLHttpRequest();
 			ourRequest.open('GET', url);
+			ourRequest.setRequestHeader( 'Authorization', 'Basic ' + btoa( 'imapadmin:Vt@786' ) );
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();	

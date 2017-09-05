@@ -340,8 +340,6 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var barChartData = null;
 		var lineChartData = null;
 		var serverContextPath = '${pageContext.request.contextPath}';
-        //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';	
-        //var serverContextPath = 'http://localhost/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
