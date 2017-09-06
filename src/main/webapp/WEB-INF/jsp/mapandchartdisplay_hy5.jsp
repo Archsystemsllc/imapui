@@ -912,6 +912,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
             	    /* url: 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices/api/measure/all', */
             	    url: '/imapservices/api/measure/all',
             	   type: 'GET',
+            	   async: false,
             	   beforeSend: function (xhr) {
             		   xhr.setRequestHeader ('Authorization', 'Basic ' + btoa( 'imapadmin:Vt@786' ) );
             		   },
