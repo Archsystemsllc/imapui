@@ -60,7 +60,7 @@
 					<div class="content">
 						<div class="table-users" style="width: 80%">
 							<div class="header">Create your account</div>
-								<div class="container">
+							<!-- 	<div class="container">  -->
 								
 								    <form:form method="POST" modelAttribute="userForm" class="form-signin">
 								        <spring:bind path="username">
@@ -105,7 +105,7 @@
 								        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 								    </form:form>
 								
-								</div>
+								<!-- </div> -->
 						</div>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 	h=screen.height-357;
 	document.getElementById('mid').style.minHeight=h+'px';
 	$(document).ready(function () {
-				 $('.nav > li').eq(2).addClass('active');			 
+				 $('.nav > li').eq(3).addClass('active');			 
 	});	
 	</script>
 </body>

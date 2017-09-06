@@ -132,7 +132,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="50%"
+				<td width="60%"
 					style="vertical-align: bottom; border: 0px; padding: 0px">
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav" style="font-weight: bold">

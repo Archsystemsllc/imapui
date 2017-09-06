@@ -60,10 +60,7 @@ uri="http://www.springframework.org/security/tags"%>
 		access="hasAuthority('Administrator')">
 		<jsp:include page="admin_header.jsp"></jsp:include>
 	</sec:authorize>
-		<sec:authorize
-		access="hasAuthority('Report Viewer')">
-	<jsp:include page="header.jsp"></jsp:include>
-	</sec:authorize>
+		
     <div id="mid" class="contact">
     
     	<img src="${pageContext.request.contextPath}/resources/images/contact.jpg" alt="logo"/>
@@ -77,7 +74,7 @@ uri="http://www.springframework.org/security/tags"%>
 	document.getElementById('mid').style.minHeight=h+'px';
 	
 	$(document).ready(function () {
-				 $('.nav > li').eq(3).addClass('active');	
+				 $('.nav > li').eq(4).addClass('active');	
 				 subDataAnalysis();
 	});	
 	$("input[type='reset']").on("click", function(event){

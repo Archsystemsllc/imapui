@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * This is the Spring Controller Class for User Login Functionality.
@@ -76,16 +77,27 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/admin/edit-user", method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("user") User userForm/*, BindingResult bindingResult*/) {
-        /*userValidator.validate(userForm, bindingResult);
-    	if (bindingResult.hasErrors()) {
-            return "registration";
-        }*/
-        userService.update(userForm);
-
+    public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes, Model model) {
+    	userForm.setPasswordConfirm(userForm.getPassword());
+    	User user = userService.findById(userForm.getId());
+    	boolean skipPasswordCheck = user.getPassword().equals(userForm.getPassword());
+    	boolean skipDuplicateUserCheck = user.getUsername().equals(userForm.getUsername());
+    	userValidator.updateUserDetailsValidation(userForm, bindingResult, 
+    				skipDuplicateUserCheck, skipPasswordCheck);
+    		if (bindingResult.hasErrors()) {
+                return "useredit";
+            }
+    		if(skipPasswordCheck) {
+    			userService.update(userForm);
+    		} else {
+    			userService.save(userForm);
+    		}
+    	     
+		redirectAttributes.addFlashAttribute("success", "success.edit.user");
+		
         //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:users";
+        return "redirect:../users";
     }
     
     @RequestMapping(value = "/admin/edit-user/{id}", method = RequestMethod.GET)
@@ -93,7 +105,7 @@ public class UserController {
 			final Model model, User user) {
 		final User userByID = userService.findById(id);
 		
-		model.addAttribute("user", userByID);
+		model.addAttribute("userForm", userByID);
 		return "useredit";
 	}
     
@@ -108,9 +120,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") final Long id) {
+    public String deleteUser(@PathVariable("id") final Long id, final RedirectAttributes redirectAttributes) {
         userService.deleteById(id);
 
+        redirectAttributes.addFlashAttribute("success", "success.delete.user");
         //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:../users";
@@ -126,7 +139,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -134,6 +147,7 @@ public class UserController {
         }
 
         userService.save(userForm);
+		redirectAttributes.addFlashAttribute("success", "success.register.user");
 
         //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 

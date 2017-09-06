@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<!-- Start Adding -->
+
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -28,26 +28,25 @@
 <script src="https://code.angularjs.org/tools/typescript.js"></script>
 <script src="https://code.angularjs.org/2.0.0-beta.6/Rx.js"></script>
 <script src="https://code.angularjs.org/2.0.0-beta.6/angular2.dev.js"></script>
-<!-- User Script add -->
+
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
 <script src= "http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<!-- User Script End -->
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
-<!-- Adding end -->
 
-<!-- Comments <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+
+<!--  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>
 <script src= "http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-comments end  -->
+  -->
 
-<!-- Body add -->
-<!-- Body1 add -->
+
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
 	<table id="mid">
@@ -92,7 +91,7 @@ comments end  -->
 										<th>Manage</th>
 									</tr> -->
 									
-	<!--  -->
+
 	<div id="breadcrumb">
     	<a href="${pageContext.request.contextPath}/admin/dashboard">Home</a> 
         <span> >> </span>
@@ -126,12 +125,12 @@ comments end  -->
                         <c:forEach var="user" items="${users}">
                             <tr>
                                 <td><a class="${linkcolor }">${user.id}</a></td>
-                                <td><a class="${linkcolor }" href="user/${user.id}">${user.username}</a></td>
+                                <td><a class="${linkcolor }" href="edit-user/${user.id}">${user.username}</a></td>
                                 <td><a class="${linkcolor }">${user.name}</a></td>
                                 <td><a class="${linkcolor }">${user.email}</a></td>
                                 <td>
                                     <span><a class="action-icons c-edit" href="${pageContext.request.contextPath}/admin/edit-user/${user.id}" title="Edit">Edit</a></span>
-                                    <span><a class="action-icons c-edit" href="${pageContext.request.contextPath}/admin/delete-user/${user.id}" title="Edit">Delete</a></span>
+                                    <span><a class="action-icons c-delete" href="${pageContext.request.contextPath}/admin/delete-user/${user.id}" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></span>
                                     <span><a class="action-icons c-approve" href="${pageContext.request.contextPath}/admin/registration" title="Create">Create</a></span>
                                 </td>
                             </tr>
@@ -145,18 +144,13 @@ comments end  -->
     </div>
 </div>	
 	
-	<!--  -->								
+								
 									
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!-- ADD User Function  -->
-				
-					
-				
-				<!-- End User Function -->
 
 			</td>
 		
@@ -169,7 +163,7 @@ comments end  -->
 			
 <script type="text/javascript">
 $(document).ready(function(){
- 
+	$('.nav > li').eq(3).addClass('active');
     $('#table ul li a').append('<span></span>');
  
     $('#table ul li a').hover(
@@ -190,5 +184,5 @@ $(document).ready(function(){
 	<!--	<jsp:include page="footer.jsp"></jsp:include>	 -->
 
 </body>
-<!-- Body end  -->
+
 </html>

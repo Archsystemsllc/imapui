@@ -76,51 +76,73 @@
 							                    <span class="h_icon list"></span>
 							                </div>
 							                <div class="widget_content">
-							                    <form:form modelAttribute="user" class="form_container left_label"
-							                               action="../edit-user" method="post">
-							                        <legend>User Information</legend>
-							                                            <div class="form_grid_12">
-							                                                <label for="lastname" class="field_title">Full Name</label>
-							                                                <div class="form_input">
-							                                                    <form:input type="text" class="mid" id="lastname" name="lastname" path="name" ></form:input>
-							                                                    <form:input type="hidden" id="id" name="id" path="id"></form:input>
-							                                                </div>
-							                                            </div>
-							                                            <div class="form_grid_12">
-							                                                <label for="username" class="field_title">User Name</label>
-							                                                <div class="form_input">
-							                                                    <form:input type="text" class="mid" id="username" name="username" path="username" ></form:input>
-							                                                </div>
-							                                            </div>
-							                                            <div class="form_grid_12">
-							                                                <label for="password" class="field_title">Password</label>
-							                                                <div class="form_input">
-							                                                    <form:password showPassword="true" id="password" name="password"
-							                                                                   path="password" class="mid"></form:password>
-							                                                </div>
-							                                            </div>
-							                                            <!-- <div class="form_grid_12">
-							                                                <label for="passwordConfirm" class="field_title">Confirm Password</label>
-							                                                <div class="form_input">
-							                                                    <form:password showPassword="true" id="passwordConfirm" name="passwordConfirm"
-							                                                                   path="passwordConfirm" class="mid"></form:password>
-							                                                </div>
-							                                            </div> -->
-							                                            <div class="form_grid_12">
-							                                                <label for="email" class="field_title">Email Address</label>
-							                                                <div class="form_input">
-							                                                    <form:input type="text" id="email" class="mid" name="email" path="email" ></form:input>
-							                                                </div>
-							                                            </div>
-							                                  <div class="form_grid_12">
-							                                  
-														   
-														</div>	
-														
-							                                <div class="form_grid_12">
-							                                    <button type="submit" class="btn_small btn_blue"><span>Update</span></button>
-							                                    <button type="reset" class="btn_small btn_blue"><span>Reset</span></button>
-							                                </div>
+							                    <form:form modelAttribute="userForm" class="form-signin"
+							                               action="${pageContext.request.contextPath}/admin/edit-user/" method="post">
+							                        
+							                        <table style="border: thin solid black">
+							                        	<tr>
+							                        		<td colspan="2" style="text-align: center"><h5>User Information</h5></td>
+							                        	</tr>
+							                        	<tr>
+							                        		<td><label for="name" class="field_title">Full Name</label></td>
+							                        		<td>
+							                        			<form:input type="hidden" name="id" path="id"></form:input>
+							                        			<spring:bind path="name">
+														            <div class="form-group ${status.error ? 'has-error' : ''}">
+							                        					<form:input type="hidden" name="id" path="id"></form:input>
+														                <form:input type="text" path="name" class="form-control" placeholder="name"
+														                            autofocus="true"></form:input>
+														                <form:errors path="name"></form:errors>
+														            </div>
+														        </spring:bind>
+							                                    
+							                                </td>
+							                        	</tr>
+							                        	<tr>
+							                        		<td><label for="username" class="field_title">User Name</label></td>
+							                        		<td>
+							                        			<spring:bind path="username">
+														            <div class="form-group ${status.error ? 'has-error' : ''}">
+														                <form:input type="text" path="username" class="form-control" placeholder="Username"
+														                            autofocus="true"></form:input>
+														                <form:errors path="username"></form:errors>
+														            </div>
+														        </spring:bind>
+							                        		</td>
+							                        	</tr>
+							                        	<tr>
+							                        		<td><label for="password" class="field_title">Password</label></td>
+							                        		<td>
+							                        			<spring:bind path="password">
+														            <div class="form-group ${status.error ? 'has-error' : ''}">
+														                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+														                <form:errors path="password"></form:errors>
+														            </div>
+														        </spring:bind>
+							                                </td>
+							                        	</tr>
+							                        	<tr>
+							                        		<td><label for="email" class="field_title">Email Address</label></td>
+							                        		<td>
+							                        			<spring:bind path="email">
+														            <div class="form-group ${status.error ? 'has-error' : ''}">
+														                <form:input type="text" path="email" class="form-control" placeholder="email"
+														                            autofocus="true"></form:input>
+														                <form:errors path="email"></form:errors>
+														            </div>
+														        </spring:bind>
+							                        		</td>
+							                        	</tr>
+							                        	<tr>
+							                        		<td colspan="2">
+							                        			<div class="form_grid_12">
+							                                     	<button type="reset" onclick="reset();" style="float: right;">Reset</button>
+							                                   		<button type="submit" class="btn_small btn_blue" style="float: right;"><span>Update</span></button>
+							                                   	</div>
+							                                </td>
+							                        	</tr>
+							                        </table>
+							                                            
 							                            
 							                    </form:form>
 							                </div>
@@ -141,8 +163,24 @@
 	h=screen.height-357;
 	document.getElementById('mid').style.minHeight=h+'px';
 	$(document).ready(function () {
-				 $('.nav > li').eq(2).addClass('active');			 
+				 $('.nav > li').eq(3).addClass('active');			 
 	});	
+	
+	
+	</script>
+	
+	<script>
+	function reset(){
+		alert("this is a reset");
+		var id = document.getElementById('email');
+		id.innerHTML = "";
+		id = document.getElementById('lastname');
+		id.innerHTML = "";
+		id = document.getElementById('username');
+		id.innerHTML = "";
+		id = document.getElementById('password');
+		id.innerHTML = "";
+	};
 	</script>
 </body>
 </html>

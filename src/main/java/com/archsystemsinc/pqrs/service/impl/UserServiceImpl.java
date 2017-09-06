@@ -31,8 +31,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-    	user.setUsername(user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        userRepository.save(user);
+    }
+    
+    @Override
+    public void update(User user) {
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
@@ -50,11 +55,6 @@ public class UserServiceImpl implements UserService {
     @Override
 	public List<User> findAll() {
 		return userRepository.findAll();
-	}
-    
-    @Override
-	public void update(User user) {		
-    	userRepository.save(user);
 	}
     
     @Override
