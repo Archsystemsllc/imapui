@@ -181,7 +181,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					<table style="border-collapse: separate; border-spacing: 2px;">
 
 						<tr>
-							<td><label for="yearLookUpId">Option Year : </label></td>
+							<td><label for="yearLookUpId">Option Year * : </label>
+								<p style="color: red" id="errOptionYear"></p></td>
 							<td><select id="yearLookUpId" name="yearLookUpId"
 								title="Select one of the option years or ALL where available">
 									<option value="">Select</option>
@@ -194,7 +195,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						<tr>
 
 							<td><label for="reportingOptionLookupId">Reporting
-									Option : </label></td>
+									Option * : </label>
+								<p style="color: red" id="errReportingOption"></p></td>
 							<td><select id="reportingOptionLookupId"
 								name="reportingOptionLookupId"
 								title="Select one of the reporting options">
@@ -207,8 +209,9 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
-							<td><label for="parameterLookupId">Parameter Name :
-							</label></td>
+							<td><label for="parameterLookupId">Parameter Name * :
+							</label>
+								<p style="color: red" id="errParameterName"></p></td>
 							<td><select id="parameterLookupId" name="parameterLookupId"
 								title="Select one of the parameter names">
 									<option value="">Select</option>
@@ -219,16 +222,14 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 							</select></td>
 						</tr>
 						<tr>
-							<td><label for="reportTypeId">Report Type :</label></td>
+							<td><label for="reportTypeId">Report Type * :</label><p style="color: red" id="errReportType"></p></td>
 							<td><select id="reportTypeId" name="reportTypeId"
 								title="Select one of the Reporting Types, only one reporting type may be displayed at one time">
 									<option value="">Select</option>
 									<option value="Bar Chart"
-										${subDataAnalysis.id == '1' ? '' : 'disabled'}>Bar
-										Chart</option>
-									<option value="Line Chart"
-										${subDataAnalysis.id == '2' ? '' : 'disabled'}>Line
-										Chart</option>
+										${subDataAnalysis.id == '1' ? '' : 'disabled'}>Bar Chart</option>
+									<option value="Line Chart" 
+										${subDataAnalysis.id == '2' ? '' : 'disabled'}>Line Chart</option>
 									<option value="Map"
 										${subDataAnalysis.id == '3' ? '' : 'disabled'}>Map</option>
 									<%-- 		<c:forEach items="${reportTypes}" var="reportType">
@@ -238,7 +239,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</tr>
 
 						<tr id="yesOrNoOptionRow" hidden="true">
-							<td><label for="yesOrNoOptionId">Yes/No Option :</label></td>
+							<td><label for="yesOrNoOptionId">Yes/No Option * :</label><p style="color: red" id="errYesNoOption"></p></td>
 							<td><select id="yesOrNoOptionId" name="yesOrNoOptionId"
 								title="Click here to choose YES/NO">
 									<option value="">Select</option>
@@ -276,15 +277,15 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 						</tr> -->
 
 					</table>
-				</div> <!-- 	<div>
-			
+				 
+					<div>
 				 <button title="Click the button to Export the chart as PDF"
 								class="btn btn-primary btn-sm"
 								style="display: none; margin: auto; float: right; width: 30%;"
 								id="downloadPDF" >Export as PDF</button>
 							</div>
-					
-				</div> -->
+				</div>
+							
 				<div class="HypothesisScreen" style="max-height: 600px">
 					<iframe id='mapIframe' hidden="true" frameborder="0" scrolling="no"
 						style="overflow: hidden; width: 100%; height: 550px"
@@ -321,8 +322,6 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 					</table>
 
 				</div>
-
-
 			</td>
 		</tr>
 	</table>
@@ -340,6 +339,8 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		var barChartData = null;
 		var lineChartData = null;
 		var serverContextPath = '${pageContext.request.contextPath}';
+        //var serverContextPath = 'http://ec2-34-208-54-139.us-west-2.compute.amazonaws.com/imapservices';	
+        //var serverContextPath = 'http://localhost/imapservices';
 		btn.addEventListener("click", function() {
 			$('#loading-gif').show(); 
 			$('#chart-canvas').hide();
@@ -388,7 +389,10 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			ourRequest.onload = function() {
 				$('#loading-gif').hide();
 				$('#chart-canvas').show();
-				$("#downloadPDF").show();
+				
+				if(jQuery("#reportTypeId option:selected").val()!="Map" && document.getElementById("reportTypeId").selectedIndex!=0) {
+					$("#downloadPDF").show();
+				}
 				if (reportTypeSelectedText == "Bar Chart") {
 					barChartData = JSON.parse(ourRequest.responseText);
 					//console.log(barChartData);
@@ -799,9 +803,77 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		
 		function displayTblView()
 		{
-				$("#displayreportTblFrmt").show();	
+			var b=ErrorMessages();
+			
+			if(b)
+			{
+				
+				if(jQuery("#reportTypeId option:selected").val()=="Map") {
+					$("#displayreportTblFrmt").show();
+				}
+				
+			}	
 		}
-
+		
+		
+		function ErrorMessages()
+		{
+			var count=0;
+			if( document.getElementById("yearLookUpId").selectedIndex==0)
+			{
+	   			document.getElementById("errOptionYear").innerHTML = "Required *";  
+	   			count++;
+				 }else{
+			    document.getElementById("errOptionYear").innerHTML ="";  
+			    
+	   			}
+			 if ( document.getElementById("reportingOptionLookupId").selectedIndex==0)
+			 {
+		   			document.getElementById("errReportingOption").innerHTML = "Required *";  
+		   			count++;
+					 }else{
+				    document.getElementById("errReportingOption").innerHTML ="";  
+				    
+		   			}
+			 if ( document.getElementById("parameterLookupId").selectedIndex==0)
+			 {
+		   			document.getElementById("errParameterName").innerHTML = "Required *";  
+		   			count++;
+					 }else{
+				    document.getElementById("errParameterName").innerHTML ="";  
+				    
+		   			}
+			if ( document.getElementById("reportTypeId").selectedIndex==0)
+			{
+	   			document.getElementById("errReportType").innerHTML = "Required *";  
+	   			count++;
+				 }else{
+			    document.getElementById("errReportType").innerHTML ="";  
+			    
+	   			}
+			
+			if(jQuery("#reportTypeId option:selected").val()=="Map")
+			if(count==0)
+				{
+					if ( document.getElementById("yesOrNoOptionId").selectedIndex==0)
+					{
+			   			document.getElementById("errYesNoOption").innerHTML = "Required *";  
+			   			count++;
+						 }else{
+					    document.getElementById("errYesNoOption").innerHTML ="";  
+					    
+			   			}
+				} 
+			if(count!=0)
+				{
+				return false;
+				}
+			else
+				{
+				return true;
+				}
+		}
+	
 		function exportAsExcel()
 		{
 		    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
@@ -837,7 +909,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 		}
 	 	
 		
-		//Function for auto suugests states name based on user typing and getting JSON data
+		//Function for auto suugests states name based user typing and getting JSON data
 		
 		/* $(function() {    
 	    	    var jsonArr = [];
@@ -879,7 +951,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 	         }); */
 		  
 		    
-	         // Function for auto suugests states name based on user typing
+	         // Function for auto suugests states name based user typing
 		  
 	/* 	  $( function() {
 			    var availableTags = [
@@ -975,7 +1047,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  } ); 
 		   */
 		
- /* 	downloadPDF.addEventListener("click", function() {
+  	downloadPDF.addEventListener("click", function() {
 			  // only jpeg is supported by jsPDF
 			  var chart = document.getElementById("chart-canvas");
 			  var imgData = chart.toDataURL();		  
@@ -983,7 +1055,7 @@ background: url("${pageContext.request.contextPath}/resources/images/loading3.gi
 			  pdf.addImage(imgData, 'JPG', 15, 40);
 			  var downloadPDF = document.getElementById('downloadPDF');
 			  pdf.save("${subDataAnalysis.subDataAnalysisName}.pdf");
-			}, false);  */ 
+			}, false); 
 	</script>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
