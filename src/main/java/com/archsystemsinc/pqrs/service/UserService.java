@@ -1,7 +1,9 @@
 package com.archsystemsinc.pqrs.service;
 
 import java.util.List;
+import java.util.Set;
 
+import com.archsystemsinc.pqrs.model.Role;
 import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.model.User;
 
@@ -25,4 +27,6 @@ public interface UserService {
 	List<User> findAll();
 	
 	void deleteById(final Long id);
+	
+	List<Role> findAllRoles();
 }

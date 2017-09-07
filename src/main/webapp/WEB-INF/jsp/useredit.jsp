@@ -59,7 +59,7 @@
 
 					<div class="content">
 						<div class="table-users" style="width: 80%">
-							<div class="header">Edit <c:out value='${user.name }'/></div>
+							<div class="header">Edit User : <c:out value='${user.name }'/></div>
 							
 							<div id="breadcrumb">
 							        <a href="${pageContext.request.contextPath}/admin/dashboard">Home</a> 

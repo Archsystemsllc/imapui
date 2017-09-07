@@ -36,16 +36,26 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.nav > li').eq(3).addClass('active');
+    $('#table ul li a').append('<span></span>');
+ 
+    $('#table ul li a').hover(
+        function(){ 
+            $(this).find('span').animate({opacity:'show', top: '-70'}, 'slow');
+ 
+            var hoverTexts = $(this).attr('title');
+             $(this).find('span').text(hoverTexts);
+        },
+ 
+        function(){ 
+            $(this).find('span').animate({opacity:'hide', top: '-90'}, 'fast');
+        }
+    );
+});
+</script>
 </head>
-
-
-<!--  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type='text/javascript'>
-<script src= "http://code.jquery.com/jquery-1.8.3.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-  -->
-
 
 <body>
 	<jsp:include page="admin_header.jsp"></jsp:include>
@@ -74,115 +84,65 @@
 					<div class="content">
 						<div class="table-users" style="width: 80%">
 							<div class="header">Users List</div>
-							<table>
-								<colgroup>
-									<col width="20%"></col>
-									<col width="20%"></col>
-									<col width="20%"></col>
-									<col width="20%"></col>
-									<col width="20%"></col>
-								</colgroup>
-								<tbody>
-									<!-- <tr>
-										<th>ID</th>
-										<th>User Name</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Manage</th>
-									</tr> -->
-									
-
-	<div id="breadcrumb">
-    	<a href="${pageContext.request.contextPath}/admin/dashboard">Home</a> 
-        <span> >> </span>
-        <a href="#" style="text-decoration: none;">Users</a>
-        
-	</div>
-<div id="content">
-    <div class="grid_container">
-        <div class="grid_12">
-			<div class="widget_wrap">
-				 <div class="widget_top">
-                    <span class="h_icon documents"></span>
-                </div>
-                <div class="widget_content">
-                 <c:if test="${not empty success}">
-                        <div class="successblock"><spring:message code="${success}"></spring:message>
-                        </div>
-                        </c:if>
-                    <table class="display data_tbl" id="table">
-                        <thead>
-                      
-                        <tr>
-                            <th title="User Id">ID</th>
-                            <th title="Username">Username</th>	
-							<th title="Name of the User">Name</th>
-							<th title="Email Id">Email</th>
-							<th title="Edit or Create User">Manage</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="user" items="${users}">
-                            <tr>
-                                <td><a class="${linkcolor }">${user.id}</a></td>
-                                <td><a class="${linkcolor }" href="edit-user/${user.id}">${user.username}</a></td>
-                                <td><a class="${linkcolor }">${user.name}</a></td>
-                                <td><a class="${linkcolor }">${user.email}</a></td>
-                                <td>
-                                    <span><a class="action-icons c-edit" href="${pageContext.request.contextPath}/admin/edit-user/${user.id}" title="Edit">Edit</a></span>
-                                    <span><a class="action-icons c-delete" href="${pageContext.request.contextPath}/admin/delete-user/${user.id}" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></span>
-                                    <span><a class="action-icons c-approve" href="${pageContext.request.contextPath}/admin/registration" title="Create">Create</a></span>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <span class="clear"></span>
-    </div>
-</div>	
-	
-								
-									
-								</tbody>
-							</table>
+							<div id="breadcrumb">
+						    	<a href="${pageContext.request.contextPath}/admin/dashboard">Home</a> 
+						        <span> >> </span>
+						        <a href="#" style="text-decoration: none;">Users</a>
+							</div>
+							<div style="float: right;">
+								<span><a href="${pageContext.request.contextPath}/admin/registration" title="Create">Create New User</a></span>
+							</div>
+							<div id="content">
+									    <div class="grid_container">
+									        <div class="grid_12">
+												<div class="widget_wrap">
+													 <div class="widget_top">
+									                    <span class="h_icon documents"></span>
+									                </div>
+									                <div class="widget_content">
+									                 <c:if test="${not empty success}">
+									                 	<div class="successblock"><spring:message code="${success}"></spring:message>
+									                    </div>
+									                 </c:if>
+									                    <table class="display data_tbl" id="table">
+									                        <thead>
+									                        <tr>
+									                            <th title="User Id">ID</th>
+									                            <th title="Username">Username</th>	
+																<th title="Name of the User">Name</th>
+																<th title="Email Id">Email</th>
+																<th title="Edit or Create User">Manage</th>
+									                        </tr>
+									                        </thead>
+									                        <tbody>
+									                        <c:forEach var="user" items="${users}">
+									                            <tr>
+									                                <td><a class="${linkcolor }">${user.id}</a></td>
+									                                <td><a class="${linkcolor }" href="edit-user/${user.id}">${user.username}</a></td>
+									                                <td><a class="${linkcolor }">${user.name}</a></td>
+									                                <td><a class="${linkcolor }">${user.email}</a></td>
+									                                <td>
+									                                    <span><a class="action-icons c-edit" href="${pageContext.request.contextPath}/admin/edit-user/${user.id}" title="Edit">Edit</a></span>
+									                                    <span><a class="action-icons c-delete" href="${pageContext.request.contextPath}/admin/delete-user/${user.id}" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></span>
+									                                </td>
+									                            </tr>
+									                        </c:forEach>
+									                        </tbody>
+									                    </table>
+									                </div>
+									            </div>
+									        </div>
+									        <span class="clear"></span>
+									    </div>
+									</div>	
 						</div>
 					</div>
 				</div>
 
-			</td>
-		
-			
-			
-	</tr>
+			</td>			
+		</tr>
 	</table>		
 	
 <jsp:include page="footer.jsp"></jsp:include>
-			
-<script type="text/javascript">
-$(document).ready(function(){
-	$('.nav > li').eq(3).addClass('active');
-    $('#table ul li a').append('<span></span>');
- 
-    $('#table ul li a').hover(
-        function(){ 
-            $(this).find('span').animate({opacity:'show', top: '-70'}, 'slow');
- 
-            var hoverTexts = $(this).attr('title');
-             $(this).find('span').text(hoverTexts);
-        },
- 
-        function(){ 
-            $(this).find('span').animate({opacity:'hide', top: '-90'}, 'fast');
-        }
-    );
-});
-</script>
-
-	<!--	<jsp:include page="footer.jsp"></jsp:include>	 -->
-
 </body>
-
 </html>

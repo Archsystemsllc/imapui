@@ -103,14 +103,16 @@
 										<col width="30%"></col>
 									</colgroup>
 									<tr>
-										<td colspan="3"><form:select path="providerHypId"
+										<td colspan="3">
+											<form:select path="providerHypId"
 												id="ddl1"
 												onchange="configureDropDownLists(this,document.getElementById('ddl2'))">
 												<option value="0">Select</option>
 												<c:forEach var="category" items="${dataAnalysisCategories}">
 													<option value="${category.id}">${category.dataAnalysisName}</option>
 												</c:forEach>
-											</form:select> <form:select path="providerSubHypId" id="ddl2"
+											</form:select> 
+											<form:select path="providerSubHypId" id="ddl2"
 												class="hidden">
 												<option value="0">NA</option>
 												<!--<c:forEach var="subCategory"

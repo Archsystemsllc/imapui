@@ -49,8 +49,33 @@ public class UserController {
     @RequestMapping(value = "/admin/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
+        model.addAttribute("allRoles", userService.findAllRoles());
         return "registration";
+    }
+    
+    /**
+     * 
+     * This method provides the functionalities for the user to re-direct to the welcome
+     * page after successful login.
+     * 
+     * @param userForm
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+        userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userForm);
+		redirectAttributes.addFlashAttribute("success", "success.register.user");
+
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:users";
     }
     
     /**
@@ -119,6 +144,14 @@ public class UserController {
      * @param model
      * @return
      */
+    
+    /**
+     * 
+     * 
+     * @param id the id of the user profile to be deleted.
+     * @param redirectAttributes 
+     * @return the string to which the page to be redirected.
+     */
     @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") final Long id, final RedirectAttributes redirectAttributes) {
         userService.deleteById(id);
@@ -127,31 +160,6 @@ public class UserController {
         //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:../users";
-    }
-    
-    /**
-     * 
-     * This method provides the functionalities for the user to re-direct to the welcome
-     * page after successful login.
-     * 
-     * @param userForm
-     * @param bindingResult
-     * @return
-     */
-    @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userForm);
-		redirectAttributes.addFlashAttribute("success", "success.register.user");
-
-        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:users";
     }
 
     /**

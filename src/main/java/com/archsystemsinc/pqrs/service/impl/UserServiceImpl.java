@@ -1,5 +1,6 @@
 package com.archsystemsinc.pqrs.service.impl;
 
+import com.archsystemsinc.pqrs.model.Role;
 import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.model.User;
 import com.archsystemsinc.pqrs.repository.RoleRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This is the implementation class of the Service interface for user database table.
@@ -60,5 +62,10 @@ public class UserServiceImpl implements UserService {
     @Override
 	public void deleteById(Long id) {		
     	userRepository.delete(id);
+	}
+
+	@Override
+	public List<Role> findAllRoles() {
+		return (List<Role>)roleRepository.findAll();
 	}
 }
