@@ -15,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * This is the Spring Controller Class for User Login Functionality.
@@ -44,13 +46,51 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
+        model.addAttribute("allRoles", userService.findAllRoles());
         return "registration";
     }
+    
+    /**
+     * 
+     * This method provides the functionalities for the user to re-direct to the welcome
+     * page after successful login.
+     * 
+     * @param userForm
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+        userValidator.validate(userForm, bindingResult);
 
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userForm);
+		redirectAttributes.addFlashAttribute("success", "success.register.user");
+
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:users";
+    }
+    
+    /**
+     * This method provides the functionalities for listing users.
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+
+        return "users";
+    }
+    
     /**
      * 
      * This method provides the functionalities for the user to re-direct to the welcome
@@ -61,19 +101,65 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    @RequestMapping(value = "/admin/edit-user", method = RequestMethod.POST)
+    public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes, Model model) {
+    	userForm.setPasswordConfirm(userForm.getPassword());
+    	User user = userService.findById(userForm.getId());
+    	boolean skipPasswordCheck = user.getPassword().equals(userForm.getPassword());
+    	boolean skipDuplicateUserCheck = user.getUsername().equals(userForm.getUsername());
+    	userValidator.updateUserDetailsValidation(userForm, bindingResult, 
+    				skipDuplicateUserCheck, skipPasswordCheck);
+    		if (bindingResult.hasErrors()) {
+                return "useredit";
+            }
+    		if(skipPasswordCheck) {
+    			userService.update(userForm);
+    		} else {
+    			userService.save(userForm);
+    		}
+    	     
+		redirectAttributes.addFlashAttribute("success", "success.edit.user");
+		
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
+        return "redirect:../users";
+    }
+    
+    @RequestMapping(value = "/admin/edit-user/{id}", method = RequestMethod.GET)
+	public String editUser(@PathVariable("id") final Long id,
+			final Model model, User user) {
+		final User userByID = userService.findById(id);
+		
+		model.addAttribute("userForm", userByID);
+		return "useredit";
+	}
+    
+    /**
+     * 
+     * This method provides the functionalities for the user to re-direct to the welcome
+     * page after successful login.
+     * 
+     * @param userForm
+     * @param bindingResult
+     * @param model
+     * @return
+     */
+    
+    /**
+     * 
+     * 
+     * @param id the id of the user profile to be deleted.
+     * @param redirectAttributes 
+     * @return the string to which the page to be redirected.
+     */
+    @RequestMapping(value = "/admin/delete-user/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") final Long id, final RedirectAttributes redirectAttributes) {
+        userService.deleteById(id);
 
-        userService.save(userForm);
+        redirectAttributes.addFlashAttribute("success", "success.delete.user");
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
+        return "redirect:../users";
     }
 
     /**

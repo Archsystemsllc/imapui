@@ -1,5 +1,7 @@
 package com.archsystemsinc.pqrs.service.impl;
 
+import com.archsystemsinc.pqrs.model.Role;
+import com.archsystemsinc.pqrs.model.TemplateFile;
 import com.archsystemsinc.pqrs.model.User;
 import com.archsystemsinc.pqrs.repository.RoleRepository;
 import com.archsystemsinc.pqrs.repository.UserRepository;
@@ -10,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is the implementation class of the Service interface for user database table.
@@ -29,8 +33,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-    	user.setUsername(user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        userRepository.save(user);
+    }
+    
+    @Override
+    public void update(User user) {
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
@@ -39,4 +48,24 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    
+    @Override
+	public User findById(Long id) {		
+		return userRepository.findOne(id);
+	}
+    
+    @Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+    
+    @Override
+	public void deleteById(Long id) {		
+    	userRepository.delete(id);
+	}
+
+	@Override
+	public List<Role> findAllRoles() {
+		return (List<Role>)roleRepository.findAll();
+	}
 }

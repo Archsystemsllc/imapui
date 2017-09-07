@@ -244,14 +244,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:	
-				                    stringResult=hssfCell.getStringCellValue();
-				                    YearLookup yearName = yearLookUpService.findByYearName(stringResult);
-				                    if(yearName == null) {
-				                    	throw new InvalidFormatException("error.data.invalid");
-				                    }
-									provider.setYearLookup(yearName);
-				                    System.out.println("Year name: " + stringResult);
-				                  
+				                    provider.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));
 				                    break;
 								}
 								break;								
@@ -402,7 +395,7 @@ public class DocumentUploadController {
 				
 				Workbook stateStatFileWorkbook = null;
 				try {
-					stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+					stateStatFileWorkbook = WorkbookFactory.create(documentFileUpload.getStatewise().getInputStream());
 				}catch(Exception ex) {
 					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
 					ex.printStackTrace();
@@ -475,8 +468,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:
-				                	stringResult=hssfCell.getStringCellValue();
-				                	statewiseStatistic.setYearLookup(yearLookUpService.findByYearName(stringResult));				                   
+				                	statewiseStatistic.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                   
 				                    break;	
 								
 								}
@@ -499,7 +491,10 @@ public class DocumentUploadController {
 								case Cell.CELL_TYPE_NUMERIC:
 				                    statewiseStatistic.setRuralUrban((int)hssfCell.getNumericCellValue());
 				                    break;
-								
+								case Cell.CELL_TYPE_STRING:
+									stringResult=hssfCell.getStringCellValue();
+									statewiseStatistic.setRuralUrban(parameterLookUpService.findByParameterName(stringResult).getId());
+									break;
 								}
 								break;
 							case 4:
@@ -567,7 +562,7 @@ public class DocumentUploadController {
 				
 				Workbook specialtyFileWorkbook = null;
 				try {
-					specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getProvider().getInputStream());
+					specialtyFileWorkbook = WorkbookFactory.create(documentFileUpload.getSpecialty().getInputStream());
 				}catch(Exception ex) {
 					System.out.println("Exception creating workboook in Documents Upload page: " + ex.getMessage());	
 					ex.printStackTrace();
@@ -645,9 +640,8 @@ public class DocumentUploadController {
 								switch (hssfCell.getCellType())
 								{
 								
-								case Cell.CELL_TYPE_STRING:
-									stringResult=hssfCell.getStringCellValue();										
-									specialty.setYearLookup(yearLookUpService.findByYearName(stringResult));									
+								case Cell.CELL_TYPE_STRING:			
+									specialty.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));									
 				                    break;
 								
 								}
@@ -793,8 +787,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    measureWiseExclusionRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    measureWiseExclusionRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;
@@ -961,8 +954,7 @@ public class DocumentUploadController {
 								{
 								
 				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    measureWisePerformanceAndReportingRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                    measureWisePerformanceAndReportingRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;								
@@ -1209,9 +1201,8 @@ public class DocumentUploadController {
 								switch (hssfCell.getCellType()) 
 								{
 								
-				                case Cell.CELL_TYPE_STRING:					                	
-				                    stringResult = hssfCell.getStringCellValue();
-				                    exclusionTrendsRate.setYearLookup(yearLookUpService.findByYearName(stringResult));				                    				                   
+				                case Cell.CELL_TYPE_STRING:					     
+				                    exclusionTrendsRate.setYearLookup(getYearLookUp(hssfCell.getStringCellValue()));				                    				                   
 				                    break;								
 								}
 								break;								
@@ -1252,5 +1243,14 @@ public class DocumentUploadController {
  
 				}
 		 }			
+	}
+	
+	private YearLookup getYearLookUp(String year) throws InvalidFormatException {
+        System.out.println("Year name: " + year);
+		YearLookup yearName = yearLookUpService.findByYearName(year);
+        if(yearName == null) {
+        	throw new InvalidFormatException("error.data.invalid");
+        }
+        return yearName;
 	}
 }

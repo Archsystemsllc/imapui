@@ -164,7 +164,13 @@
 	</script>
 	<script>
 	function addFile(){
-		$('#addTemplate').toggle();
+		var x = document.getElementById('addTemplate');
+	    if (x.style.display === 'none') {
+	        x.style.display = 'block';
+	    } else {
+	        x.style.display = 'none';
+	    }
+	
 	}
 	</script>
 </body>
