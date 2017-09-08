@@ -1,3 +1,7 @@
+/**
+* Copyright (c) 2017, Archsystems Inc and/or its affiliates. All rights reserved.
+*/
+
 package com.archsystemsinc.pqrs.service.impl;
 
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ import com.archsystemsinc.pqrs.service.ProviderHypothesisServiceUI;
  * 
  * @author Murugaraj Kandaswamy, Grmahun Redda
  * @since 6/21/2017
+ * @version 1.1
  * 
  */
 @Service

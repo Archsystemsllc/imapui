@@ -1,3 +1,7 @@
+/**
+* Copyright (c) 2017, Archsystems Inc and/or its affiliates. All rights reserved.
+*/
+
 package com.archsystemsinc.pqrs.service.impl;
 
 import java.util.List;
@@ -14,6 +18,7 @@ import com.archsystemsinc.pqrs.service.StatewiseStatisticService;
  * 
  * @author Grmahun Redda
  * @since 6/16/2017
+ * @version 1.1
  */
 @Service
 public class StatewiseStatisticServiceImpl implements StatewiseStatisticService{

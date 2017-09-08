@@ -1,6 +1,7 @@
 /**
- * 
- */
+* Copyright (c) 2017, Archsystems Inc and/or its affiliates. All rights reserved.
+*/
+
 package com.archsystemsinc.pqrs.service.impl;
 
 import java.util.List;
@@ -14,7 +15,9 @@ import com.archsystemsinc.pqrs.repository.SubDataAnalysisRepository;
 import com.archsystemsinc.pqrs.service.SubDataAnalysisService;
 
 /**
+ * This is the implementation class of Service interface for sub_data_analysis database table.
  * @author MurugarajKandaswam
+ * @version 1.1
  *
  */
 @Service

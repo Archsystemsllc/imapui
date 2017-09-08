@@ -1,3 +1,7 @@
+/**
+* Copyright (c) 2017, Archsystems Inc and/or its affiliates. All rights reserved.
+*/
+
 package com.archsystemsinc.pqrs.service.impl;
 
 import com.archsystemsinc.pqrs.model.Role;
@@ -20,6 +24,7 @@ import java.util.Set;
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
+ * @version 1.1
  * 
  */
 @Service

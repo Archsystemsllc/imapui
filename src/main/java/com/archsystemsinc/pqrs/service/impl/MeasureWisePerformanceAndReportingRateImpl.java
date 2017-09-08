@@ -1,3 +1,7 @@
+/**
+* Copyright (c) 2017, Archsystems Inc and/or its affiliates. All rights reserved.
+*/
+
 package com.archsystemsinc.pqrs.service.impl;
 
 import java.util.List;
@@ -18,6 +22,7 @@ import com.archsystemsinc.pqrs.service.MeasureWisePerformanceAndReportingRateSer
  * 
  * @author Venkat
  * @since 8/27/2017
+ * @version 1.1
  * 
  */
 @Service
