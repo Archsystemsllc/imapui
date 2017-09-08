@@ -9,6 +9,17 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Grmahun Redda
  * @since 6/20/2017
  */
+
+/**
+ * file upload class object for provider hypothesis, 
+ * exclusion trends data, state wise statistics, specialty data,
+ * measure wise exclusion data and measure wise performance and reporting data
+ * 
+ * updated
+ * @author venkat
+ * @since 8/18/2017
+ */
+
 public class DocumentUpload {    
     
 	private Long documentTypeId;	

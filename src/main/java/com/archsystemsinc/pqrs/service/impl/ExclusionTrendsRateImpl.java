@@ -10,8 +10,11 @@ import com.archsystemsinc.pqrs.repository.ExclusionTrendsRateRepository;
 import com.archsystemsinc.pqrs.service.ExclusionTrendsRateService;
 
 /**
- * @author Venkat Challa
- *
+ * This is the implementation class of Service interface for exclusion_trends database table.
+ * 
+ * @author Venkat
+ * @since 8/23/2017
+ * 
  */
 @Service
 public class ExclusionTrendsRateImpl implements ExclusionTrendsRateService{

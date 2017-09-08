@@ -1,10 +1,12 @@
 package com.archsystemsinc.pqrs.model;
 
 import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 /**
- * The persistent class for the user database table.
+ * This persistent class for the user database table.
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
@@ -21,6 +23,8 @@ public class User {
     private String name;
     private String email;
     private Set<Role> roles;
+    @Transient
+	private List<Long> rolesList;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +35,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getUsername() {
         return username;
     }
@@ -63,6 +67,15 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Transient
+	public List<Long> getRolesList() {
+		return rolesList;
+	}
+
+	public void setRolesList(List<Long> rolesList) {
+		this.rolesList = rolesList;
 	}
 
 	public String getEmail() {

@@ -1,9 +1,13 @@
 package com.archsystemsinc.pqrs.controller;
 
+import com.archsystemsinc.pqrs.model.Role;
 import com.archsystemsinc.pqrs.model.User;
 import com.archsystemsinc.pqrs.service.SecurityService;
 import com.archsystemsinc.pqrs.service.UserService;
 import com.archsystemsinc.pqrs.validator.UserValidator;
+import com.google.common.collect.Sets;
+
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +33,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
  */
+
+/**
+ * This is the Spring Controller Class for User Management Functionality (login, user list, user edit or user update, 
+ * delete user and create new user).
+ * 
+ * This class provides the functionalities for 
+ * 1. User Registration,
+ * 2. Re-directing to the welcome Page 
+ * 3. The Login Page.
+ * 4. Delete User
+ * 5. Edit User 
+ * 6. User List
+ * 
+ * Updated
+ * @author venkat
+ * @since 9/02/2017
+ */
+
+
 @Controller
 public class UserController {
     @Autowired
@@ -69,7 +92,13 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
+        Set<Role> roles = Sets.newHashSet();
+        for(long roleId : userForm.getRolesList()) {
+        	roles.add(userService.findRoleById(roleId));
+        }
+        if(!roles.isEmpty()) {
+        	userForm.setRoles(roles);
+        }
         userService.save(userForm);
 		redirectAttributes.addFlashAttribute("success", "success.register.user");
 
@@ -104,6 +133,13 @@ public class UserController {
     @RequestMapping(value = "/admin/edit-user", method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes, Model model) {
     	userForm.setPasswordConfirm(userForm.getPassword());
+    	Set<Role> roles = Sets.newHashSet();
+        for(long roleId : userForm.getRolesList()) {
+        	roles.add(userService.findRoleById(roleId));
+        }
+        if(!roles.isEmpty()) {
+        	userForm.setRoles(roles);
+        }
     	User user = userService.findById(userForm.getId());
     	boolean skipPasswordCheck = user.getPassword().equals(userForm.getPassword());
     	boolean skipDuplicateUserCheck = user.getUsername().equals(userForm.getUsername());
@@ -125,12 +161,22 @@ public class UserController {
         return "redirect:../users";
     }
     
+    /**
+     * This method provides the functionalities for  users Edit.
+     * 
+     * @param id
+     * @param model
+     * @param user
+     * @return
+     */
+    
     @RequestMapping(value = "/admin/edit-user/{id}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") final Long id,
 			final Model model, User user) {
 		final User userByID = userService.findById(id);
 		
 		model.addAttribute("userForm", userByID);
+		model.addAttribute("allRoles", userService.findAllRoles());
 		return "useredit";
 	}
     
@@ -181,6 +227,15 @@ public class UserController {
 
         return "login";
     }
+    
+    /**
+     * This method provides the functionalities for the User logout to the application and 
+     * redirect to the login page
+     * 
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logout (HttpServletRequest request, HttpServletResponse response) {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();

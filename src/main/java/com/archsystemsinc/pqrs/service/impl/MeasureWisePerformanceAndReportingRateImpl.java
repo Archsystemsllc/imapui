@@ -14,8 +14,11 @@ import com.archsystemsinc.pqrs.repository.MeasureWisePerformanceAndReportingRate
 import com.archsystemsinc.pqrs.service.MeasureWisePerformanceAndReportingRateService;
 
 /**
- * @author Grmahun Redda
- *
+ * This is the implementation class of Service interface for Measure_Wise_Performance_And_Reporting_Rate database table.
+ * 
+ * @author Venkat
+ * @since 8/27/2017
+ * 
  */
 @Service
 public class MeasureWisePerformanceAndReportingRateImpl implements MeasureWisePerformanceAndReportingRateService{

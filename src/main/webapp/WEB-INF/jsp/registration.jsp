@@ -101,8 +101,13 @@
 								                <form:errors path="email"></form:errors>
 								            </div>
 								        </spring:bind>
-								
-								        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+								        <form:select path="rolesList" id="role">
+												<c:forEach var="role" items="${allRoles}">
+													<option value="${role.id}">${role.name}</option>
+												</c:forEach>
+										</form:select> 
+										
+										<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 								    </form:form>
 								
 								<!-- </div> -->

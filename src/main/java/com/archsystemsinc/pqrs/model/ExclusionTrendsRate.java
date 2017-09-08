@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * The persistent class for the measure_wise_exclusion_rate database table.
+ * This persistent class for the Exclusion_Trends_Rate database table.
+ * 
+ * @author venkat
+ * @since 8/23/2017
  * 
  */
 @Entity
