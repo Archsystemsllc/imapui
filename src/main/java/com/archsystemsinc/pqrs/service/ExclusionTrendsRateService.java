@@ -5,8 +5,11 @@ import java.util.List;
 import com.archsystemsinc.pqrs.model.ExclusionTrendsRate;
 
 /**
+ * This is the Service interface for exclusion_trends database table.
+ * 
  * @author Venkat
- *
+ * @since 8/23/2017
+ * 
  */
 public interface ExclusionTrendsRateService {
 	

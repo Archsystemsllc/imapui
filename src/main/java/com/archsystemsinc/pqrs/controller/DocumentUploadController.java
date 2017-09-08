@@ -63,6 +63,19 @@ import com.archsystemsinc.pqrs.service.YearLookUpService;
  * @author Grmahun Redda
  * @since 6/20/2017
  */
+
+/**
+ * This is the Spring Controller Class for Upload Functionality.
+ * 
+ * This controller class for Excel file Upload and Insert functionality of provider hypothesis, 
+ * exclusion trends data, state wise statistics, specialty data,
+ * measure wise exclusion data and measure wise performance and reporting data 
+ * 
+ * Updated
+ * @author venkat
+ * @since 8/24/2017
+ */
+
 @Controller
 public class DocumentUploadController {
 	
@@ -115,6 +128,19 @@ public class DocumentUploadController {
 		return "uploadform";
 	}
 	
+	
+	/**
+	 * This method provides the document file upload functionalities for all hypothesis 
+	 * 
+	 * @param documentFileUpload
+	 * @param principal
+	 * @param result
+	 * @param request
+	 * @param redirectAttributes
+	 * @return
+	 * @throws InvalidFormatException
+	 */
+	
 	@RequestMapping(value = "/admin/documentupload", method = RequestMethod.POST)
 	public String documentUploadPost(
 			@Valid@ModelAttribute("documentFileUpload") final DocumentUpload documentFileUpload, final Principal principal,
@@ -165,7 +191,15 @@ public class DocumentUploadController {
 		return "redirect:/admin/documentupload";		
 	}
 
-	
+/**
+ *  This is the controller method for upload and insert functionality of provider data for hypothesis 1&2 
+ * 
+ * 	
+ * @param documentFileUpload
+ * @throws InvalidFormatException
+ * @throws EncryptedDocumentException
+ * @throws IOException
+ */
    
 	public void documentUploadProvider(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -382,6 +416,15 @@ public class DocumentUploadController {
 			}			
 	}
 	
+	/**
+	 * This is the controller method for upload and insert functionality of stateWiseStatistics data for hypothesis 1&2 
+	 * 
+	 * @param documentFileUpload
+	 * @throws InvalidFormatException
+	 * @throws EncryptedDocumentException
+	 * @throws IOException
+	 */
+	
 	
 	public void stateWiseStatistics(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -549,6 +592,14 @@ public class DocumentUploadController {
 
 	}
 	
+	/**
+	 * This is the controller method for upload and insert functionality of specialty data for hypothesis  
+	 * 
+	 * @param documentFileUpload
+	 * @throws InvalidFormatException
+	 * @throws EncryptedDocumentException
+	 * @throws IOException
+	 */
 	
 	public void specialtyDocUpload(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -672,6 +723,14 @@ public class DocumentUploadController {
 			}			
 	}
 
+	/**
+	 * This is the controller method for upload and insert functionality of MeasureWiseExclusionRate data for hypothesis 5
+	 * 
+	 * @param documentFileUpload
+	 * @throws InvalidFormatException
+	 * @throws EncryptedDocumentException
+	 * @throws IOException
+	 */
 	
 	public void documentUploadMeasureWiseExclusionRate(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -886,6 +945,16 @@ public class DocumentUploadController {
 		 }			
 	}
 
+	/**
+	 * This is the controller method for upload and insert functionality of MeasureWisePerformanceAndReportingRate data for hypothesis 4 and hypothesis 6
+	 * 
+	 * @param documentFileUpload
+	 * @throws InvalidFormatException
+	 * @throws EncryptedDocumentException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	
 	public void documentUploadMeasureWisePerformanceAndReportingRate(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException, ParseException {
 		int totalNumberOfRows = 0;
@@ -1136,6 +1205,14 @@ public class DocumentUploadController {
 		 }			
 	}
 
+	/**
+	 * This is the controller method for upload and insert functionality of ExclusionTrends data for hypothesis 3
+	 * 
+	 * @param documentFileUpload
+	 * @throws InvalidFormatException
+	 * @throws EncryptedDocumentException
+	 * @throws IOException
+	 */
 	
 	public void documentUploadExclusionTrends(
 			final DocumentUpload documentFileUpload) throws InvalidFormatException, EncryptedDocumentException, IOException {
@@ -1244,6 +1321,14 @@ public class DocumentUploadController {
 				}
 		 }			
 	}
+	
+	/**
+	 * This method is returns the year id
+	 * 
+	 * @param year
+	 * @return
+	 * @throws InvalidFormatException
+	 */
 	
 	private YearLookup getYearLookUp(String year) throws InvalidFormatException {
         System.out.println("Year name: " + year);

@@ -29,4 +29,6 @@ public interface UserService {
 	void deleteById(final Long id);
 	
 	List<Role> findAllRoles();
+	
+	Role findRoleById(Long id);
 }

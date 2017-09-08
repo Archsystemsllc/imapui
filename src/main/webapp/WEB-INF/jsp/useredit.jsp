@@ -134,6 +134,25 @@
 							                        		</td>
 							                        	</tr>
 							                        	<tr>
+							                        		<td><label for="roles" class="field_title">Roles</label></td>
+							                        		<td>
+							                        			<spring:bind path="email">
+														            <div class="form-group ${status.error ? 'has-error' : ''}">
+														                <form:select path="rolesList" id="role">
+														                	<!--
+														                	<c:forEach var="roleId" items="${userForm.rolesList}">
+																				<option selected="selected">${roleId}</option>
+																			</c:forEach> -->
+														                	<c:forEach var="role" items="${allRoles}">
+																				<option value="${role.id}">${role.name}</option>
+																			</c:forEach>
+																		</form:select>
+														                <form:errors path="roles"></form:errors>
+														            </div>
+														        </spring:bind>
+							                        		</td>
+							                        	</tr>
+							                        	<tr>
 							                        		<td colspan="2">
 							                        			<div class="form_grid_12">
 							                                     	<button type="reset" onclick="reset();" style="float: right;">Reset</button>

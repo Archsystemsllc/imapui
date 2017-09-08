@@ -9,9 +9,13 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the measure_wise_performance_and_reporting_rate database table.
+ * This persistent class for the measure_wise_performance_and_reporting_rate database table.
  * 
+ * @author venkat
+ * @since 8/27/2017
+ *
  */
+
 @Entity
 @Table(name="measure_wise_performance_and_reporting_rate")
 @NamedQuery(name="MeasureWisePerformanceAndReportingRate.findAll", query="SELECT m FROM MeasureWisePerformanceAndReportingRate m")

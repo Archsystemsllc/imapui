@@ -14,6 +14,12 @@ import org.springframework.validation.Validator;
  * 
  * @author Murugaraj Kandaswamy
  * @since 6/19/2017
+ * 
+ * User details
+ * 
+ * updated
+ * @author Venkat
+ * @since 9/6/2017
  *
  */
 @Component
@@ -56,6 +62,13 @@ public class UserValidator implements Validator {
         }
     }
     
+    /**
+     * 
+     * @param o
+     * @param errors
+     * @param skipExistingUser
+     * @param skipPasswordCheck
+     */
     public void updateUserDetailsValidation(Object o, Errors errors, boolean skipExistingUser, boolean skipPasswordCheck) {
         User user = (User) o;
 

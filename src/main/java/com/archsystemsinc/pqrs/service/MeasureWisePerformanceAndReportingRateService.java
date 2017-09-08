@@ -9,6 +9,13 @@ import com.archsystemsinc.pqrs.model.MeasureWisePerformanceAndReportingRate;
 import com.archsystemsinc.pqrs.model.ReportingOptionLookup;
 import com.archsystemsinc.pqrs.model.SubDataAnalysis;
 
+/**
+ * This is the Service interface for Measure_Wise_Performance_And_Reporting_Rate database table.
+ * 
+ * @author venkat
+ * @since 8/27/2017
+ */
+
 public interface MeasureWisePerformanceAndReportingRateService {
 	MeasureWisePerformanceAndReportingRate findById(final int id);
 	List<MeasureWisePerformanceAndReportingRate> findAll();
