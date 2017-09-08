@@ -132,7 +132,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="50%"
+				<td width="60%"
 					style="vertical-align: bottom; border: 0px; padding: 0px">
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav" style="font-weight: bold">
@@ -144,6 +144,8 @@
 								href="${pageContext.request.contextPath}/admin/documentupload">Upload</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/templates">Download</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/users">Users</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/contactus">Contact Us</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/admin/download-helpdoc">Help</a></li>
