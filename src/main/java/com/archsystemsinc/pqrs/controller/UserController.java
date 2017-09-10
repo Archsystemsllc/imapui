@@ -86,11 +86,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/admin/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final Model model, final RedirectAttributes redirectAttributes) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-        	model.addAttribute("allRoles", userService.findAllRoles());
             return "registration";
         }
         Set<Role> roles = Sets.newHashSet();
