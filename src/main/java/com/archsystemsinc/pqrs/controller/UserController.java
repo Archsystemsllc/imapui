@@ -243,5 +243,6 @@ public class UserController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login";
+        
 } 
 }
